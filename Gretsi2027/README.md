@@ -176,10 +176,11 @@ IEEE GRSS, École royale militaire belge & ONERA ; Fig. 2 — [12] ; Fig. 3 —
 - **Cadre exact de l'exposé** : GRETSI 2027 (tutoriel ? session invitée ?),
   durée, public — le nom de fichier de l'article mentionne « TSI » et
   « GRETSI », à confirmer.
-- **Orateur / auteurs affichés** et affiliations : la page de titre porte pour
-  l'instant M. Pastorino (Inria Ayana + UniGe DITEN), G. Moser (UniGe DITEN),
-  J. Zerubia (Inria Ayana) — **à confirmer**. Logo UniGe en page de titre
-  seule, ou aussi en pied de page ?
+- **Affiliations** : la page de titre annonce Josiane Zerubia (Centre Inria
+  d'Université Côte d'Azur, équipe Ayana) comme oratrice, en collaboration avec
+  Martina Pastorino et Gabriele Moser (Università di Genova, DITEN) —
+  rattachements **à confirmer**. Logo UniGe en page de titre seule, ou aussi en
+  pied de page ?
 - **Date exacte** de l'exposé : le pied de page affiche « GRETSI 2027 »
   (`\date[…]{…}`).
 - **Langue** des slides (l'article est en français).
