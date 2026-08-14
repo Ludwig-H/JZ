@@ -4,14 +4,17 @@ Support de présentation (Beamer, thème Inria + logo Università di Genova) pou
 l'article **« Segmentation Sémantique en Télédétection »** de Martina
 **Pastorino**, Gabriele **Moser** et Josiane **Zerubia**.
 
-> **État : préparation.** Le dossier contient l'article source, ses figures
-> extraites, les logos et le thème Beamer. Les slides (`main.tex`) restent à
+> **État : squelette compilable.** `main.tex` contient la page de titre, la
+> planche « Merci » et la bibliographie ; le corps de la présentation reste à
 > écrire — voir [« À décider ensemble »](#à-décider-ensemble).
 
 ## Contenu du dossier
 
 ```
 Gretsi2027/
+├── main.tex                                             squelette Beamer (titre, Merci, bibliographie)
+├── references.bib                                       les 80 références de l'article (79 entrées, cf. infra)
+├── GRETSI2027_Segmentation_Semantique_Teledetection.pdf le PDF compilé (7 planches)
 ├── TSI segmentation semantique paper + logo UniGE.zip   archive d'origine (intacte)
 ├── article/
 │   ├── Martina_TSI_GRETSI_segmentation_semantique.pdf   l'article (18 p., 11 sections, 80 réf.)
@@ -21,8 +24,7 @@ Gretsi2027/
 │   └── logos/     logos Università di Genova (versions horizontale et verticale, couleur)
 ├── theme/         thème Beamer Inria 2024
 ├── latexmkrc      TEXINPUTS → theme/, compilation LuaLaTeX
-├── Makefile       `make` / `make clean`
-└── main.tex       ← à écrire
+└── Makefile       `make` / `make clean`
 ```
 
 ### Provenance
@@ -41,12 +43,13 @@ Gretsi2027/
 ## Compilation
 
 ```bash
-make        # latexmk + LuaLaTeX
+make        # latexmk + LuaLaTeX + biber → GRETSI2027_Segmentation_Semantique_Teledetection.pdf
 make clean
 ```
 
-Prérequis : LuaLaTeX, `texlive-lang-french` (babel), et les paquets appelés par
-le thème (`tikz`, `textpos`, `fmtcount`, `calc`, `ifdraft`). Les fontes Inria
+Prérequis : LuaLaTeX, `biber`, `texlive-lang-french` (babel), `biblatex`,
+`csquotes`, et les paquets appelés par le thème (`tikz`, `textpos`, `fmtcount`,
+`calc`, `ifdraft`). Testé avec TeX Live 2023 (biblatex 3.19 / biber 2.19). Les fontes Inria
 Sans sont **optionnelles** : sans elles le thème émet un avertissement et
 utilise la fonte sans-serif par défaut. Pour les activer, déposer
 [`latex-inria-fonts`](https://gitlab.inria.fr/gabarits/latex-inria-fonts) à la
@@ -55,6 +58,35 @@ racine du dossier (le `latexmkrc` l'ajoute déjà à `TEXINPUTS`).
 ⚠️ Le thème référence ses images par des chemins **relatifs à la racine de
 compilation** (`theme/imgs/...`) : compiler depuis `Gretsi2027/`, pas depuis
 `theme/`.
+
+## Le squelette (`main.tex`)
+
+Trois planches seulement, sur lesquelles greffer le contenu :
+
+1. **Page de titre** — gabarit Inria (`\titlepage`) auquel s'ajoute le logo
+   Università di Genova, via la commande maison `\logounige` (bloc `textpos`
+   ancré en haut à droite, largeur réglable : `\logounige[0.22]`).
+2. **« Merci »** — `\frame{\merci}`, planche fournie par le thème.
+3. **Bibliographie** — `biblatex` + `biber`, style numérique,
+   `sorting=none` : les entrées s'impriment dans l'ordre du fichier `.bib`,
+   c'est-à-dire dans l'ordre de l'article. `\nocite{*}` les affiche toutes
+   (5 planches en `\tiny`) ; il suffira de retirer le `\nocite{*}` et de citer
+   au fil des slides pour n'imprimer que le nécessaire.
+
+Le corps de la présentation s'insère entre la page de titre et le « Merci » ;
+le thème fournit aussi `\frame{\sectionpage}` (numéro + titre de section) et
+`\tocpage` (sommaire) si l'on veut un découpage en sections.
+
+### `references.bib`
+
+Les 80 références de l'article, dans son ordre, chacune précédée d'un
+commentaire `% [nn]` rappelant son numéro dans l'article. **79 entrées** : la
+référence Samson *et al.* (2000) est numérotée deux fois dans l'article ([52]
+et [56]) et n'est saisie qu'une fois ici, sous la clé `samson2000variational`.
+Les numéros de l'article au-delà de [56] sont donc décalés d'une unité par
+rapport à ceux de la bibliographie des slides ; les commentaires `% [nn]`
+donnent la correspondance. Le fichier a été relu automatiquement contre la
+liste de références de l'article (année et premier auteur de chaque entrée).
 
 ## Ressources graphiques disponibles
 
@@ -81,8 +113,8 @@ Alias fournis : `inria-rouge`/`rouge_inria`, `gris_fonce_inria`
   `Inria-logo-rouge.png` en pied de page) — géré par le thème.
 - Università di Genova : `imgs/logos/logo_orizzontale_COLORE.png` (1915×485) et
   `logo_verticale_COLORE.png` (1017×865). Le thème Inria ne prévoit pas de
-  second logo : il faudra l'ajouter côté `main.tex` (p. ex. `textpos` en page de
-  titre, à côté du bloc-marque), sans toucher à `theme/`.
+  second logo : la version horizontale est posée en page de titre par
+  `\logounige` (défini dans `main.tex`), sans toucher à `theme/`.
 
 ## Carte de l'article
 
@@ -144,12 +176,19 @@ IEEE GRSS, École royale militaire belge & ONERA ; Fig. 2 — [12] ; Fig. 3 —
 - **Cadre exact de l'exposé** : GRETSI 2027 (tutoriel ? session invitée ?),
   durée, public — le nom de fichier de l'article mentionne « TSI » et
   « GRETSI », à confirmer.
-- **Orateur / auteurs affichés** et affiliations (Inria, Università di Genova),
-  donc placement du logo UniGe (page de titre seule, ou aussi en pied).
+- **Orateur / auteurs affichés** et affiliations : la page de titre porte pour
+  l'instant M. Pastorino (Inria Ayana + UniGe DITEN), G. Moser (UniGe DITEN),
+  J. Zerubia (Inria Ayana) — **à confirmer**. Logo UniGe en page de titre
+  seule, ou aussi en pied de page ?
+- **Date exacte** de l'exposé : le pied de page affiche « GRETSI 2027 »
+  (`\date[…]{…}`).
 - **Langue** des slides (l'article est en français).
 - **Découpage** : les 11 sections telles quelles, ou un regroupement en 4 actes
   (pixel → contexte → énergie/représentation → apprentissage) ?
 - **Éléments à recréer en TikZ** plutôt qu'à reprendre en bitmap (typiquement la
   Fig. 3 des voisinages, et une frise chronologique 1970 → 2026).
-- Reprise ou non du système de citations `\citb` / `\reffoot` de la soutenance
-  (80 références dans l'article, à réduire fortement).
+- **Citations** : garder `biblatex` (numéros `[n]` et bibliographie finale
+  complète), ou reprendre le système `\citb` / `\reffoot` de la soutenance
+  (label court entre crochets + référence en bas du slide de première
+  citation) ? Dans les deux cas, les 79 entrées sont à réduire fortement pour
+  l'exposé.

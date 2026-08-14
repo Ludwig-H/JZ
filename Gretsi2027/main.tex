@@ -1,0 +1,105 @@
+% !TEX program = lualatex
+% ============================================================
+% GRETSI 2027 — Segmentation sémantique en télédétection
+% d'après M. Pastorino, G. Moser, J. Zerubia,
+% « Segmentation Sémantique en Télédétection »
+% (article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
+%
+% Squelette minimal : page de titre, planche « Merci »,
+% bibliographie. Le corps de la présentation reste à écrire.
+%
+% Compilation : make  (latexmk + LuaLaTeX + biber, thème dans theme/)
+% ============================================================
+\documentclass[svgnames,9pt,aspectratio=169]{beamer}
+
+\usepackage[french]{babel}
+\usepackage{csquotes}
+\usepackage{amsmath,amssymb,amsfonts,mathtools}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{positioning, shapes, arrows.meta, calc, fit, backgrounds, babel}
+
+% ------------------------------------------------------------
+% Thème Beamer Inria 2024 (dossier theme/, non modifié).
+% ------------------------------------------------------------
+\usetheme{inria}
+
+% ------------------------------------------------------------
+% Bibliographie : ordre du fichier .bib = ordre de l'article.
+% ------------------------------------------------------------
+\usepackage[backend=biber,style=numeric,sorting=none,
+            maxbibnames=4,minbibnames=3,giveninits=true,
+            doi=false,isbn=false,url=false,eprint=false]{biblatex}
+\addbibresource{references.bib}
+\renewcommand*{\bibfont}{\tiny}
+\setlength{\bibitemsep}{0.35ex}
+
+% ------------------------------------------------------------
+% Logo Università di Genova (le thème Inria ne prévoit qu'un logo).
+% Coordonnées textpos : fractions de \paperwidth / \paperheight.
+% ------------------------------------------------------------
+\newcommand{\logounige}[1][0.185]{%
+  \begin{textblock}{#1}[1,0](0.955,0.085)
+    \includegraphics[width=\textwidth]{imgs/logos/logo_orizzontale_COLORE}
+  \end{textblock}}
+
+% ------------------------------------------------------------
+% Métadonnées
+% ------------------------------------------------------------
+% Neutralise la mise en forme des appels d'affiliation quand
+% hyperref convertit \author en chaîne PDF.
+\makeatletter
+\pdfstringdefDisableCommands{%
+  \let\textsc\@firstofone
+  \let\textsuperscript\@gobble
+  \def\,{ }%
+  \def\\{ }%
+}
+\makeatother
+
+% NB : affiliations à confirmer avant diffusion.
+\title{Segmentation sémantique en télédétection}
+\subtitle{GRETSI 2027}
+\date[GRETSI 2027]{2027}
+\author{%
+   \small Martina \textsc{Pastorino}\textsuperscript{1,2},
+          Gabriele \textsc{Moser}\textsuperscript{2},
+          Josiane \textsc{Zerubia}\textsuperscript{1}\\[4pt]
+   \footnotesize \textsuperscript{1}\,Centre Inria d'Université Côte d'Azur, équipe \textsc{Ayana}\\
+   \footnotesize \textsuperscript{2}\,Università di Genova, \textsc{Diten}%
+}
+\institute{Sophia Antipolis --- Genova}
+
+\hypersetup{
+   allcolors   = rouge_inria,
+   pdfauthor   = {Martina Pastorino, Gabriele Moser, Josiane Zerubia},
+   pdftitle    = {Segmentation sémantique en télédétection},
+   pdfsubject  = {GRETSI 2027},
+   pdfkeywords = {segmentation sémantique, télédétection, champs de Markov, CRF,
+                  méthodes variationnelles, apprentissage profond, modèles de fondation}
+}
+
+% ============================================================
+\begin{document}
+
+% ---- Page de titre -----------------------------------------
+\frame{%
+  \titlepage
+  \logounige
+}
+
+% ============================================================
+% Corps de la présentation — à écrire.
+% ============================================================
+
+% ---- Merci -------------------------------------------------
+\frame{\merci}
+
+% ---- Bibliographie -----------------------------------------
+\nocite{*}
+\begin{frame}[allowframebreaks]{Références}
+  \printbibliography[heading=none]
+\end{frame}
+
+\end{document}
