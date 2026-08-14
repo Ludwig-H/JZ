@@ -135,6 +135,8 @@
 \makeatletter
 \pdfstringdefDisableCommands{%
   \let\textsc\@firstofone
+  \let\emph\@firstofone
+  \let\cite\@gobble
   \let\textsuperscript\@gobble
   \def\,{ }%
   \def\\{ }%
@@ -143,7 +145,11 @@
 
 % NB : affiliations à confirmer avant diffusion.
 \title{Segmentation sémantique en télédétection}
-\subtitle{GRETSI 2027, session historique}
+\subtitle{GRETSI 2027, session historique\\[7pt]
+  {\footnotesize d'après M.~\textsc{Pastorino}, G.~\textsc{Moser}, J.~\textsc{Zerubia},
+   « Segmentation sémantique en télédétection »,\\
+   \emph{Traitement du Signal et des Images} (TSI), GRETSI, décembre 2026
+   \cite{pastorino2026segmentation}}}
 \date[GRETSI 2027]{2027}
 \author{%
    Josiane \textsc{Zerubia}\\[2pt]
