@@ -4,17 +4,21 @@ Support de présentation (Beamer, thème Inria + logo Università di Genova) pou
 l'article **« Segmentation Sémantique en Télédétection »** de Martina
 **Pastorino**, Gabriele **Moser** et Josiane **Zerubia**.
 
-> **État : squelette compilable.** `main.tex` contient la page de titre, la
-> planche « Merci » et la bibliographie ; le corps de la présentation reste à
-> écrire — voir [« À décider ensemble »](#à-décider-ensemble).
+> **État : présentation rédigée.** 45 planches pour une session plénière
+> (≈ 45 min), suivant les 11 sections de l'article, plus les crédits et la
+> bibliographie en annexe. Voir le
+> [rapport complémentaire](rapport-complementaire.md) pour le déroulé planche
+> par planche et [« À décider ensemble »](#à-décider-ensemble) pour ce qui
+> reste à arbitrer.
 
 ## Contenu du dossier
 
 ```
 Gretsi2027/
-├── main.tex                                             squelette Beamer (titre, Merci, bibliographie)
+├── main.tex                                             la présentation (11 sections, 45 planches)
+├── rapport-complementaire.md                            document d'accompagnement (déroulé, crédits, minutage)
 ├── references.bib                                       les 80 références de l'article (79 entrées, cf. infra)
-├── GRETSI2027_Segmentation_Semantique_Teledetection.pdf le PDF compilé (7 planches)
+├── GRETSI2027_Segmentation_Semantique_Teledetection.pdf le PDF compilé (51 planches)
 ├── TSI segmentation semantique paper + logo UniGE.zip   archive d'origine (intacte)
 ├── article/
 │   ├── Martina_TSI_GRETSI_segmentation_semantique.pdf   l'article (18 p., 11 sections, 80 réf.)
@@ -59,23 +63,30 @@ racine du dossier (le `latexmkrc` l'ajoute déjà à `TEXINPUTS`).
 compilation** (`theme/imgs/...`) : compiler depuis `Gretsi2027/`, pas depuis
 `theme/`.
 
-## Le squelette (`main.tex`)
+## La présentation (`main.tex`)
 
-Trois planches seulement, sur lesquelles greffer le contenu :
+51 planches : page de titre, sommaire, **11 sections** reprenant celles de
+l'article (chacune ouverte par une planche de section numérotée `01`…`11`),
+planche « Merci » du thème — soit **45 planches d'exposé** — puis en annexe les
+crédits des figures et la bibliographie complète.
 
-1. **Page de titre** — gabarit Inria (`\titlepage`) auquel s'ajoute le logo
-   Università di Genova, via la commande maison `\logounige` (bloc `textpos`
-   ancré en haut à droite, largeur réglable : `\logounige[0.22]`).
-2. **« Merci »** — `\frame{\merci}`, planche fournie par le thème.
-3. **Bibliographie** — `biblatex` + `biber`, style numérique,
-   `sorting=none` : les entrées s'impriment dans l'ordre du fichier `.bib`,
-   c'est-à-dire dans l'ordre de l'article. `\nocite{*}` les affiche toutes
-   (5 planches en `\tiny`) ; il suffira de retirer le `\nocite{*}` et de citer
-   au fil des slides pour n'imprimer que le nécessaire.
+- **Illustrations** : les 7 figures de l'article, soit 14 sous-images, toutes
+  reprises ; aucune image extérieure. Les deux seuls ajouts graphiques sont la
+  frise du fil directeur (`\filrouge`) et les encadrés de formules
+  (`\formulebox`).
+- **Crédits** : légende courte sous chaque image (`\legende`), crédit et
+  copyright en pied de planche (`\sourcefoot`), et une planche d'annexe
+  récapitulant les sept crédits.
+- **Citations** : renvois `[n]` en gris dans le corps des planches (`\refc`),
+  bibliographie complète en annexe. `\nocite{*}` est placé en tête de document
+  pour que la numérotation suive l'ordre du `.bib`, donc celui de l'article.
+- **Commandes maison** : `\hl` (mise en évidence rouge Inria), `\refc`,
+  `\legende`, `\sourcefoot`, `\formulebox`, `\filrouge`, `\logounige` (logo
+  Università di Genova en page de titre). Le dossier `theme/` reste identique à
+  l'amont.
 
-Le corps de la présentation s'insère entre la page de titre et le « Merci » ;
-le thème fournit aussi `\frame{\sectionpage}` (numéro + titre de section) et
-`\tocpage` (sommaire) si l'on veut un découpage en sections.
+Le déroulé planche par planche, le minutage et les choix éditoriaux sont
+consignés dans le [rapport complémentaire](rapport-complementaire.md).
 
 ### `references.bib`
 
@@ -167,15 +178,16 @@ profond ne supprime pas mais reformule (§9).
 | `fig6_fcn_potsdam.png` | 6 | architecture FCN, ISPRS Potsdam [61] |
 | `fig7_modele_fondation_geospatial.png` | 7 | principe d'un modèle de fondation géospatial |
 
-Crédits à reporter sur les slides : Fig. 1 — jeu de données Zeebruges, IADF TC
-IEEE GRSS, École royale militaire belge & ONERA ; Fig. 2 — [12] ; Fig. 3 —
-[29] ; Fig. 5 — SPOT © CNES et [56] ; Fig. 6 — [61].
+Crédits portés sur les planches : Fig. 1 — jeu de données Zeebruges, comité
+technique IADF de l'IEEE GRSS, Académie royale militaire belge & ONERA ;
+Fig. 2 — [12] ; Fig. 3 — [29] ; Fig. 5 — SPOT © CNES et [52]/[56] ; Fig. 6 —
+[61]. Les figures 4 et 7 ne portent aucune attribution dans l'article.
 
 ## À décider ensemble
 
-- **Cadre exact de l'exposé** : GRETSI 2027 (tutoriel ? session invitée ?),
-  durée, public — le nom de fichier de l'article mentionne « TSI » et
-  « GRETSI », à confirmer.
+- **Cadre exact** : session plénière du GRETSI 2027 — durée réellement allouée
+  (le minutage vise 45 min ; pour 30 min, les planches 16, 28, 36 et 40 sont les
+  candidates à la coupe).
 - **Affiliations** : la page de titre annonce Josiane Zerubia (Centre Inria
   d'Université Côte d'Azur, équipe Ayana) comme oratrice, en collaboration avec
   Martina Pastorino et Gabriele Moser (Università di Genova, DITEN) —
@@ -183,13 +195,10 @@ IEEE GRSS, École royale militaire belge & ONERA ; Fig. 2 — [12] ; Fig. 3 —
   pied de page ?
 - **Date exacte** de l'exposé : le pied de page affiche « GRETSI 2027 »
   (`\date[…]{…}`).
-- **Langue** des slides (l'article est en français).
-- **Découpage** : les 11 sections telles quelles, ou un regroupement en 4 actes
-  (pixel → contexte → énergie/représentation → apprentissage) ?
-- **Éléments à recréer en TikZ** plutôt qu'à reprendre en bitmap (typiquement la
-  Fig. 3 des voisinages, et une frise chronologique 1970 → 2026).
-- **Citations** : garder `biblatex` (numéros `[n]` et bibliographie finale
-  complète), ou reprendre le système `\citb` / `\reffoot` de la soutenance
-  (label court entre crochets + référence en bas du slide de première
-  citation) ? Dans les deux cas, les 79 entrées sont à réduire fortement pour
-  l'exposé.
+- **Droits des figures 4 et 7** : elles ne portent aucune attribution dans
+  l'article et sont donc créditées à l'article lui-même. À faire remonter si
+  elles proviennent d'une source tierce.
+- **Citations** : garder `biblatex` (numéros `[n]` et bibliographie complète en
+  annexe), ou reprendre le système `\citb` / `\reffoot` de la soutenance
+  (label court entre crochets + référence en bas de la planche de première
+  citation) ?

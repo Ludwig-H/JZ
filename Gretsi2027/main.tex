@@ -1,12 +1,14 @@
 % !TEX program = lualatex
 % ============================================================
-% GRETSI 2027 — Segmentation sémantique en télédétection
-% d'après M. Pastorino, G. Moser, J. Zerubia,
-% « Segmentation Sémantique en Télédétection »
+% GRETSI 2027 — Session plénière
+% « Segmentation sémantique en télédétection »
+% d'après M. Pastorino, G. Moser, J. Zerubia
 % (article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
 %
-% Squelette minimal : page de titre, planche « Merci »,
-% bibliographie. Le corps de la présentation reste à écrire.
+% La présentation suit la structure de l'article (11 sections).
+% Toutes les illustrations sont des figures de l'article, extraites
+% dans imgs/article/ ; crédits en pied de planche et planche
+% « Crédits des figures » en annexe.
 %
 % Compilation : make  (latexmk + LuaLaTeX + biber, thème dans theme/)
 % ============================================================
@@ -27,6 +29,8 @@
 
 % ------------------------------------------------------------
 % Bibliographie : ordre du fichier .bib = ordre de l'article.
+% \nocite{*} est placé en tête de document pour que les numéros
+% [n] des planches suivent cet ordre.
 % ------------------------------------------------------------
 \usepackage[backend=biber,style=numeric,sorting=none,
             maxbibnames=4,minbibnames=3,giveninits=true,
@@ -45,6 +49,61 @@
   \end{textblock}}
 
 % ------------------------------------------------------------
+% Commandes de mise en forme
+% ------------------------------------------------------------
+% Mise en évidence
+\newcommand{\hl}[1]{\textcolor{inria-rouge}{\textbf{#1}}}
+
+% Renvoi bibliographique en ligne : [n] en gris
+\newcommand{\refc}[1]{\,\textcolor{gris_fonce_inria}{\footnotesize\cite{#1}}}
+
+% Légende courte sous une figure
+\newcommand{\legende}[1]{\par\vspace{0.4ex}{\scriptsize\color{gris_fonce_inria}#1\par}}
+
+% Crédit / copyright ancré au-dessus du filet de pied de planche
+\newcommand{\sourcefoot}[1]{%
+  \begin{textblock}{0.89}[0,1](0.05,0.905)%
+    \begingroup\tiny\raggedright\color{gris_fonce_inria}#1\par\endgroup
+  \end{textblock}}
+
+% Encadré de formule : liseré rouge Inria, fond gris très clair
+\newcommand{\formulebox}[1]{%
+  \begin{center}%
+    \setlength{\fboxrule}{0.7pt}\setlength{\fboxsep}{7pt}%
+    \fcolorbox{inria-rouge}{gris_fonce_inria!6}{%
+      \begin{minipage}{0.80\textwidth}\centering #1\end{minipage}}%
+  \end{center}}
+
+% Fil directeur de l'article : intégration progressive du contexte.
+% Argument optionnel : numéro de l'étape à mettre en avant (0 = aucune).
+\newcommand{\filrouge}[1][0]{%
+  \begin{center}
+  \begin{tikzpicture}[x=1mm,y=1mm,font=\scriptsize\bfseries]
+    \foreach \i/\c/\t in {%
+        0/inria-2024-bleu-azur/{Information\\spectrale locale},
+        1/inria-2024-bleu-canard/{Cohérence\\spatiale},
+        2/inria-2024-bleu-nuit/{Frontières,\\régions, objets},
+        3/inria-2024-violet/{Représentations\\apprises},
+        4/inria-2024-rouge/{Représentations\\générales}}
+      {%
+        \node[fill=\c,text=white,align=center,text width=19mm,
+              minimum height=11mm,inner sep=1.5pt] at ({\i*23},0) {\t};
+        \ifnum\i>0
+          \draw[-{Latex[length=1.8mm]},line width=0.8pt,gris_fonce_inria]
+                ({\i*23-13},0) -- ({\i*23-10},0);
+        \fi
+      }
+  \end{tikzpicture}
+  \end{center}}
+
+% Listes un peu aérées
+\setbeamertemplate{itemize/enumerate body begin}{\setlength{\itemsep}{0.85ex}}
+\setbeamertemplate{itemize/enumerate subbody begin}{\setlength{\itemsep}{0.35ex}}
+
+% Sommaire
+\addto\captionsfrench{\renewcommand{\contentsname}{Sommaire}}
+
+% ------------------------------------------------------------
 % Métadonnées
 % ------------------------------------------------------------
 % Neutralise la mise en forme des appels d'affiliation quand
@@ -60,7 +119,7 @@
 
 % NB : affiliations à confirmer avant diffusion.
 \title{Segmentation sémantique en télédétection}
-\subtitle{GRETSI 2027}
+\subtitle{GRETSI 2027 --- session plénière}
 \date[GRETSI 2027]{2027}
 \author{%
    Josiane \textsc{Zerubia}\\[2pt]
@@ -74,13 +133,14 @@
    allcolors   = rouge_inria,
    pdfauthor   = {Josiane Zerubia, en collaboration avec Martina Pastorino et Gabriele Moser},
    pdftitle    = {Segmentation sémantique en télédétection},
-   pdfsubject  = {GRETSI 2027},
+   pdfsubject  = {GRETSI 2027 — session plénière},
    pdfkeywords = {segmentation sémantique, télédétection, champs de Markov, CRF,
                   méthodes variationnelles, apprentissage profond, modèles de fondation}
 }
 
 % ============================================================
 \begin{document}
+\nocite{*}   % fige la numérotation [n] sur l'ordre du fichier .bib
 
 % ---- Page de titre -----------------------------------------
 \frame{%
@@ -88,15 +148,709 @@
   \logounige
 }
 
+% ---- Sommaire ----------------------------------------------
+\begin{frame}{Sommaire}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}
+      \tableofcontents[sections={1-6}]
+    \end{column}
+    \begin{column}{0.49\textwidth}
+      \tableofcontents[sections={7-11}]
+    \end{column}
+  \end{columns}
+  \sourcefoot{D'après M. \textsc{Pastorino}, G. \textsc{Moser}, J. \textsc{Zerubia},
+              « Segmentation sémantique en télédétection ». Le plan de l'exposé suit
+              celui de l'article.}
+\end{frame}
+
 % ============================================================
-% Corps de la présentation — à écrire.
+\section{Introduction}
 % ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{De l'image à la carte thématique}
+  \begin{itemize}
+    \item Associer à \hl{chaque pixel} une étiquette d'un ensemble prédéfini de classes
+          sémantiques\refc{duda1973pattern}\refc{swain1978remote}\refc{richards1986remote} ---
+          terme imposé par l'essor de l'apprentissage profond (années 2010), mais problème
+          étudié depuis des décennies sous les noms de \emph{classification supervisée},
+          \emph{pixel à pixel}, \emph{contextuelle}
+    \item Produit une \hl{carte dense} : chaque pixel reçoit une interprétation ---
+          à distinguer de la segmentation « bas niveau », qui partitionne en régions
+          homogènes \emph{sans} leur associer de signification
+    \item En télédétection : transformer les observations satellitaires en
+          \hl{cartes d'occupation et d'utilisation du sol}
+  \end{itemize}
+  \vspace{0.4ex}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}\centering
+      \includegraphics[height=2.2cm]{imgs/article/fig1a_zeebruges_image_aerienne}
+      \legende{(a) image aérienne}
+    \end{column}
+    \begin{column}{0.49\textwidth}\centering
+      \includegraphics[height=2.2cm]{imgs/article/fig1b_zeebruges_carte_segmentation}
+      \legende{(b) carte de segmentation}
+    \end{column}
+  \end{columns}
+  \sourcefoot{Fig.~1 de l'article. Jeu de données \emph{Zeebruges} (comité technique IADF
+    de l'IEEE GRSS ; Académie royale militaire belge et ONERA).}
+\end{frame}
+
+\begin{frame}{Ce qui distingue la télédétection}
+  \begin{itemize}
+    \item \hl{Capteurs} hétérogènes : optique, radar à synthèse d'ouverture (RSO),
+          LiDAR
+    \item \hl{Résolutions} spatiales très variables, acquisitions à
+          \hl{différentes dates}, \hl{plusieurs modalités} combinées
+    \item Scènes géographiques complexes, dont les propriétés varient selon les
+          régions, les saisons et les conditions d'acquisition
+    \item Conséquence : l'évolution du domaine \hl{n'est pas} une simple adaptation
+          des avancées de la vision par ordinateur
+    \item C'est une convergence entre reconnaissance statistique des formes,
+          traitement du signal et des images, modélisation probabiliste,
+          morphologie mathématique, géométrie stochastique, analyse orientée objet
+          et, récemment, apprentissage profond
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Formalisation et fil directeur}
+  \formulebox{$I : \Omega \longrightarrow \mathbb{R}^{d}
+              \qquad\text{puis}\qquad
+              f : \Omega \longrightarrow \mathcal{C}$}
+  \begin{itemize}
+    \item $\Omega$ : domaine spatial ; $d$ : nombre de variables --- bande
+          panchromatique, bandes multi- ou hyperspectrales, polarisations RSO,
+          mesures LiDAR, indices spectraux, modèles numériques de terrain\dots
+    \item $\mathcal{C}$ : ensemble fini des classes sémantiques
+    \item \hl{Fil directeur de l'exposé} : une intégration progressive de niveaux
+          croissants de contexte
+  \end{itemize}
+  \vspace{0.4ex}
+  \filrouge
+\end{frame}
+
+% ============================================================
+\section{Classification statistique pixel à pixel}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Les premières approches (années 1970)}
+  \begin{itemize}
+    \item Landsat (optique) et SeaSat (radar) créent le besoin de cartes
+          d'occupation du sol automatiques\refc{schowengerdt2007remote}\refc{landgrebe2003signal}\refc{ulaby2015microwave}
+    \item Chaque pixel est un vecteur d'observations
+          $\mathbf{x} = (x_1,\dots,x_d)^{\mathsf{T}}$ : réponses radiométriques,
+          intensités RSO, indices, données auxiliaires\refc{duda1973pattern}
+  \end{itemize}
+  \formulebox{$\hat{\omega} \;=\; \arg\max_{\omega_i}\; P(\omega_i \mid \mathbf{x})$}
+  \begin{itemize}
+    \item Sous hypothèse gaussienne multivariée : \hl{classifieur MAP}, dit de
+          manière informelle « maximum de vraisemblance » (MLC)
+    \item Méthode de référence pendant plusieurs décennies : interprétation
+          probabiliste simple, coût modéré, performances
+          satisfaisantes\refc{swain1978remote}\refc{richards1986remote}\refc{mather2004computer}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Deux limites structurelles}
+  \begin{itemize}
+    \item \hl{Malédiction de la dimension} (phénomène de Hughes, décrit dès
+          1968)\refc{hughes1968mean}
+      \begin{itemize}
+        \item plus de variables spectrales $\neq$ meilleures performances lorsque
+              le nombre d'échantillons d'apprentissage reste limité
+        \item les signatures spectrales seules ne suffisent pas
+      \end{itemize}
+    \item \hl{Hypothèse d'indépendance des observations}
+      \begin{itemize}
+        \item chaque pixel est décidé isolément, sans exploiter son voisinage
+        \item or les objets géographiques sont fortement corrélés spatialement :
+              parcelle agricole, forêt, zone urbaine, réseau routier
+      \end{itemize}
+    \item Conséquence : cartes bruitées, effet \hl{« poivre et sel »}, d'autant plus
+          marqué que la résolution spatiale augmente
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{L'effet « poivre et sel »}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.49\textwidth}\centering
+      \includegraphics[width=\textwidth]{imgs/article/fig2a_ikonos_fausses_couleurs}
+      \legende{(a) image IKONOS, 4~m, fausses couleurs}
+    \end{column}
+    \begin{column}{0.49\textwidth}\centering
+      \includegraphics[width=\textwidth]{imgs/article/fig2b_classification_pixel_a_pixel}
+      \legende{(b) classification pixel à pixel}
+    \end{column}
+  \end{columns}
+  \vspace{0.8ex}
+  \begin{itemize}
+    \item La décision ne dépend plus seulement de la radiométrie d'un pixel :
+          il faut son \hl{environnement spatial}
+    \item Le problème cesse d'être une classification spectrale pour devenir un
+          problème d'\hl{interprétation spatiale des
+          scènes}\refc{geman1984stochastic}\refc{besag1986statistical}\refc{solberg1996markov}
+  \end{itemize}
+  \sourcefoot{Fig.~2 (a)--(b) de l'article. Image IKONOS, 4~m, 3 bandes, fausses couleurs
+    (infrarouge voisin, rouge, bleu) ; carte d'après \cite{moser2013landcover}.}
+\end{frame}
+
+% ============================================================
+\section{Méthodes discriminantes et à noyaux}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Estimer la frontière plutôt que la distribution}
+  \begin{itemize}
+    \item À partir de la fin des années 1990 : estimer \hl{directement les
+          frontières de décision} plutôt que la loi des observations
+    \item Réponse à deux difficultés : hypothèses gaussiennes peu réalistes,
+          dimension élevée des données
+    \item \hl{Machines à vecteurs de support} (SVM), issues de la théorie de
+          l'apprentissage statistique\refc{vapnik1998statistical}\refc{cortes1995support}
+      \begin{itemize}
+        \item principe de \hl{maximisation de la marge} entre classes
+        \item excellente généralisation même lorsque le nombre d'échantillons
+              d'apprentissage est faible devant la dimension
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Noyaux : la non-linéarité sans perdre la convexité}
+  \begin{itemize}
+    \item Les méthodes à noyaux étendent le cadre aux problèmes non linéaires
+          tout en conservant une \hl{formulation convexe}\refc{scholkopf2002learning}
+    \item Années 2000 : les SVM deviennent l'un des classifieurs les plus utilisés
+          en télédétection --- multispectral, hyperspectral, multisources
+    \item Développement de noyaux adaptés aux observations
+          géospatiales\refc{campsvalls2009kernel}\refc{mountrakis2011support}
+    \item \hl{Mais} : les SVM améliorent la \emph{fonction de décision}, pas la
+          représentation --- appliqués aux vecteurs d'observations, ils restent
+          des classifieurs \hl{pixel à pixel}
+    \item Deux directions de recherche évoluent alors en parallèle :
+          \emph{nouveaux classifieurs} et \emph{représentations spatiales plus riches}
+  \end{itemize}
+\end{frame}
+
+% ============================================================
+\section{Méthodes d'ensemble}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Forêts aléatoires}
+  \begin{itemize}
+    \item Combiner plusieurs classifieurs pour gagner en robustesse et en
+          généralisation : \hl{apprentissage d'ensemble}
+    \item \hl{Forêts aléatoires} : arbres de décision appris sur des sous-ensembles
+          aléatoires \emph{des observations} et \emph{des variables}, agrégés par
+          vote majoritaire\refc{breiman2001random}
+    \item Limitent le surapprentissage tout en modélisant des relations non linéaires
+    \item En pratique : peu de réglages, robustes au bruit, supportent un grand
+          nombre de variables, fournissent des mesures d'\hl{importance des variables}
+    \item Multispectral et hyperspectral\refc{gislason2006random}, puis occupation du
+          sol, détection de changements, fusion multisources\refc{belgiu2016random}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Bilan de l'ère « pixel »}
+  \begin{itemize}
+    \item Méthodes discriminantes et d'ensemble : gains nets \hl{sur le classifieur}
+    \item Elles restent \hl{indépendantes de la représentation} --- spectrale,
+          texturale, morphologique ou spectro-spatiale
+    \item La limite fondamentale demeure : \hl{l'organisation spatiale de la scène
+          n'est pas prise en compte explicitement}
+    \item Deux réponses complémentaires vont structurer la suite :
+      \begin{itemize}
+        \item régulariser les \hl{étiquettes} --- contextuel, markovien,
+              variationnel (§5, §6, §8)
+        \item enrichir les \hl{descripteurs} --- spectro-spatial, orienté objet (§7)
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+% ============================================================
+\section{Classification contextuelle}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Trois niveaux de contexte}
+  \begin{itemize}
+    \item Dès les années 1980--1990 : un pixel a davantage de chances d'appartenir
+          à la classe de ses voisins immédiats qu'à une autre\refc{richards1986remote}
+    \item \hl{Contexte local} --- interactions entre pixels voisins, fenêtres de
+          taille limitée\refc{haralick1973textural}\refc{haralick1985image}
+    \item \hl{Contexte régional} --- texture, forme, taille, homogénéité des régions
+          segmentées ; annonce l'analyse orientée objet\refc{blaschke2010object}
+    \item \hl{Contexte global} --- organisation générale de la scène, relations entre
+          objets, connaissances a priori sur leur disposition
+    \item Hiérarchie structurante jusqu'aux architectures profondes
+          contemporaines\refc{azencott1992nonsupervised}\refc{li2014survey}\refc{csurka2023good}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{L'apport mesurable du contexte}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.32\textwidth}\centering
+      \includegraphics[width=\textwidth]{imgs/article/fig2a_ikonos_fausses_couleurs}
+      \legende{(a) image IKONOS}
+    \end{column}
+    \begin{column}{0.32\textwidth}\centering
+      \includegraphics[width=\textwidth]{imgs/article/fig2b_classification_pixel_a_pixel}
+      \legende{(b) pixel à pixel}
+    \end{column}
+    \begin{column}{0.32\textwidth}\centering
+      \includegraphics[width=\textwidth]{imgs/article/fig2c_classification_contextuelle}
+      \legende{(c) contextuelle}
+    \end{column}
+  \end{columns}
+  \vspace{0.8ex}
+  \begin{itemize}
+    \item Gains nets en multispectral, multitemporel et
+          multisources\refc{bruzzone1997iterative}\refc{bruzzone1999neural}
+    \item Formulations probabilistes explicites des interactions ; fusion
+          optique / radar / texture\refc{solberg1996markov}
+    \item La classification n'est plus une suite de décisions indépendantes : les
+          étiquettes doivent être estimées \hl{conjointement}
+  \end{itemize}
+  \sourcefoot{Fig.~2 de l'article. Image IKONOS, 4~m, 3 bandes, fausses couleurs
+    (infrarouge voisin, rouge, bleu) ; cartes d'après \cite{moser2013landcover}.}
+\end{frame}
+
+% ============================================================
+\section{Modèles markoviens et bayésiens}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Les champs de Markov : la première formalisation}
+  \begin{itemize}
+    \item Les étiquettes ne sont plus indépendantes : ce sont des variables
+          aléatoires définies sur un \hl{graphe de
+          voisinage}\refc{geman1984stochastic}\refc{besag1986statistical}\refc{kato2012markov}
+    \item Hypothèses de Markov \emph{et} équivalence champs de Markov /
+          distributions de Gibbs
+  \end{itemize}
+  \formulebox{$\hat{Y} \;=\; \arg\max_{Y} P(Y \mid X)
+              \qquad\Longleftrightarrow\qquad
+              \hat{Y} \;=\; \arg\min_{Y} U(Y \mid X)$}
+  \begin{itemize}
+    \item $X$ : les observations, $Y$ : les étiquettes à estimer
+    \item Le théorème de Bayes transforme l'estimation MAP en une
+          \hl{minimisation d'énergie}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Attache aux données + régularisation}
+  \formulebox{$U(Y \mid X) \;=\; U_d(Y \mid X) \;+\; \beta\, U_r(Y \mid X)$}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.56\textwidth}
+      \begin{itemize}
+        \item $U_d$ : \hl{attache aux données}, dérivée de la vraisemblance
+        \item $U_r$ : \hl{régularisation spatiale}, favorise la cohérence entre
+              pixels voisins
+        \item $\beta$ : compromis fidélité / régularité
+        \item Voisinages du 1\textsuperscript{er} ou du 2\textsuperscript{d} ordre ;
+              les potentiels de clique pénalisent les changements de classe entre
+              pixels adjacents\refc{kato2012markov}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.42\textwidth}\centering
+      \includegraphics[height=2.5cm]{imgs/article/fig3a_voisinage_ordre1_cliques}%
+      \hspace{2mm}%
+      \includegraphics[height=2.5cm]{imgs/article/fig3b_voisinage_ordre2_cliques}
+      \legende{(a) 1\textsuperscript{er} ordre \quad (b) 2\textsuperscript{d} ordre}
+    \end{column}
+  \end{columns}
+  \sourcefoot{Fig.~3 de l'article : voisinages entre pixels dans une grille et cliques
+    associées, d'après \cite{kato2012markov}.}
+\end{frame}
+
+\begin{frame}{Optimiser : un problème difficile}
+  \begin{itemize}
+    \item Trouver la configuration optimale est un problème d'optimisation
+          combinatoire difficile $\Rightarrow$ stratégies \hl{sous-optimales}
+    \item Modes conditionnels itérés (\hl{ICM}), \hl{recuit simulé}\refc{kirkpatrick1984optimization},
+          échantillonneur de \hl{Gibbs}\refc{geman1984stochastic}
+    \item \hl{Coupes de graphes}\refc{boykov2001fast}, \hl{propagation de croyance avec
+          boucles}\refc{tanaka2003loopy}
+    \item Domaines d'application : cohérence spatiale des classifications,
+          segmentation multisource, restauration, détection de changements, fusion
+          optique / radar / LiDAR\refc{solberg1996markov}\refc{derin1987modeling}\refc{moser2013combining}
+    \item Au-delà des applications : une \hl{formulation probabiliste générale de la
+          régularisation spatiale}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Des MRF aux CRF}
+  \begin{itemize}
+    \item Les champs conditionnels aléatoires représentent directement $P(Y\mid X)$
+          plutôt que la loi jointe\refc{lafferty2001conditional}
+    \item Ils facilitent l'usage de \hl{caractéristiques discriminantes complexes} et
+          s'intègrent naturellement à l'apprentissage supervisé
+    \item \hl{CRF entièrement connectés} : contours des objets mieux
+          préservés\refc{krahenbuhl2011efficient}
+    \item Intégration aux réseaux profonds : modules de raffinement, \hl{couches
+          différentiables}\refc{zheng2015conditional} --- cadres markoviens hiérarchiques
+          et CRF appris\refc{pastorino2021multisensor}\refc{pastorino2022semantic}\refc{pastorino2024crfnet}\refc{voisin2013classification}
+    \item \hl{L'idée qui traverse tout le domaine} : une carte d'occupation du sol doit
+          être compatible avec les observations locales \emph{et} avec l'organisation
+          spatiale de la scène
+  \end{itemize}
+\end{frame}
+
+% ============================================================
+\section{Méthodes spectro-spatiales}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Enrichir la représentation, pas les étiquettes}
+  \begin{itemize}
+    \item Les modèles contextuels régularisent les \hl{étiquettes} ; ici on enrichit
+          les \hl{descripteurs} \emph{avant} la classification\refc{landgrebe2003signal}
+    \item Moteur : montée en résolution spatiale et spectrale des capteurs
+      \begin{itemize}
+        \item une même classe présente une forte variabilité spectrale
+        \item des objets différents ont parfois des signatures très proches
+      \end{itemize}
+    \item Texture, forme, taille, organisation spatiale et relations de voisinage
+          deviennent \hl{aussi discriminantes que les valeurs
+          spectrales}\refc{dellepiane1991sar}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Morphologie mathématique}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.32\textwidth}\centering
+      \includegraphics[height=2.6cm]{imgs/article/fig4a_erosion}
+      \legende{érosion}
+    \end{column}
+    \begin{column}{0.32\textwidth}\centering
+      \includegraphics[height=2.6cm]{imgs/article/fig4b_image_originale_rvb}
+      \legende{image originale RVB}
+    \end{column}
+    \begin{column}{0.32\textwidth}\centering
+      \includegraphics[height=2.6cm]{imgs/article/fig4c_dilatation}
+      \legende{dilatation}
+    \end{column}
+  \end{columns}
+  \vspace{0.8ex}
+  \begin{itemize}
+    \item Statistiques locales et descripteurs texturaux\refc{haralick1973textural}
+    \item Opérateurs de morphologie mathématique --- érosion, dilatation et leurs
+          compositions\refc{serra1982image}\refc{soille2003morphological}
+  \end{itemize}
+  \sourcefoot{Fig.~4 de l'article : érosion (à gauche) et dilatation (à droite) de
+    l'image satellite originale RVB (au centre).}
+\end{frame}
+
+\begin{frame}{Profils morphologiques et profils d'attributs}
+  \begin{itemize}
+    \item \hl{Profils morphologiques étendus} (EMP)\refc{benediktsson2005classification} puis
+          \hl{profils d'attributs}\refc{dallamura2010morphological} : décrire simultanément
+          les propriétés spectrales et la structure spatiale \hl{à plusieurs échelles}
+    \item Références pour l'hyperspectral et la très haute résolution
+    \item Associés aux SVM : performances remarquables\refc{campsvalls2009kernel}\refc{fauvel2008spectral} ---
+          mais le principe est général (forêts aléatoires, réseaux de neurones\dots)
+    \item Réduction de dimension, méthodes fondées sur les sous-espaces, fusion
+          multisources\refc{plaza2009recent}\refc{campsvalls2014advances}
+    \item Utiliser les \hl{régions segmentées} comme unités d'analyse plutôt que les
+          pixels : cohérence spatiale accrue, bruit réduit\refc{tarabalka2009spectral}
+  \end{itemize}
+\end{frame}
+
+% ============================================================
+\section{Méthodes variationnelles}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Segmenter en minimisant une énergie}
+  \begin{itemize}
+    \item Fin des années 1980, en parallèle des champs de Markov : \hl{pas de loi de
+          probabilité explicite sur les étiquettes}, mais la recherche de la partition
+          qui réalise le meilleur compromis entre fidélité aux observations et
+          régularité\refc{kato2012markov}\refc{mumford1989optimal}\refc{samson2000variational}
+    \item \hl{Contours actifs} : les frontières sont des courbes déformables évoluant
+          sous l'action\refc{samson2000variational}\refc{kass1988snakes}
+      \begin{itemize}
+        \item de \emph{forces internes} --- régularité du contour
+        \item de \emph{forces externes} --- dérivées de l'information de l'image
+      \end{itemize}
+    \item Une représentation \hl{explicite} des contours, et le point de départ d'une
+          large famille de méthodes par minimisation d'énergie
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{La fonctionnelle de Mumford--Shah}
+  \formulebox{$\displaystyle E(u,K) \;=\; \int_{\Omega} (u - I)^2\,\mathrm{d}x
+              \;+\; \mu \int_{\Omega \setminus K} |\nabla u|^2\,\mathrm{d}x
+              \;+\; \nu\,|K|$}
+  \begin{itemize}
+    \item $u$ : image reconstruite, $I$ : image observée, $K$ : ensemble des
+          discontinuités (les contours)\refc{mumford1989optimal}
+    \item $\mu > 0$ : douceur de la solution à l'intérieur des régions ;
+          $\nu > 0$ : pondération de la mesure des contours
+    \item Trois termes, un principe : \hl{fidélité} aux observations,
+          \hl{régularité} intra-région, \hl{complexité géométrique} des contours
+    \item L'un des modèles variationnels les plus influents en traitement d'images
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Robustesse numérique et applications}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.60\textwidth}
+      \begin{itemize}
+        \item \hl{Surfaces de niveau} : contours représentés implicitement, changements
+              de topologie gérés automatiquement\refc{osher1988fronts}
+        \item \hl{Modèles régionaux} : statistiques des régions plutôt que gradients
+              seuls --- robustes au bruit et au faible
+              contraste\refc{chan2001active}
+        \item En télédétection : segmentation optique haute résolution, restauration,
+              fusion, extraction d'objets ; classification et restauration unifiées
+              dans une même fonctionnelle\refc{samson2000variational}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.38\textwidth}\centering
+      \includegraphics[width=0.485\textwidth]{imgs/article/fig5a_spot_cnes}%
+      \hspace{1mm}%
+      \includegraphics[width=0.485\textwidth]{imgs/article/fig5b_segmentation_variationnelle}
+      \legende{(a) image SPOT \quad (b) segmentation}
+    \end{column}
+  \end{columns}
+  \vspace{0.6ex}
+  \begin{itemize}
+    \item \hl{Convergence} : bayésien, champs de Markov, variationnel et formulations
+          sur graphes sont différentes expressions d'un même principe ---
+          \hl{attache aux données $+$ régularisation}
+  \end{itemize}
+  \sourcefoot{Fig.~5 de l'article. (a) image satellitaire SPOT \copyright{} CNES ;
+    (b) carte de segmentation obtenue par la méthode variationnelle
+    de \cite{samson2000variational}.}
+\end{frame}
+
+% ============================================================
+\section{Apprentissage profond}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{2012 : la bascule}
+  \begin{itemize}
+    \item ILSVRC : AlexNet démontre une amélioration spectaculaire en classification
+          d'images naturelles\refc{krizhevsky2012imagenet}
+    \item On \hl{apprend} des représentations hiérarchiques directement à partir des
+          données, sans conception manuelle de descripteurs spectraux, texturaux ou
+          géométriques
+    \item La performance dépend désormais de la capacité du réseau à apprendre
+          \hl{conjointement} une représentation pertinente \emph{et} la fonction de
+          décision
+    \item Transposition rapide à la télédétection : représentations plus
+          discriminantes, \hl{transfert} de modèles pré-entraînés sur les grandes bases
+          d'images naturelles\refc{chen2014deep}\refc{castelluccio2015land}
+    \item Les approches spectro-spatiales passent de représentations \emph{conçues} à
+          des représentations \emph{apprises}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Prédiction dense : FCN et encodeur--décodeur}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.55\textwidth}
+      \begin{itemize}
+        \item \hl{FCN} : suppression des couches entièrement connectées au profit
+              d'opérations convolutionnelles $\Rightarrow$ prédiction dense à l'échelle
+              du pixel, apprise de bout en bout\refc{long2015fully}
+        \item \hl{U-Net} : encodeur--décodeur dont les \emph{connexions de saut}
+              réinjectent la localisation perdue au sous-échantillonnage ---
+              contours et petits objets\refc{ronneberger2015unet}
+        \item Applications : occupation du sol, extraction de bâtiments, de routes,
+              de réseaux hydrographiques\refc{audebert2018beyond}\refc{zhang2018road}\refc{isikdogan2017surface}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.43\textwidth}\centering
+      \vspace{0.4cm}
+      \includegraphics[width=\textwidth]{imgs/article/fig6_fcn_potsdam}
+      \legende{architecture d'une FCN}
+    \end{column}
+  \end{columns}
+  \sourcefoot{Fig.~6 de l'article : architecture d'une FCN appliquée aux images
+    aériennes de la base ISPRS \emph{2D Semantic Labeling Challenge} (Potsdam),
+    d'après \cite{pastorino2026probabilistic}.}
+\end{frame}
+
+\begin{frame}{Contexte, échelles, modalités}
+  \begin{itemize}
+    \item \hl{Réseaux résiduels} : apprendre des modèles plus profonds en limitant la
+          disparition du gradient\refc{he2016deep}
+    \item \hl{DeepLab} : convolutions dilatées et agrégation multi-échelle (ASPP)
+          --- augmenter le champ réceptif \emph{sans} dégrader la résolution des
+          prédictions\refc{chen2017rethinking}\refc{chen2018encoder}
+    \item \hl{Pyramides de caractéristiques} : objets de tailles très
+          variables\refc{lin2017feature} --- décisif en télédétection, où une même scène
+          contient véhicules, bâtiments, parcelles et massifs forestiers
+    \item \hl{Multimodalité} : apprendre des représentations communes à partir de
+          l'optique, du RSO, du LiDAR, des modèles numériques de terrain et de données
+          géographiques auxiliaires\refc{audebert2018beyond}\refc{ma2019deep}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Ce que l'apprentissage profond ne supprime pas}
+  \begin{itemize}
+    \item Contexte spatial, représentation multi-échelle, fusion de données,
+          hiérarchie des objets : \hl{reformulés} dans un cadre d'apprentissage de bout
+          en bout, non abandonnés
+    \item Limites persistantes des réseaux convolutifs :
+      \begin{itemize}
+        \item annotations pixel à pixel \hl{coûteuses}, particulièrement en télédétection
+        \item \hl{généralisation} limitée entre capteurs, régions géographiques et
+              modalités d'acquisition
+        \item difficulté à modéliser les dépendances spatiales à \hl{très longue portée}
+      \end{itemize}
+    \item Ces limites ouvrent la voie aux mécanismes d'attention, puis aux modèles de
+          fondation géospatiaux
+  \end{itemize}
+\end{frame}
+
+% ============================================================
+\section{Transformers et modèles de fondation}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{L'attention en segmentation}
+  \begin{itemize}
+    \item Développés pour le traitement du langage, les « transformers » modélisent
+          directement les relations entre \hl{éléments distants} d'une
+          séquence\refc{vaswani2017attention} ; leur adaptation à la vision ouvre une
+          nouvelle étape\refc{dosovitskiy2021image}
+    \item \hl{Swin Transformer}\refc{liu2021swin} et \hl{SegFormer}\refc{xie2021segformer} :
+          combiner une représentation \emph{hiérarchique} de l'image et une
+          modélisation \emph{globale} du contexte
+    \item Particulièrement pertinent en télédétection : l'identification d'un bâtiment,
+          d'une route ou d'une parcelle ne repose pas seulement sur l'apparence locale,
+          mais sur son \hl{organisation au sein de la scène}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Apprendre sans annotations}
+  \begin{itemize}
+    \item L'\hl{apprentissage auto-supervisé} devient un axe majeur de recherche
+    \item Les \hl{autoencodeurs masqués} montrent qu'il est possible d'apprendre des
+          représentations visuelles riches à partir de grandes quantités de données
+          \hl{non annotées}\refc{he2022masked}
+    \item Réponse directe à un déséquilibre propre au domaine :
+      \begin{itemize}
+        \item les archives satellitaires sont \hl{abondantes}
+        \item les annotations pixel à pixel restent \hl{rares et coûteuses}
+      \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Modèles de fondation géospatiaux}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.52\textwidth}
+      \begin{itemize}
+        \item Pré-entraînés sur de très grands volumes, puis adaptés : classification,
+              segmentation, détection d'objets, détection de changements, fusion
+              multimodale\refc{brown2025alphaearth}\refc{cong2022satmae}\refc{jakubik2023foundation}\refc{wang2023empirical}\refc{kirillov2023segment}
+        \item Objectif : des représentations \hl{génériques}, transférables entre
+              capteurs, régions géographiques et applications
+        \item \hl{Coût} du pré-entraînement : calcul, matériel, énergie
+              $\Rightarrow$ empreinte environnementale et accessibilité pour la
+              communauté scientifique
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.46\textwidth}\centering
+      \includegraphics[width=\textwidth]{imgs/article/fig7_modele_fondation_geospatial}
+      \legende{principe général d'un modèle de fondation géospatial}
+    \end{column}
+  \end{columns}
+  \vspace{0.4ex}
+  \begin{itemize}
+    \item Pas une rupture : les mêmes questions --- hétérogénéité, contexte spatial,
+          généralisation, modalités complémentaires --- sont désormais \hl{apprises}
+          plutôt que \hl{construites}
+  \end{itemize}
+  \sourcefoot{Fig.~7 de l'article : principe général d'un modèle de fondation
+    géospatial.}
+\end{frame}
+
+% ============================================================
+\section{Conclusion}
+% ============================================================
+\frame{\sectionpage}
+
+\begin{frame}{Une histoire non linéaire}
+  \begin{itemize}
+    \item Pas une trajectoire allant simplement des classifieurs statistiques aux
+          réseaux profonds, mais la \hl{convergence de plusieurs traditions} :
+          classification statistique, méthodes à noyaux, méthodes d'ensemble, modèles
+          contextuels, champs de Markov, méthodes variationnelles, géométrie
+          stochastique, apprentissage profond, modèles de fondation
+    \item Une lecture unifiée : l'\hl{intégration progressive de niveaux croissants de
+          contexte}
+  \end{itemize}
+  \vspace{0.6ex}
+  \filrouge
+  \vspace{0.4ex}
+  \begin{itemize}
+    \item Un principe récurrent : \hl{attache aux données $+$ régularisation} ---
+          des champs de Markov aux fonctions de perte des réseaux profonds
+  \end{itemize}
+\end{frame}
+
+\begin{frame}{Défis ouverts}
+  \begin{columns}[T,onlytextwidth]
+    \begin{column}{0.48\textwidth}
+      \begin{itemize}
+        \item Généralisation géographique
+        \item Manque d'annotations
+        \item Fusion optique / radar / LiDAR
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \begin{itemize}
+        \item Prise en compte de la temporalité
+        \item Interprétabilité des modèles
+        \item Robustesse opérationnelle
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \vspace{1.2ex}
+  \begin{itemize}
+    \item La segmentation sémantique en télédétection demeure un \hl{domaine ouvert},
+          à l'intersection du traitement du signal et des images, de la modélisation
+          probabiliste, de la géométrie, de la vision par ordinateur et de
+          l'intelligence artificielle --- dans un contexte géospatial
+  \end{itemize}
+\end{frame}
 
 % ---- Merci -------------------------------------------------
 \frame{\merci}
 
-% ---- Bibliographie -----------------------------------------
-\nocite{*}
+% ============================================================
+% Annexes
+% ============================================================
+\begin{frame}{Crédits des figures}
+  \footnotesize
+  Toutes les illustrations sont reprises de M.~\textsc{Pastorino}, G.~\textsc{Moser},
+  J.~\textsc{Zerubia}, « Segmentation sémantique en télédétection ».
+  \vspace{1ex}
+  \begin{itemize}\scriptsize
+    \item \textbf{Fig.~1} --- jeu de données \emph{Zeebruges}, publié par le comité
+      technique d'analyse d'image et de fusion de données (IADF) de l'IEEE GRSS ;
+      images et vérité terrain fournies par l'Académie royale militaire belge et
+      l'ONERA --- Laboratoire aérospatial français.
+    \item \textbf{Fig.~2} --- image satellitaire IKONOS, 4~m, 3 bandes, composition en
+      fausses couleurs (infrarouge voisin --- rouge --- bleu) ; cartes de segmentation
+      d'après \cite{moser2013landcover}.
+    \item \textbf{Fig.~3} --- voisinages du premier et du second ordre dans une grille,
+      d'après \cite{kato2012markov}.
+    \item \textbf{Fig.~4} --- érosion et dilatation d'une image satellite RVB.
+    \item \textbf{Fig.~5} --- image satellitaire SPOT \copyright{} CNES ; carte de
+      segmentation obtenue par la méthode variationnelle de \cite{samson2000variational}.
+    \item \textbf{Fig.~6} --- architecture d'une FCN appliquée aux images aériennes de
+      la base ISPRS \emph{2D Semantic Labeling Challenge} (Potsdam), d'après
+      \cite{pastorino2026probabilistic}.
+    \item \textbf{Fig.~7} --- principe général d'un modèle de fondation géospatial.
+  \end{itemize}
+\end{frame}
+
 \begin{frame}[allowframebreaks]{Références}
   \printbibliography[heading=none]
 \end{frame}
