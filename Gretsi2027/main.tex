@@ -83,7 +83,8 @@
     \fontsize{4.7}{5.2}\selectfont\raggedright\color{gris_fonce_inria}%
     \setlength{\parindent}{0pt}%
     \forcsvlist{\bibline}{#1}%
-    \endgroup
+    \par                       % avant \endgroup : sinon la dernière ligne
+    \endgroup                  % hérite de l'interligne du corps de planche
   \end{textblock}}
 
 % Encadré de formule : liseré rouge Inria, fond gris très clair
