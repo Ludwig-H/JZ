@@ -4,7 +4,7 @@ Support de présentation (Beamer, thème Inria + logo Università di Genova) pou
 l'article **« Segmentation Sémantique en Télédétection »** de Martina
 **Pastorino**, Gabriele **Moser** et Josiane **Zerubia**.
 
-> **État : présentation rédigée.** 45 planches pour une session plénière
+> **État : présentation rédigée.** 45 planches pour une session historique
 > (≈ 45 min), suivant les 11 sections de l'article, plus les crédits et la
 > bibliographie en annexe. Voir le
 > [rapport complémentaire](rapport-complementaire.md) pour le déroulé planche
@@ -185,7 +185,7 @@ Fig. 2 — [12] ; Fig. 3 — [29] ; Fig. 5 — SPOT © CNES et [52]/[56] ; Fig. 
 
 ## À décider ensemble
 
-- **Cadre exact** : session plénière du GRETSI 2027 — durée réellement allouée
+- **Cadre exact** : session historique du GRETSI 2027 — durée réellement allouée
   (le minutage vise 45 min ; pour 30 min, les planches 16, 28, 36 et 40 sont les
   candidates à la coupe).
 - **Affiliations** : la page de titre annonce Josiane Zerubia (Centre Inria

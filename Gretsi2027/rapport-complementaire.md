@@ -1,4 +1,4 @@
-# Rapport complémentaire — session plénière GRETSI 2027
+# Rapport complémentaire — session historique GRETSI 2027
 
 **Segmentation sémantique en télédétection**
 Josiane **Zerubia** (Centre Inria d'Université Côte d'Azur, équipe Ayana), en
@@ -20,7 +20,7 @@ l'article, un minutage, et les points qui restent à arbitrer avant diffusion.
 
 | | |
 |---|---|
-| Format | Session plénière, GRETSI 2027 |
+| Format | Session historique, GRETSI 2027 |
 | Durée visée | ≈ 45 min d'exposé (+ questions) |
 | Planches | 45 numérotées jusqu'au « Merci », + crédits + bibliographie en annexe |
 | Langue | Français intégral (titres, légendes, crédits, bibliographie) |
@@ -235,7 +235,7 @@ d'un même principe », « les modèles de fondation ne constituent pas une rupt
 complète ».
 
 **Ce qui a été ajouté.** Deux planches de synthèse sans équivalent direct dans
-l'article, destinées à tenir le rythme d'une plénière :
+l'article, destinées à tenir le rythme de la session :
 
 - planche 16, « Bilan de l'ère *pixel* » — pose explicitement l'alternative qui
   organise la suite (régulariser les étiquettes / enrichir les descripteurs) ;
@@ -293,7 +293,7 @@ comme une trame de l'exposé si l'on parcourt la planche du regard.
 2. **Date exacte** de la session : le pied de page affiche « GRETSI 2027 »
    (`\date[…]{…}` dans `main.tex`).
 3. **Droits des figures 4 et 7**, sans attribution dans l'article (cf. §5).
-4. **Durée réelle** allouée à la plénière : le minutage du §3 vise 45 minutes.
+4. **Durée réelle** allouée à la session : le minutage du §3 vise 45 minutes.
    Pour 30 minutes, les candidates à la coupe sont les planches 16, 28, 36 et
    40, sans casser le fil directeur.
 5. **Système de citations** : `biblatex` numérique et bibliographie complète en
