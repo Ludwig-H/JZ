@@ -129,7 +129,7 @@ respirations de quelques secondes.
 | 38 | § **10 Transformers et modèles de fondation** | | | |
 | 39 | L'attention en segmentation | dépendances longue portée ; Swin, SegFormer | — | [71][72][73][74] |
 | 40 | Apprendre sans annotations | MAE ; archives abondantes / annotations rares | — | [75] |
-| 41 | Modèles de fondation géospatiaux | généricité **et** coût énergétique | **Fig. 7** | [76][77][78][79][80] |
+| 41 | Modèles de fondation géospatiaux | généricité **et** coût énergétique | **Fig. 7** | [76][77][78][79] |
 | | | | | **4 min** |
 | 42 | § **11 Conclusion** | | | |
 | 43 | Une histoire non linéaire | convergence de traditions ; rappel de la frise | frise | — |
@@ -175,7 +175,7 @@ ajoutés sont la frise du fil directeur et les encadrés de formules, qui sont d
 
 | Figure | Sous-images | Planche(s) | Crédit / copyright porté sur la planche |
 |---|---|---|---|
-| 1 | (a) image aérienne, (b) carte de segmentation | 4 | Jeu de données *Zeebruges*, publié par le comité technique d'analyse d'image et de fusion de données (IADF) de l'IEEE GRSS ; images et vérité terrain fournies par l'Académie royale militaire belge et l'ONERA — Laboratoire aérospatial français |
+| 1 | (a) image aérienne, (b) carte de segmentation | 4 | Jeu de données *Zeebruges*, comité technique IADF de l'IEEE GRSS ; images et vérité terrain : Académie royale militaire belge et ONERA |
 | 2 | (a) IKONOS, (b) pixel à pixel, (c) contextuelle | 10 *(a, b)* et 19 *(a, b, c)* | Image IKONOS, 4 m, 3 bandes, composition en fausses couleurs (infrarouge voisin, rouge, bleu) ; cartes de segmentation d'après [12] |
 | 3 | (a) voisinage 1ᵉʳ ordre, (b) 2ᵈ ordre (+ cliques) | 22 | D'après [29] |
 | 4 | érosion, image originale RVB, dilatation | 27 | Figure de l'article (aucune source tierce indiquée) |
@@ -188,9 +188,9 @@ ajoutés sont la frise du fil directeur et les encadrés de formules, qui sont d
 **Immédiatement sous ces sous-légendes**, et non en pied de planche, vient la
 ligne de crédit (`\credit`), qui suit toujours le même patron : *légende
 factuelle + copyright + référence bibliographique* `[n]`, sans renvoi en clair
-au numéro de figure de l'article. La planche 51, en back-up après la
-bibliographie, récapitule les sept crédits, précédés de la référence complète
-de l'article.
+ni au numéro de figure ni à l'article lui-même. Légendes et crédits sont
+centrés sous les images. La planche 51, en back-up après la bibliographie,
+récapitule les sept crédits.
 
 **Point de vigilance.** Les figures 4 et 7 ne portent aucune attribution dans
 l'article. Si elles proviennent d'une source tierce, il faut la faire remonter
@@ -210,13 +210,13 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 - La bibliographie complète est imprimée en annexe (planches 46 à 50),
   `\nocite{*}` étant placé en tête de document pour que la numérotation suive
   l'ordre du fichier `references.bib`, lui-même calé sur l'ordre de l'article.
-- **L'article source est lui-même référencé**, sous la clé
-  `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
+- **L'article source figure comme une simple entrée bibliographique**, sous la
+  clé `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
   « Segmentation sémantique en télédétection », *Traitement du Signal et des
-  Images* (TSI), GRETSI, décembre 2026. Il est saisi en fin de `.bib` et porte
-  donc le numéro **[80]** ; volume, numéro et pages restent à compléter à la
-  parution. Il est cité sur la page de titre, sur le sommaire, sur chaque
-  planche illustrée et sur la planche de crédits.
+  Images* (TSI), GRETSI, décembre 2026. Saisi en fin de `.bib`, il porte le
+  numéro **[80]** et apparaît uniquement dans la bibliographie de l'annexe :
+  aucune planche n'y renvoie en clair. Volume, numéro et pages restent à
+  compléter à la parution.
 - **Décalage à connaître** : l'article numérote deux fois la même référence
   (Samson *et al.*, 2000, en [52] **et** en [56]). Le fichier `.bib` ne la
   contient qu'une fois, sous la clé `samson2000variational`. Par conséquent :

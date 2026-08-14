@@ -6,9 +6,9 @@
 % (article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
 %
 % La présentation suit la structure de l'article (11 sections).
-% Toutes les illustrations sont des figures de l'article, extraites
-% dans imgs/article/ ; crédits en pied de planche et planche
-% « Crédits des figures » en annexe.
+% Illustrations : figures de l'article, extraites dans imgs/article/ ;
+% crédits sous les sous-légendes et planche « Crédits des figures »
+% en back-up.
 %
 % Compilation : make  (latexmk + LuaLaTeX + biber, thème dans theme/)
 % ============================================================
@@ -58,12 +58,13 @@
 % Renvoi bibliographique en ligne : [n] en gris
 \newcommand{\refc}[1]{\,\textcolor{gris_fonce_inria}{\footnotesize\cite{#1}}}
 
-% Légende courte sous une figure
-\newcommand{\legende}[1]{\par\vspace{0.4ex}{\scriptsize\color{gris_fonce_inria}#1\par}}
+% Légende courte sous une figure (centrée)
+\newcommand{\legende}[1]{%
+  \par\vspace{0.4ex}{\scriptsize\color{gris_fonce_inria}\centering #1\par}}
 
-% Crédit / copyright : dans le flux, juste sous les sous-légendes
+% Crédit / copyright : dans le flux, juste sous les sous-légendes (centré)
 \newcommand{\credit}[1]{%
-  \par\vspace{0.35ex}{\tiny\color{gris_fonce_inria}\raggedright #1\par}}
+  \par\vspace{0.35ex}{\tiny\color{gris_fonce_inria}\centering #1\par}}
 
 % Références complètes citées sur la planche, tout en bas.
 % Format compact : deux auteurs au plus, ni volume, ni numéro, ni pages.
@@ -168,7 +169,6 @@
 \frame{%
   \titlepage
   \logounige
-  \biblio{pastorino2026segmentation}
 }
 
 % ---- Sommaire ----------------------------------------------
@@ -181,7 +181,6 @@
       \tableofcontents[sections={7-11}]
     \end{column}
   \end{columns}
-  \biblio{pastorino2026segmentation}
 \end{frame}
 
 % ============================================================
@@ -797,7 +796,6 @@
     \begin{column}{0.46\textwidth}\centering
       \includegraphics[width=\textwidth]{imgs/article/fig7_modele_fondation_geospatial}
       \legende{principe général d'un modèle de fondation géospatial}
-      \credit{Illustration reprise de \cite{pastorino2026segmentation}.}
     \end{column}
   \end{columns}
   \vspace{0.4ex}
@@ -805,7 +803,7 @@
     \item Pas une rupture : les mêmes questions (hétérogénéité, contexte, généralisation)
           sont désormais \hl{apprises} plutôt que \hl{construites}
   \end{itemize}
-  \biblio{brown2025alphaearth,cong2022satmae,jakubik2023foundation,wang2023empirical,kirillov2023segment,pastorino2026segmentation}
+  \biblio{brown2025alphaearth,cong2022satmae,jakubik2023foundation,wang2023empirical,kirillov2023segment}
 \end{frame}
 
 % ============================================================
@@ -869,12 +867,8 @@
 \end{frame}
 
 \begin{frame}{Crédits des figures}
-  \footnotesize
-  Toutes les illustrations sont reprises de M.~\textsc{Pastorino}, G.~\textsc{Moser},
-  J.~\textsc{Zerubia}, « Segmentation sémantique en télédétection », \emph{Traitement
-  du Signal et des Images} (TSI), GRETSI, décembre 2026 \cite{pastorino2026segmentation}.
   \vspace{1ex}
-  \begin{itemize}\scriptsize
+  \begin{itemize}\footnotesize
     \item Image aérienne et carte de segmentation : jeu de données \emph{Zeebruges},
       comité technique d'analyse d'image et de fusion de données (IADF) de l'IEEE GRSS ;
       images et données de vérité terrain fournies par l'Académie royale militaire belge
@@ -891,7 +885,7 @@
       \emph{2D Semantic Labeling Challenge} (Potsdam) \cite{pastorino2026probabilistic}.
     \item Principe général d'un modèle de fondation géospatial.
   \end{itemize}
-  \biblio{moser2013landcover,kato2012markov,samson2000variational,pastorino2026probabilistic,pastorino2026segmentation}
+  \biblio{moser2013landcover,kato2012markov,samson2000variational,pastorino2026probabilistic}
 \end{frame}
 
 \end{document}

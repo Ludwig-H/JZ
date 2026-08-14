@@ -76,8 +76,8 @@ figures.
   frise du fil directeur (`\filrouge`) et les encadrés de formules
   (`\formulebox`).
 - **Crédits** : légende courte sous chaque image (`\legende`), puis crédit et
-  copyright **juste sous les sous-légendes** (`\credit`), et une planche de
-  back-up récapitulant les sept crédits.
+  copyright **juste sous les sous-légendes** (`\credit`) ; les deux sont
+  centrés. Une planche de back-up récapitule les sept crédits.
 - **Citations** : renvois `[n]` en gris dans le corps des planches (`\refc`) et
   **texte complet des références citées, tout en bas de chaque planche**
   (`\biblio`, format compact) ; bibliographie complète en annexe. `\nocite{*}`
@@ -107,7 +107,8 @@ la clé `pastorino2026segmentation` :
 
 Il est placé en dernier pour ne décaler aucun autre numéro : sur les planches,
 `[1]`–`[55]` correspondent aux mêmes numéros que dans l'article, `[56]`–`[79]`
-à ses `[57]`–`[80]`, et `[80]` est l'article source. Le fichier a été relu
+à ses `[57]`–`[80]`, et `[80]` est l'article source, qui n'apparaît que dans
+la bibliographie de l'annexe. Le fichier a été relu
 automatiquement contre la liste de références de l'article (année et premier
 auteur de chaque entrée).
 
@@ -190,12 +191,11 @@ profond ne supprime pas mais reformule (§9).
 | `fig6_fcn_potsdam.png` | 6 | architecture FCN, ISPRS Potsdam [61] |
 | `fig7_modele_fondation_geospatial.png` | 7 | principe d'un modèle de fondation géospatial |
 
-Crédits portés sur les planches, sous la forme *légende + copyright +
-référence* : jeu de données Zeebruges (comité technique IADF de l'IEEE GRSS,
-Académie royale militaire belge & ONERA) ; cartes IKONOS [12] ; voisinages
-[29] ; image SPOT © CNES et segmentation [52] ; architecture FCN [61] — plus,
-sur chaque planche illustrée, le renvoi vers l'article source. Les figures 4 et
-7 ne portent aucune attribution dans l'article.
+Crédits portés sur les planches, centrés sous les sous-légendes, sous la forme
+*légende + copyright + référence* : jeu de données Zeebruges (comité technique
+IADF de l'IEEE GRSS, Académie royale militaire belge & ONERA) ; cartes IKONOS
+[12] ; voisinages [29] ; image SPOT © CNES et segmentation [52] ; architecture
+FCN [61]. Les figures 4 et 7 ne portent aucune attribution dans l'article.
 
 ## À décider ensemble
 
