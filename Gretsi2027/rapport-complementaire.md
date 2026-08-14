@@ -61,7 +61,7 @@ de l'introduction, et planche 43, en ouverture de la conclusion :
 | Cohérence spatiale | les étiquettes voisines | §5, §6 |
 | Frontières, régions, objets | la géométrie de la scène | §7, §8 |
 | Représentations apprises | les descripteurs ne sont plus conçus | §9 |
-| Représentations générales | transférables, multimodales | §10 |
+| Modèles de fondation | représentations générales, transférables, multimodales | §10 |
 
 Un second fil, plus discret, court dans les planches 22, 31, 32 et 43 : la
 formule **attache aux données + régularisation**, commune aux champs de Markov
@@ -128,7 +128,7 @@ respirations de quelques secondes.
 | | | | | **5 min 30** |
 | 38 | § **10 Transformers et modèles de fondation** | | | |
 | 39 | L'attention en segmentation | dépendances longue portée ; Swin, SegFormer | — | [71][72][73][74] |
-| 40 | Apprendre sans annotations | MAE ; archives abondantes / annotations rares | — | [75] |
+| 40 | Apprendre sans annotation | MAE ; archives abondantes / annotations rares | — | [75] |
 | 41 | Modèles de fondation géospatiaux | généricité **et** coût énergétique | **Fig. 7** | [76][77][78][79] |
 | | | | | **4 min** |
 | 42 | § **11 Conclusion** | | | |
