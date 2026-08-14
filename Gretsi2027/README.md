@@ -94,23 +94,32 @@ consignés dans le [rapport complémentaire](rapport-complementaire.md).
 
 ### `references.bib`
 
-**80 entrées** : les 80 références de l'article, dans son ordre, chacune
-précédée d'un commentaire `% [nn]` rappelant son numéro d'origine — ramenées à
-79 parce que la référence Samson *et al.* (2000) y est numérotée deux fois
-([52] et [56]) et n'est saisie qu'une fois, sous la clé
-`samson2000variational` — puis **l'article lui-même**, en fin de fichier, sous
-la clé `pastorino2026segmentation` :
+**80 entrées.** En tête, **l'article dont est tirée la présentation**, sous la
+clé `pastorino2026segmentation` :
 
 > M. Pastorino, G. Moser, J. Zerubia, « Segmentation sémantique en
 > télédétection », *Traitement du Signal et des Images* (TSI), GRETSI,
 > décembre 2026. *(volume, numéro et pages à compléter à la parution.)*
 
-Il est placé en dernier pour ne décaler aucun autre numéro : sur les planches,
-`[1]`–`[55]` correspondent aux mêmes numéros que dans l'article, `[56]`–`[79]`
-à ses `[57]`–`[80]`, et `[80]` est l'article source, qui n'apparaît que dans
-la bibliographie de l'annexe. Le fichier a été relu
-automatiquement contre la liste de références de l'article (année et premier
-auteur de chaque entrée).
+Il porte donc le numéro `[1]`, et c'est la seule référence à l'article
+originel : elle figure sur la page de titre et dans la bibliographie, nulle
+part ailleurs.
+
+Viennent ensuite les 80 références de l'article, dans son ordre, chacune
+précédée d'un commentaire `% [nn]` rappelant son numéro d'origine, ramenées à
+79 parce que la référence Samson *et al.* (2000) y est numérotée deux fois
+([52] et [56]) et n'est saisie qu'une fois, sous la clé
+`samson2000variational`. La correspondance est donc :
+
+| Numéros dans l'article | Numéros sur les planches |
+|---|---|
+| *(l'article lui-même)* | `[1]` |
+| `[1]` … `[55]` | `[2]` … `[56]` |
+| `[56]` | fusionné avec `[52]`, soit `[53]` |
+| `[57]` … `[80]` | `[57]` … `[80]` |
+
+Le fichier a été relu automatiquement contre la liste de références de
+l'article (année et premier auteur de chaque entrée).
 
 ## Ressources graphiques disponibles
 

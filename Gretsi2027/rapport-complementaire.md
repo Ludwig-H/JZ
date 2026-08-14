@@ -210,23 +210,23 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 - La bibliographie complète est imprimée en annexe (planches 46 à 50),
   `\nocite{*}` étant placé en tête de document pour que la numérotation suive
   l'ordre du fichier `references.bib`, lui-même calé sur l'ordre de l'article.
-- **L'article source figure comme une simple entrée bibliographique**, sous la
-  clé `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
+- **L'article source ouvre la bibliographie**, sous la clé
+  `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
   « Segmentation sémantique en télédétection », *Traitement du Signal et des
-  Images* (TSI), GRETSI, décembre 2026. Saisi en fin de `.bib`, il porte le
-  numéro **[80]** et apparaît uniquement dans la bibliographie de l'annexe :
-  aucune planche n'y renvoie en clair. Volume, numéro et pages restent à
-  compléter à la parution.
+  Images* (TSI), GRETSI, décembre 2026. Il porte le numéro **[1]** et
+  n'apparaît qu'à deux endroits : sous le sous-titre de la page de titre, et
+  dans la bibliographie de l'annexe. Aucune autre planche n'y renvoie. Volume,
+  numéro et pages restent à compléter à la parution.
 - **Décalage à connaître** : l'article numérote deux fois la même référence
   (Samson *et al.*, 2000, en [52] **et** en [56]). Le fichier `.bib` ne la
   contient qu'une fois, sous la clé `samson2000variational`. Par conséquent :
 
   | Numéros dans l'article | Numéros sur les planches |
   |---|---|
-  | [1] … [55] | identiques |
-  | [56] | fusionné avec [52] |
-  | [57] … [80] | [56] … [79] |
-  | *(l'article lui-même)* | [80] |
+  | *(l'article lui-même)* | [1] |
+  | [1] … [55] | [2] … [56] |
+  | [56] | fusionné avec [52], soit [53] |
+  | [57] … [80] | [57] … [80] |
 
   Chaque entrée de `references.bib` porte en commentaire son numéro d'origine
   (`% [nn]`), ce qui permet de retrouver la correspondance à tout moment.
