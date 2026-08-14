@@ -1,0 +1,6 @@
+# Le thème Inria charge ses .sty et ses images depuis theme/.
+$ENV{'TEXINPUTS'}='.:theme//:'.$ENV{'TEXINPUTS'};
+# Optionnel : déposer ici gitlab.inria.fr/gabarits/latex-inria-fonts
+# pour disposer des fontes Inria Sans (sinon le thème émet un simple avertissement).
+$ENV{'TEXINPUTS'}='.:latex-inria-fonts//:'.$ENV{'TEXINPUTS'};
+$pdf_mode = 4; # lualatex

@@ -1,0 +1,700 @@
+
+===== PAGE 1 =====
+Segmentation S´ emantique en T´ el´ ed´ etection
+Martina Pastorino, Gabriele Moser, Josiane Zerubia
+1 Introduction
+La segmentation s´ emantique constitue aujourd’hui l’une des tˆ aches fondamentales de l’analyse
+d’image. Son objectif est d’associer ` a chaque pixel d’une image une ´ etiquette appartenant ` a
+un ensemble pr´ ed´ efini de classes s´ emantiques. Si cette terminologie s’est impos´ ee avec l’essor de
+l’apprentissage profond au milieu des ann´ ees 2010, le probl` eme qu’elle d´ esigne est ´ etudi´ e depuis
+plusieurs d´ ecennies en t´ el´ ed´ etection sous des appellations telles queclassification supervis´ ee,classifi-
+cation pixel ` a pixelouclassification contextuelle[1, 2, 3]. Dans le cadre de la t´ el´ ed´ etection, l’objectif
+est de transformer des observations satellitaires acquises par les capteurs en cartes th´ ematiques
+d´ ecrivant l’occupation ou l’utilisation du sol (voir la Figure 1).
+L’´ evolution des m´ ethodes de segmentation en t´ el´ ed´ etection peut ˆ etre interpr´ et´ ee comme une
+int´ egration progressive de niveaux croissants d’information. Les premi` eres approches reposent
+exclusivement sur les signatures radiom´ etriques observ´ ees au niveau du pixel. Les m´ ethodes dis-
+criminantes am´ eliorent ensuite les fronti` eres de d´ ecision, tandis que les approches contextuelles
+et les mod` eles markoviens introduisent les relations spatiales entre observations voisines. Les
+m´ ethodes spectro-spatiales enrichissent la repr´ esentation des sc` enes en combinant informations
+radiom´ etriques, texturales et g´ eom´ etriques, alors que les approches variationnelles proposent des
+formulations ´ energ´ etiques permettant de mod´ eliser explicitement les r´ egions et leurs fronti` eres. En-
+fin, les r´ eseaux profonds, les “transformers” et les mod` eles de fondation d´ eplacent le probl` eme vers
+l’apprentissage automatique de repr´ esentations hi´ erarchiques, multimodales et transf´ erables.
+Dans sa d´ efinition actuelle, la segmentation s´ emantique consiste ` a estimer une fonction reliant
+chaque pixel d’une image ` a une classe appartenant ` a une ontologie pr´ ed´ efinie. Elle produit une carte
+dense dans laquelle chaque pixel re¸ coit une interpr´ etation s´ emantique, et se distingue ´ egalement
+des m´ ethodes de segmentation dites de “bas niveau”, dont l’objectif est uniquement de partitionner
+une image en r´ egions homog` enes sans leur associer de signification.
+Les images de t´ el´ ed´ etection pr´ esentent cependant des caract´ eristiques qui les distinguent des
+images naturelles. Elles peuvent ˆ etre acquises par des capteurs optiques, radar (radar ` a synth` ese
+d’ouverture, RSO) ou LiDAR, couvrir des r´ esolutions spatiales tr` es variables, ˆ etre observ´ ees ` a
+diff´ erentes dates ou combiner plusieurs modalit´ es d’acquisition. Elles d´ ecrivent ´ egalement des
+sc` enes g´ eographiques complexes, dont les propri´ et´ es varient selon les r´ egions, les saisons ou les con-
+ditions d’acquisition. Par cons´ equent, l’´ evolution des m´ ethodes de segmentation en t´ el´ ed´ etection
+ne peut ˆ etre r´ eduite ` a une simple adaptation des avanc´ ees de la vision par ordinateur ; elle r´ esulte
+d’une convergence entre reconnaissance statistique des formes, traitement du signal et des images,
+mod´ elisation probabiliste, morphologie math´ ematique, g´ eom´ etrie stochastique, analyse orient´ ee ob-
+jet et, plus r´ ecemment, apprentissage profond.
+D’un point de vue formel, une image de t´ el´ ed´ etection est repr´ esent´ ee par une fonctionI:
+ΩÑR d, o` u Ω d´ esigne le domaine spatial de l’image etdle nombre de variables disponibles.
+Selon le capteur, ces variables peuvent correspondre ` a une bande panchromatique, plusieurs bandes
+multispectrales ou hyperspectrales, des polarisations RSO, des mesures LiDAR, ou encore des
+1
+===== PAGE 2 =====
+donn´ ees d´ eriv´ ees telles que des indices spectraux, des mod` eles num´ eriques de terrain ou d’autres
+informations auxiliaires. La segmentation s´ emantique consiste alors ` a estimer une fonctionf: ΩÑ
+C, o` uCd´ esigne l’ensemble fini des classes s´ emantiques consid´ er´ ees.
+(a)
+ (b)
+Figure 1: Exemple de segmentation s´ emantique en t´ el´ ed´ etection: (a) image a´ erienne originale et
+(b) carte de segmentation. Ensemble de donn´ ees Zeebruges publi´ e par le comit´ e technique
+d’analyse d’image et de fusion de donn´ ees (IADF) IEEE GRSS, images et donn´ ees de v´ erit´ e
+terrain fournis par l’Acad´ emie royale militaire belge et ONERA – Laboratoire a´ erospatial fran¸ cais.
+2 Classification statistique : les premi` eres approches pixel ` a pixel
+L’apparition des premiers satellites d’observation de la Terre, notamment avec le programmes Land-
+sat (optique) et SeaSat (radar), respectivement au d´ ebut et ` a la fin des ann´ ees 1970, marque le
+d´ eveloppement de la t´ el´ ed´ etection num´ erique moderne et cr´ ee un besoin croissant de m´ ethodes au-
+tomatiques capables de produire des cartes d’occupation du sol ` a partir des images multispectrales
+ou radar [4, 5, 6]. Les premi` eres approches s’appuient alors sur les fondements de la reconnais-
+sance statistique des formes, qui fournissent un cadre probabiliste rigoureux pour la classification
+supervis´ ee des pixels [1, 2].
+Dans cette formulation, chaque pixel est repr´ esent´ e par un vecteur d’observations [1] :
+x“px 1,...,x dqT,(1)
+o` u les composantes correspondent aux r´ eponses radiom´ etriques enregistr´ ees dans les diff´ erentes
+bandes spectrales du capteur (dans le cas d’un capteur optique) ou aux intensit´ es RSO, ` a des
+donn´ ees auxiliaires, ` a des indices de v´ eg´ etation ou ` a d’autres variables d´ eriv´ ees pertinentes pour la
+tˆ ache. La classification consiste alors ` a attribuer au pixel la classe la plus probable selon une r` egle
+de d´ ecision bay´ esienne,
+ˆω“arg max
+ωi
+Ppω i|xq.(2)
+Sous l’hypoth` ese que les observations de chaque classe suivent une distribution gaussienne mul-
+tivari´ ee, cette formulation conduit naturellement au classifieur du maximum ` a posteriori (MAP),
+parfois appel´ e de mani` ere informelle classifieur du maximum de vraisemblance (Maximum Likeli-
+hood Classifier, MLC en anglais), qui devient pendant plusieurs d´ ecennies la m´ ethode de r´ ef´ erence
+2
+===== PAGE 3 =====
+pour la classification des images satellitaires [2, 3, 7]. Son succ` es repose sur une interpr´ etation prob-
+abiliste simple, une mise en œuvre relativement peu coˆ uteuse et des performances satisfaisantes.
+Toutefois, les limites de ces approches apparaissent progressivement avec l’am´ elioration des
+capteurs. L’augmentation du nombre de variables spectrales ne conduit pas directement ` a une
+am´ elioration des performances lorsque le nombre d’´ echantillons d’apprentissage demeure limit´ e,
+ph´ enom` ene d´ ecrit d` es la fin des ann´ ees 1960 et aujourd’hui connu sous le nom de “mal´ ediction de
+la dimension” (Hughes phenomenon, en anglais) [8]. Cette observation met en ´ evidence les limites
+des approches purement statistiques fond´ ees uniquement sur les signatures spectrales.
+Une seconde limitation provient de l’hypoth` ese d’ind´ ependance des observations. Les premiers
+classifieurs consid` erent chaque pixel ind´ ependamment de son voisinage, sans exploiter les relations
+spatiales existant entre les ´ el´ ements de la sc` ene. Or, les objets g´ eographiques pr´ esentent naturelle-
+ment une forte coh´ erence spatiale : les pixels appartenant ` a une mˆ eme parcelle agricole, une forˆ et,
+une zone urbaine ou un r´ eseau routier poss` edent g´ en´ eralement des caract´ eristiques similaires et sont
+spatialement corr´ el´ es. Cette hypoth` ese d’ind´ ependance conduit fr´ equemment ` a des cartes bruit´ ees
+pr´ esentant un effet de type “poivre et sel”, particuli` erement marqu´ e lorsque la r´ esolution spatiale
+augmente (voir la Figure 2).
+Ces limitations conduisent progressivement au d´ eveloppement d’approches dites contextuelles,
+dans lesquelles la d´ ecision ne d´ epend plus uniquement des caract´ eristiques radiom´ etriques d’un
+seul pixel mais ´ egalement de son environnement spatial. Cette ´ evolution marque une transition
+importante dans l’histoire de la segmentation en t´ el´ ed´ etection, puisque le probl` eme cesse pro-
+gressivement d’ˆ etre consid´ er´ e comme une simple classification spectrale pour devenir un probl` eme
+d’interpr´ etation spatiale des sc` enes [9, 10, 11].
+(a)
+ (b)
+ (c)
+Figure 2: Comparaison entre la classification pixel-` a-pixel et la classification contextuelle: (a)
+image satellitaire IKONOS, 4-m res., 3 bandes, composition en fausses couleurs (infrarouge voisin
+- rouge - bleu), (b) carte de segmentation pixel-` a-pixel et (c) carte de segmentation contextuelle
+[12].
+3 M´ ethodes discriminantes et m´ ethodes ` a noyaux
+Les limites des classifieurs probabilistes classiques conduisent, ` a partir de la fin des ann´ ees 1990,
+` a un int´ erˆ et croissant pour les m´ ethodes discriminantes, dont l’objectif est d’estimer directement
+les fronti` eres de d´ ecision entre classes plutˆ ot que de mod´ eliser la distribution statistique des ob-
+servations. Cette ´ evolution r´ epond notamment aux difficult´ es rencontr´ ees lorsque les hypoth` eses
+gaussiennes sont peu r´ ealistes ou lorsque la dimension des donn´ ees devient ´ elev´ ee.
+Parmi ces approches, les machines ` a vecteurs de support (Support Vector Machines, SVM en
+anglais) s’imposent rapidement comme une r´ ef´ erence pour la classification supervis´ ee des images
+de t´ el´ ed´ etection. Issues de la th´ eorie de l’apprentissage statistique, elles reposent sur le principe de
+3
+===== PAGE 4 =====
+maximisation de la marge entre classes, ce qui leur conf` ere d’excellentes capacit´ es de g´ en´ eralisation,
+mˆ eme lorsque le nombre d’´ echantillons d’apprentissage est limit´ e par rapport ` a la dimension des
+donn´ ees [13, 14].
+L’introduction des m´ ethodes ` a noyaux ´ etend naturellement ce cadre aux probl` emes non lin´ eaires
+en permettant la construction de fronti` eres de d´ ecision complexes tout en conservant une formula-
+tion convexe du probl` eme d’optimisation [15]. Au cours des ann´ ees 2000, les SVM deviennent ainsi
+l’un des classifieurs les plus utilis´ es en t´ el´ ed´ etection. Leur succ` es est confirm´ e par de nombreuses
+´ etudes portant sur des donn´ ees multispectrales, hyperspectrales et multisources, ce qui conduit au
+d´ eveloppement de noyaux sp´ ecifiquement adapt´ es aux caract´ eristiques des observations g´ eospatiales
+[16, 17].
+Les SVM am´ eliorent toutefois essentiellement la fonction de d´ ecision. Appliqu´ es directement
+aux vecteurs d’observations, ils restent des classifieurs pixel ` a pixel et n’int` egrent pas explicitement
+les d´ ependances spatiales entre ´ etiquettes. Cette distinction est importante : au cours des ann´ ees
+2000, les progr` es de la classification en t´ el´ ed´ etection proviennent autant du d´ eveloppement de
+nouveaux classifieurs que de l’introduction de repr´ esentations spatiales de plus en plus riches, deux
+directions de recherche qui ´ evolueront largement en parall` ele.
+4 M´ ethodes d’ensemble
+Alors que les m´ ethodes ` a noyaux dominent une grande partie des travaux sur la classification
+supervis´ ee, une autre direction de recherche se d´ eveloppe autour de l’apprentissage d’ensemble (en-
+semble learningen anglais). Son principe consiste ` a combiner plusieurs classifieurs afin d’am´ eliorer
+la robustesse et les capacit´ es de g´ en´ eralisation. Parmi ces approches, les forˆ ets al´ eatoires (Ran-
+dom Forests, RF en anglais) [18], deviennent rapidement l’une des m´ ethodes les plus populaires en
+t´ el´ ed´ etection.
+Les RF construisent un ensemble d’arbres de d´ ecision appris sur des sous-ensembles al´ eatoires
+des observations et des variables, puis agr` egent leurs pr´ edictions par vote majoritaire. Cette
+strat´ egie limite le surapprentissage tout en conservant une forte capacit´ e ` a mod´ eliser des rela-
+tions non lin´ eaires. En pratique, les RF pr´ esentent plusieurs avantages qui expliquent leur diffusion
+rapide : elles n´ ecessitent peu de r´ eglages, sont robustes au bruit, peuvent traiter un grand nombre
+de variables et fournissent des mesures d’importance des caract´ eristiques utiles pour l’interpr´ etation
+des mod` eles.
+Les premi` eres applications en t´ el´ ed´ etection montrent rapidement leur efficacit´ e pour la classifi-
+cation des images multispectrales et hyperspectrales [19]. Les forˆ ets al´ eatoires deviennent ensuite
+un outil de r´ ef´ erence pour de nombreuses tˆ aches, notamment la cartographie de l’occupation du
+sol, la d´ etection de changements et la fusion de donn´ ees multisources [20]. Comme les SVM,
+elles restent ind´ ependantes de la repr´ esentation utilis´ ee et peuvent ˆ etre associ´ ees aussi bien ` a des
+variables spectrales qu’` a des caract´ eristiques texturales, morphologiques ou spectro-spatiales.
+L’essor des m´ ethodes discriminantes et des approches d’ensemble am´ eliore consid´ erablement les
+performances des classifieurs supervis´ es. Il ne r´ esout cependant pas une limitation fondamentale des
+approches pixel ` a pixel : l’absence de prise en compte explicite de l’organisation spatiale des sc` enes.
+Cette question devient alors l’un des principaux axes de recherche en segmentation et classification
+d’image.
+4
+===== PAGE 5 =====
+5 Classification contextuelle et premiers mod` eles spatiaux
+L’am´ elioration des performances des classifieurs supervis´ es ne suffit pas ` a ´ eliminer les artefacts de
+type poivre et sel (salt-and-pepperen anglais) observ´ es dans les cartes produites par les approches
+pixel ` a pixel. D` es les ann´ ees 1980-1990, une part importante de la recherche s’oriente donc vers
+l’introduction du contexte spatial dans le processus de classification. L’id´ ee est simple : dans
+une sc` ene de t´ el´ ed´ etection, les objets g´ eographiques pr´ esentent g´ en´ eralement une forte coh´ erence
+spatiale, de sorte qu’un pixel a davantage de chances d’appartenir ` a la mˆ eme classe que ses voisins
+imm´ ediats qu’` a une classe totalement diff´ erente.
+Les mod` eles contextuels [3] exploitent cette propri´ et´ e en enrichissant la d´ ecision ` a partir de
+l’environnement spatial des observations. L’information pertinente ne r´ eside alors plus uniquement
+dans la r´ eponse radiom´ etrique locale, mais ´ egalement dans les relations de voisinage, les structures
+r´ egionales et, plus g´ en´ eralement, dans l’organisation spatiale de la sc` ene.
+Plusieurs niveaux d’information contextuelle sont progressivement distingu´ es. Le contexte local
+repose sur les interactions entre pixels voisins ou sur l’exploitation de fenˆ etres de taille limit´ ee,
+permettant de mieux repr´ esenter les d´ ependances spatiales imm´ ediates [21, 22]. Le contexte r´ egional
+introduit des caract´ eristiques d´ ecrivant des ensembles de pixels, telles que la texture, la forme,
+la taille ou l’homog´ en´ eit´ e des r´ egions segment´ ees, annon¸ cant les approches orient´ ees objet qui
+se d´ evelopperont par la suite [23]. Enfin, le contexte global cherche ` a int´ egrer des informations
+d´ ecrivant l’organisation g´ en´ erale de la sc` ene, les relations entre objets ou des connaissances a
+priori sur leur disposition spatiale. Cette hi´ erarchie entre contexte local, r´ egional et global restera
+un principe structurant dans l’´ evolution des m´ ethodes de segmentation, jusqu’aux architectures
+profondes contemporaines [24, 25, 26].
+L’exploitation de ces informations am´ eliore significativement les performances de classification
+(voir la Figure 2), aussi bien pour des images multispectrales que pour des donn´ ees multitemporelles
+ou multisources [27, 28]. Dans le mˆ eme temps, plusieurs travaux proposent des formulations prob-
+abilistes permettant de mod´ eliser explicitement les interactions entre observations voisines, notam-
+ment dans le cadre de la fusion d’informations optiques, radar et texturales [11].
+La classification n’est d` es lors plus consid´ er´ ee comme une succession de d´ ecisions ind´ ependantes,
+mais comme un probl` eme global dans lequel les ´ etiquettes doivent ˆ etre estim´ ees conjointement afin
+de produire une repr´ esentation coh´ erente de la sc` ene. Cette ´ evolution conduit naturellement au
+d´ eveloppement des mod` eles markoviens et des approches bay´ esiennes spatiales, qui fourniront un
+cadre th´ eorique rigoureux pour formaliser ces interactions.
+6 Mod` eles markoviens et bay´ esiens
+Les mod` eles contextuels montrent qu’il est essentiel d’exploiter les relations spatiales entre obser-
+vations voisines. Les champs de Markov (Markov Random Fields, MRF en anglais) constituent la
+premi` ere formalisation probabiliste g´ en´ erale de cette id´ ee et deviennent rapidement l’un des cadres
+th´ eoriques les plus influents pour la segmentation et la classification d’image [9, 10, 29].
+Le principe consiste ` a consid´ erer les ´ etiquettes non plus comme des variables ind´ ependantes,
+mais comme un ensemble de variables al´ eatoires d´ efinies sur un graphe de voisinage. Sous les
+hypoth` eses de Markov et grˆ ace ` a l’´ equivalence entre champs de Markov et distributions de Gibbs,
+la recherche de la carte de classes optimale peut ˆ etre formul´ ee comme un probl` eme d’estimation du
+MAP :
+ˆY“arg max
+Y
+PpY|Xq,(3)
+5
+===== PAGE 6 =====
+o` uXrepr´ esente les observations etYl’ensemble des ´ etiquettes ` a estimer. En appliquant le
+th´ eor` eme de Bayes, ce probl` eme devient ´ equivalent ` a la minimisation d’une fonction d’´ energie
+ˆY“arg min
+Y
+UpY|Xq,(4)
+avec
+UpY|Xq“U dpY|Xq`βU rpY|Xq,(5)
+o` uUd repr´ esente le terme d’attache aux donn´ ees, g´ en´ eralement d´ eriv´ e de la vraisemblance
+des observations, tandis queU r introduit une contrainte de r´ egularisation spatiale favorisant la
+coh´ erence entre pixels voisins (voir la Figure 3). Le param` etreβcontrˆ ole le compromis entre
+fid´ elit´ e aux observations et r´ egularit´ e de la solution.
+(a)
+ (b)
+Figure 3: Exemple de voisinage entre pixels dans une grille : (a) voisinage du premier ordre et (b)
+voisinage du second ordre [29].
+Cette formulation pr´ esente un int´ erˆ et majeur, car elle permet d’int´ egrer dans un cadre unique les
+observations radiom´ etriques et les interactions spatiales. Les syst` emes de voisinage sont g´ en´ eralement
+d´ efinis au premier ou au second ordre, tandis que les potentiels de clique p´ enalisent certaines con-
+figurations d’´ etiquettes, par exemple les changements de classe entre pixels adjacents [9, 10, 29].
+La segmentation r´ esulte ainsi d’un compromis entre l’information apport´ ee par les donn´ ees et une
+hypoth` ese explicite de coh´ erence spatiale.
+L’estimation de la configuration optimale constitue toutefois un probl` eme d’optimisation diffi-
+cile. Plusieurs strat´ egies sous-optimales sont alors propos´ ees afin de rendre ces mod` eles exploitables
+en pratique, notamment les algorithmes ICM (Iterated Conditional Modesen anglais), le recuit
+simul´ e (Simulated Annealingen anglais) [30], les ´ echantillonneurs de Gibbs [9], puis les m´ ethodes
+fond´ ees sur les coupes de graphes (graph cuten anglais) [31] ou sur la propagation de croyance avec
+boucles (loopy belief propagationen anglais) [32].
+Les MRF deviennent rapidement un outil de r´ ef´ erence pour am´ eliorer la coh´ erence spatiale
+des classifications, la segmentation d’image multisource, la restauration, la d´ etection de change-
+ment ainsi que la fusion de donn´ ees optique, radar ou LiDAR [11, 33, 34]. Leur apport d´ epasse
+toutefois ces applications particuli` eres : ils fournissent une formulation probabiliste g´ en´ erale de la
+r´ egularisation spatiale qui influencera durablement les d´ eveloppements ult´ erieurs en segmentation.
+Les champs conditionnels al´ eatoires (Conditional Random Fields, CRF en anglais) prolongent
+naturellement cette famille de mod` eles en repr´ esentant directement la distribution conditionnelle
+6
+===== PAGE 7 =====
+PpY|Xqplutˆ ot que la distribution jointe des observations et des ´ etiquettes [35]. Cette formulation
+facilite l’utilisation de caract´ eristiques discriminantes complexes et s’int` egre plus naturellement
+aux m´ ethodes d’apprentissage supervis´ e. Les CRF connaissent ainsi un d´ eveloppement important
+en segmentation d’image, notamment avec les mod` eles enti` erement connect´ es, qui permettent de
+mieux pr´ eserver les contours des objets [36]. Ils seront ensuite int´ egr´ es aux architectures profondes
+sous forme de modules de raffinement ou de couches diff´ erentiables, ´ etablissant un lien direct entre
+les mod` eles graphiques probabilistes et les approches modernes de segmentation [37].
+Au-del` a de leurs applications propres, les MRF et les CRF introduisent une id´ ee qui restera
+centrale tout au long de l’´ evolution de la segmentation : une carte d’occupation du sol ne doit pas
+seulement ˆ etre compatible avec les observations locales, mais ´ egalement avec l’organisation spatiale
+de la sc` ene. Cette id´ ee sera reprise, sous des formulations diff´ erentes, dans les m´ ethodes variation-
+nelles, les approches fond´ ees sur les graphes, les m´ ethodes orient´ ees objet puis, plus r´ ecemment,
+dans certaines strat´ egies de r´ egularisation des r´ eseaux profonds [31, 36, 38, 39, 40, 41].
+7 M´ ethodes spectro-spatiales
+L’introduction de mod` eles contextuels am´ eliore la coh´ erence des cartes de classification, mais elle
+ne modifie pas la repr´ esentation des observations elles-mˆ emes. Une d´ emarche compl´ ementaire
+consiste alors ` a enrichir directement les caract´ eristiques utilis´ ees par le classifieur en combinant
+les informations spectrales avec des descripteurs spatiaux. Cette id´ ee donne naissance, au cours
+des ann´ ees 2000, au paradigmespectro-spatial, qui jouera un rˆ ole majeur dans l’´ evolution de la
+classification d’image de t´ el´ ed´ etection [5].
+Cette ´ evolution est favoris´ ee par l’am´ elioration progressive des r´ esolutions spatiales et spectrales
+des capteurs. Alors que les premi` eres g´ en´ erations d’image ´ etaient principalement caract´ eris´ ees par
+leurs signatures radiom´ etriques, les images ` a plus haute r´ esolution r´ ev` elent la structure interne
+des objets g´ eographiques. Une mˆ eme classe peut ainsi pr´ esenter une forte variabilit´ e spectrale,
+tandis que des objets diff´ erents poss` edent parfois des signatures radiom´ etriques tr` es proches. La
+texture, la forme, la taille, l’organisation spatiale et les relations de voisinage deviennent alors des
+informations aussi discriminantes que les valeurs spectrales elles-mˆ emes [42].
+Les premi` eres approches spectro-spatiales exploitent des statistiques locales, des descripteurs
+texturaux ainsi que des op´ erateurs issus de la morphologie math´ ematique afin de construire des
+repr´ esentations plus riches des observations [21, 43, 44]. Contrairement aux mod` eles markoviens,
+qui introduisent une r´ egularisation spatiale au niveau des ´ etiquettes, ces m´ ethodes enrichissent les
+vecteurs de caract´ eristiques avant la phase de classification.
+Une ´ etape importante est franchie avec l’introduction des profils morphologiques ´ etendus (Ex-
+tended Morphological Profiles, EMP en anglais), puis des profils d’attributs (Attribute Profilesen
+anglais), qui permettent de d´ ecrire simultan´ ement les propri´ et´ es spectrales et la structure spatiale
+des sc` enes ` a diff´ erentes ´ echelles d’observation [45, 46]. Ces repr´ esentations deviennent rapidement
+des r´ ef´ erences pour la classification des images hyperspectrales et, plus g´ en´ eralement, pour les
+donn´ ees ` a haute et tr` es haute r´ esolution spatiale.
+Les descripteurs ainsi construits peuvent ensuite ˆ etre associ´ es ` a diff´ erents classifieurs super-
+vis´ es. Les combinaisons avec les machines ` a vecteurs de support obtiennent notamment des per-
+formances remarquables et contribuent largement ` a la diffusion des approches spectro-spatiales
+[16, 47]. Toutefois, le principe est plus g´ en´ eral : ces repr´ esentations peuvent ˆ etre exploit´ ees par des
+forˆ ets al´ eatoires, des r´ eseaux de neurones ou d’autres m´ ethodes discriminantes. Les gains observ´ es
+proviennent autant de la qualit´ e de la repr´ esentation que des performances du classifieur utilis´ e.
+Le d´ eveloppement des m´ ethodes spectro-spatiales s’accompagne ´ egalement d’avanc´ ees impor-
+7
+===== PAGE 8 =====
+´Erosion
+ Image originale
+ Dilatations
+Figure 4: Exemple d’´ erosion (` a gauche) et dilatation (` a droite) de l’image satellite originale RVB
+(centre).
+tantes en r´ eduction de dimension, extraction de caract´ eristiques et fusion de donn´ ees multisources.
+Les repr´ esentations multi-´ echelles, les m´ ethodes fond´ ees sur les sous-espaces et les techniques de
+fusion permettent progressivement de construire des vecteurs combinant informations spectrales,
+texturales, morphologiques et g´ eom´ etriques dans un mˆ eme espace de repr´ esentation [48, 49].
+Les approches spectro-spatiales s’appliquent ´ egalement aux images multispectrales, aux donn´ ees
+radar (RSO), aux images a´ eriennes ` a tr` es haute r´ esolution ainsi qu’aux approches multimodales
+combinant plusieurs capteurs ou des donn´ ees auxiliaires. L’objectif n’est donc pas d’exploiter un
+plus grand nombre de bandes spectrales, mais de construire une repr´ esentation int´ egrant l’ensemble
+des informations pertinentes d´ ecrivant la sc` ene observ´ ee.
+Enfin, plusieurs travaux proposent d’utiliser les r´ egions segment´ ees comme unit´ es d’analyse
+plutˆ ot que les pixels individuels. En rempla¸ cant la classification pixel ` a pixel par une classification
+fond´ ee sur des r´ egions homog` enes, ces approches am´ eliorent la coh´ erence spatiale des cartes tout
+en r´ eduisant les effets de bruit [50].
+8 M´ ethodes variationnelles et mod` eles ´ energ´ etiques
+Alors que les mod` eles markoviens expriment la coh´ erence spatiale dans un cadre probabiliste, une
+autre famille d’approches d´ eveloppe une id´ ee similaire ` a partir de la fin des ann´ ees 1980 en formulant
+la segmentation comme un probl` eme de minimisation d’´ energie. Les m´ ethodes variationnelles ne
+cherchent plus ` a mod´ eliser explicitement une distribution de probabilit´ e sur les ´ etiquettes, mais ` a
+d´ eterminer la partition de l’image qui r´ ealise le meilleur compromis entre fid´ elit´ e aux observations
+et r´ egularit´ e spatiale ou g´ eom´ etrique [29, 51, 52].
+Les premiers d´ eveloppements concernent les contours actifs (active contoursen anglais), qui
+repr´ esentent les fronti` eres des objets sous la forme de courbes d´ eformables ´ evoluant sous l’action
+de forces internes, assurant la r´ egularit´ e du contour, et de forces externes d´ eriv´ ees des informations
+contenues dans l’image [52, 53]. Ces mod` eles introduisent une repr´ esentation explicite des contours
+et ouvrent la voie ` a une large famille de m´ ethodes fond´ ees sur la minimisation d’´ energie.
+Une avanc´ ee majeure est ensuite apport´ ee par la fonctionnelle de Mumford–Shah, qui constitue
+encore aujourd’hui l’un des mod` eles variationnels les plus influents en traitement des images [51].
+Dans cette formulation, la segmentation est obtenue en recherchant simultan´ ement une approxima-
+tion r´ eguli` ere de l’image et un ensemble de discontinuit´ es correspondant aux contours des objets :
+Epu,Kq“
+ż
+Ω
+pu´Iq 2dx`µ
+ż
+ΩzK
+|∇u|2dx`ν|K|.(6)
+8
+===== PAGE 9 =====
+o` uud´ esigne l’image reconstruite,Il’image observ´ ee,Kl’ensemble des discontinuit´ es repr´ esentant
+les contours des objets,µą0 un param` etre de r´ egularisation contrˆ olant la douceur de la solution
+` a l’int´ erieur des r´ egions, etνą0 un param` etre pond´ erant la longueur, ou plus g´ en´ eralement la
+mesure, des contours afin d’en limiter la complexit´ e g´ eom´ etrique.
+Le premier terme mesure la fid´ elit´ e de la solution aux observations, le second favorise une
+repr´ esentation r´ eguli` ere ` a l’int´ erieur des r´ egions, tandis que le troisi` eme p´ enalise la complexit´ e
+des contours. Cette d´ ecomposition illustre un principe commun ` a de nombreuses m´ ethodes de
+segmentation : rechercher un ´ equilibre entre l’ajustement aux donn´ ees et la r´ egularit´ e de la solution.
+Les d´ eveloppements ult´ erieurs cherchent ` a am´ eliorer la robustesse num´ erique et la flexibilit´ e de
+ces mod` eles. Les m´ ethodes des surfaces de niveau (level setsen anglais) repr´ esentent les contours
+de mani` ere implicite au moyen d’une fonction de niveau, ce qui facilite la gestion automatique des
+changements de topologie au cours de l’´ evolution de la segmentation [54]. Quelques ann´ ees plus
+tard, les mod` eles r´ egionaux remplacent progressivement les approches reposant uniquement sur les
+gradients de l’image. En s’appuyant sur les statistiques des r´ egions plutˆ ot que sur les seuls contours,
+ils permettent une segmentation plus robuste dans les images bruit´ ees ou faiblement contrast´ ees
+[55].
+Les m´ ethodes variationnelles trouvent rapidement des applications en t´ el´ ed´ etection, notamment
+pour la segmentation des images optiques ` a haute r´ esolution, la restauration, la fusion de donn´ ees
+et l’extraction d’objets g´ eographiques. Plusieurs formulations proposent d’unifier dans une mˆ eme
+fonctionnelle les probl` emes de classification, de segmentation et de restauration, ´ etablissant ainsi
+un lien direct entre les approches probabilistes et les mod` eles variationnels [52]. Cette proximit´ e
+conceptuelle est aujourd’hui largement reconnue : les mod` eles bay´ esiens, les MRF, les m´ ethodes
+variationnelles et les formulations fond´ ees sur les graphes peuvent souvent ˆ etre interpr´ et´ es comme
+diff´ erentes expressions d’un mˆ eme principe, consistant ` a combiner un terme d’attache aux donn´ ees
+avec une r´ egularisation spatiale ou g´ eom´ etrique.
+Les m´ ethodes variationnelles constituent ´ egalement un pont vers les approches modernes de
+segmentation. Plusieurs de leurs concepts, notamment les formulations ´ energ´ etiques, les contraintes
+de r´ egularit´ e et les compromis entre fid´ elit´ e aux donn´ ees et coh´ erence spatiale, r´ eapparaissent
+aujourd’hui sous des formes diff´ erentes dans les fonctions de perte, les proc´ edures d’optimisation
+et certaines architectures hybrides combinant mod` eles variationnels et apprentissage profond.
+(a)
+ (b)
+Figure 5: Classification par une m´ ethode variationnelle: (a) image satellitaire SPOT©CNES et
+(b) carte de segmentation obtenue par la m´ ethode variationnelle dans [56].
+9
+===== PAGE 10 =====
+Figure 6: Architecture d’une FCN appliqu´ ee aux images a´ eriennes de la base de donn´ ees ISPRS
+2D Semantic Labeling Challenge Potsdam [61].
+9 Apprentissage profond et segmentation s´ emantique
+`A partir de 2012, l’apprentissage profond transforme profond´ ement les m´ ethodes de classification
+et de segmentation d’image. Cette ´ evolution est notamment marqu´ ee par les r´ esultats obtenus
+lors duImageNet Large Scale Visual Recognition Challenge(ILSVRC), o` u le r´ eseau AlexNet
+d´ emontre une am´ elioration spectaculaire des performances en classification des images naturelles
+[57]. Ces r´ esultats montrent qu’il est possible d’apprendre automatiquement des repr´ esentations
+hi´ erarchiques directement ` a partir des donn´ ees, sans recourir ` a la conception manuelle de de-
+scripteurs spectraux, texturaux ou g´ eom´ etriques. La qualit´ e des performances d´ epend alors non
+seulement du classifieur, mais ´ egalement de la capacit´ e du r´ eseau ` a apprendre conjointement une
+repr´ esentation pertinente et la fonction de d´ ecision.
+Cette ´ evolution est rapidement transpos´ ee au domaine de la t´ el´ ed´ etection. Plusieurs travaux
+montrent que les r´ eseaux convolutifs apprennent des repr´ esentations plus discriminantes que les de-
+scripteurs construits manuellement, tandis que le transfert de mod` eles pr´ e-entraˆ ın´ es sur de grandes
+bases d’images naturelles ouvre la voie au transfert d’apprentissage vers les images a´ eriennes et
+satellitaires [58, 59]. Les approches spectro-spatiales, jusque-l` a fond´ ees sur des repr´ esentations
+con¸ cues manuellement, ´ evoluent progressivement vers des repr´ esentations apprises directement ` a
+partir des donn´ ees.
+Une ´ etape d´ ecisive est franchie avec les r´ eseaux de neurones enti` erement convolutifs (Fully
+Convolutional Networks, FCN en anglais, voir la Figure 6), qui remplacent les architectures de
+classification classiques par des r´ eseaux capables de produire directement une pr´ ediction dense ` a
+l’´ echelle du pixel [60]. En supprimant les couches enti` erement connect´ ees au profit d’op´ erations
+exclusivement convolutionnelles, ces architectures permettent d’apprendre de bout en bout une
+fonction de segmentation, sans ´ etape explicite d’extraction de caract´ eristiques ni post-traitement
+obligatoire.
+Les architectures encodeur–d´ ecodeur compl` etent rapidement cette formulation, U-Net en con-
+stituant l’exemple le plus repr´ esentatif [62]. Les connexions de saut (skip connectionsen anglais)
+r´ einjectent dans le d´ ecodeur les informations de localisation perdues lors des op´ erations de sous-
+´ echantillonnage, am´ eliorant ainsi la d´ elimitation des contours et la segmentation des objets de
+petite taille. Grˆ ace ` a leur simplicit´ e et ` a leur efficacit´ e, ces architectures deviennent rapidement
+des r´ ef´ erences pour de nombreuses applications en t´ el´ ed´ etection, notamment la cartographie de
+10
+===== PAGE 11 =====
+l’occupation du sol, l’extraction de bˆ atiments, de routes ou de r´ eseaux hydrographiques [63, 64, 65].
+L’´ evolution des r´ eseaux profonds s’accompagne ensuite d’un effort important pour mieux repr´ esenter
+le contexte spatial et les objets observ´ es ` a diff´ erentes ´ echelles. Les r´ eseaux r´ esiduels facilitent
+l’apprentissage de mod` eles plus profonds en limitant les probl` emes de disparition du gradient
+[66]. Les architectures “DeepLab” introduisent les convolutions dilat´ ees ainsi que les modules
+d’agr´ egation multi-´ echelle (Atrous Spatial Pyramid Poolingen anglais), qui augmentent le champ
+r´ eceptif sans d´ egrader la r´ esolution spatiale des pr´ edictions [67, 68]. Dans le mˆ eme esprit, les
+pyramides de caract´ eristiques (Feature Pyramid Networksen anglais) am´ eliorent la repr´ esentation
+d’objets de tailles tr` es variables [69], propri´ et´ e particuli` erement importante en t´ el´ ed´ etection o` u une
+mˆ eme sc` ene peut contenir simultan´ ement des v´ ehicules, des bˆ atiments, des parcelles agricoles ou
+des massifs forestiers.
+Parall` element, l’int´ egration de donn´ ees multimodales devient un axe majeur de recherche [63,
+70]: les r´ eseaux profonds permettent d´ esormais d’apprendre directement des repr´ esentations com-
+munes ` a partir de plusieurs modalit´ es d’observation. Cette ´ evolution r´ epond naturellement aux
+sp´ ecificit´ es de la t´ el´ ed´ etection, o` u une mˆ eme sc` ene peut ˆ etre d´ ecrite simultan´ ement par des images
+optiques, des donn´ ees RSO, des acquisitions LiDAR, des mod` eles num´ eriques de terrain ou encore
+des donn´ ees g´ eographiques auxiliaires.
+L’apprentissage profond ne fait ainsi pas disparaˆ ıtre les concepts d´ evelopp´ es au cours des
+d´ ecennies pr´ ec´ edentes ; il les reformule dans un cadre d’apprentissage de bout en bout. Les notions
+de contexte spatial, de repr´ esentation multi-´ echelle, de fusion de donn´ ees ou encore de hi´ erarchie
+des objets, auparavant d´ ecrites au moyen de mod` eles probabilistes, variationnels ou g´ eom´ etriques,
+sont d´ esormais apprises directement par les architectures profondes.
+Malgr´ e les performances remarquables obtenues, les r´ eseaux convolutifs pr´ esentent encore plusieurs
+limitations. Leur apprentissage repose g´ en´ eralement sur de grandes quantit´ es d’annotations pixel
+` a pixel, dont la production demeure particuli` erement coˆ uteuse en t´ el´ ed´ etection. Leur capacit´ e
+de g´ en´ eralisation entre capteurs, r´ egions g´ eographiques ou modalit´ es d’acquisition reste ´ egalement
+limit´ ee, tout comme leur aptitude ` a mod´ eliser des d´ ependances spatiales ` a tr` es longue port´ ee. Ces
+limitations ouvrent naturellement la voie aux architectures fond´ ees sur les m´ ecanismes d’attention,
+puis aux mod` eles de fondation g´ eospatiaux.
+10 Transformers et mod` eles de fondation
+Les limites des architectures convolutives, notamment pour la mod´ elisation de d´ ependances spa-
+tiales ` a longue port´ ee, conduisent progressivement ` a l’introduction de m´ ecanismes d’attention en
+segmentation s´ emantique. D´ evelopp´ es initialement pour le traitement automatique du langage na-
+turel, les “transformers” permettent de mod´ eliser directement les relations entre ´ el´ ements distants
+d’une s´ equence [71]. Leur adaptation ` a la vision ouvre une nouvelle ´ etape dans l’´ evolution des
+m´ ethodes de segmentation [72].
+Des architectures telles que “Swin Transformer” [73] et “SegFormer” [74] cherchent ` a combiner
+une repr´ esentation hi´ erarchique de l’image avec une mod´ elisation plus globale du contexte. Cette
+propri´ et´ e est particuli` erement int´ eressante en t´ el´ ed´ etection, o` u l’interpr´ etation d’un objet d´ epend
+souvent de son environnement ` a diff´ erentes ´ echelles. L’identification d’un bˆ atiment, d’une route ou
+d’une parcelle agricole ne repose en effet pas uniquement sur son apparence locale, mais ´ egalement
+sur son organisation au sein de la sc` ene.
+Parall` element, l’apprentissage auto-supervis´ e devient un axe majeur de recherche. Les autoen-
+codeurs masqu´ es montrent qu’il est possible d’apprendre des repr´ esentations visuelles riches ` a partir
+de grandes quantit´ es de donn´ ees non annot´ ees [75]. Cette ´ evolution r´ epond directement aux besoins
+11
+===== PAGE 12 =====
+Figure 7: Principe g´ en´ eral d’un mod` ele de fondation g´ eospatial.
+de la t´ el´ ed´ etection, o` u les archives satellitaires sont abondantes alors que les annotations pixel ` a
+pixel demeurent rares et coˆ uteuses.
+Ces travaux conduisent progressivement ` a l’´ emergence des mod` eles de fondation g´ eospatiaux
+(Geospatial Foundation Modelsen anglais) [76, 77, 78, 79, 80]. Pr´ e-entraˆ ın´ es sur de tr` es grands
+volumes de donn´ ees, ces mod` eles peuvent ensuite ˆ etre adapt´ es ` a diff´ erentes tˆ aches, telles que la
+classification, la segmentation, la d´ etection d’objets, la d´ etection de changements ou la fusion multi-
+modale (voir la Figure 7). L’objectif n’est plus uniquement d’optimiser une architecture pour un jeu
+de donn´ ees particulier, mais d’apprendre des repr´ esentations g´ en´ eriques capables d’ˆ etre transf´ er´ ees
+entre capteurs, r´ egions g´ eographiques et applications. Cette g´ en´ eralisation s’accompagne toutefois
+d’un coˆ ut de pr´ e-entraˆ ınement particuli` erement ´ elev´ e, tant en temps de calcul qu’en ressources
+mat´ erielles et ´ energ´ etiques, soulevant des questions relatives ` a l’empreinte environnementale de ces
+mod` eles et ` a leur accessibilit´ e pour la communaut´ e scientifique.
+Cette ´ evolution ne constitue pas une rupture compl` ete avec les approches pr´ ec´ edentes. Les
+mod` eles de fondation prolongent au contraire plusieurs questions qui traversent l’histoire de la
+segmentation en t´ el´ ed´ etection : comment int´ egrer des donn´ ees h´ et´ erog` enes, repr´ esenter le contexte
+spatial, g´ en´ eraliser ` a de nouvelles r´ egions ou tirer parti de modalit´ es d’observation compl´ ementaires.
+La diff´ erence r´ eside d´ esormais dans le fait que ces capacit´ es sont apprises ` a partir de tr` es grands
+volumes de donn´ ees plutˆ ot que construites explicitement par la conception de mod` eles ou de de-
+scripteurs sp´ ecialis´ es.
+11 Conclusion
+L’histoire de la segmentation s´ emantique en t´ el´ ed´ etection ne suit pas une trajectoire lin´ eaire al-
+lant simplement des classifieurs statistiques aux r´ eseaux profonds. Elle r´ esulte plutˆ ot de plusieurs
+traditions scientifiques qui se sont progressivement rejointes : classification statistique, m´ ethodes ` a
+noyaux, m´ ethodes d’ensemble, mod` eles contextuels, champs de Markov, m´ ethodes variationnelles,
+g´ eom´ etrie stochastique, apprentissage profond et mod` eles de fondation.
+Cette histoire peut ˆ etre r´ esum´ ee comme une int´ egration progressive de niveaux croissants du
+contexte. Les premi` eres approches exploitent l’information spectrale locale. Les mod` eles con-
+textuels et markoviens introduisent la coh´ erence spatiale. Les m´ ethodes variationnelles et les
+12
+===== PAGE 13 =====
+processus ponctuels marqu´ es mod´ elisent les fronti` eres, les r´ egions et les objets. Les approches
+spectro-spatiales et orient´ ees objet combinent radiom´ etrie, texture, forme et voisinage. Les r´ eseaux
+profonds apprennent automatiquement ces repr´ esentations, tandis que les “transformers” et les
+mod` eles de fondation cherchent aujourd’hui ` a construire des repr´ esentations g´ eospatiales g´ en´ erales,
+multimodales et transf´ erables.
+Les d´ efis actuels restent nombreux : g´ en´ eralisation g´ eographique, manque d’annotations, fu-
+sion de donn´ ees optiques, radar et LiDAR, prise en compte de la temporalit´ e, interpr´ etabilit´ e des
+mod` eles et robustesse op´ erationnelle. Ces questions montrent que la segmentation s´ emantique en
+t´ el´ ed´ etection demeure un domaine ouvert, situ´ e ` a l’intersection du traitement du signal et des im-
+ages, de la mod´ elisation probabiliste, de la g´ eom´ etrie, de la vision par ordinateur et de l’intelligence
+artificielle, dans un contexte g´ eospatial.
+References
+[1] R. O. Duda and P. E. Hart,Pattern Classification and Scene Analysis. Wiley, 1973.
+[2] P. H. Swain and S. M. Davis,Remote Sensing: The Quantitative Approach. McGraw-Hill,
+1978.
+[3] J. A. Richards,Remote Sensing Digital Image Analysis. Springer, 1986.
+[4] R. Schowengerdt,Remote Sensing: Models and Methods for Image Processing. Academic
+Press, 2007. [Online]. Available: https://books.google.it/books?id=oG 3nQEACAAJ
+[5] D. A. Landgrebe,Signal Theory Methods in Multispectral Remote Sensing. John Wiley Sons,
+Ltd, 2003.
+[6] F. Ulaby and D. Long,Microwave radar and radiometric remote sensing, 1st ed. Artech
+House, 2015.
+[7] P. M. Mather,Computer Processing of Remotely-Sensed Images. Wiley, 2004.
+[8] G. Hughes, “On the mean accuracy of statistical pattern recognizers,”IEEE Transactions on
+Information Theory, vol. 14, no. 1, pp. 55–63, 1968.
+[9] S. Geman and D. Geman, “Stochastic relaxation, Gibbs distributions, and the Bayesian
+restoration of images,”IEEE Transactions on Pattern Analysis and Machine Intelligence,
+vol. 6, no. 6, pp. 721–741, 1984.
+[10] J. Besag, “On the statistical analysis of dirty pictures,”Journal of the Royal Statistical Society:
+Series B, vol. 48, no. 3, pp. 259–302, 1986.
+[11] A. H. S. Solberg, T. Taxt, and A. K. Jain, “A Markov random field model for classification of
+multisource satellite imagery,”IEEE Transactions on Geoscience and Remote Sensing, vol. 34,
+no. 1, pp. 100–113, 1996.
+[12] G. Moser, S. B. Serpico, and J. A. Benediktsson, “Land-cover mapping by Markov modeling
+of spatial–contextual information in very-high-resolution remote sensing images,”Proceedings
+of the IEEE, vol. 101, no. 3, pp. 631–651, 2013.
+[13] V. N. Vapnik,Statistical Learning Theory. Wiley, 1998.
+13
+===== PAGE 14 =====
+[14] C. Cortes and V. Vapnik, “Support-vector networks,”Machine Learning, vol. 20, pp. 273–297,
+1995.
+[15] B. Sch¨ olkopf and A. J. Smola,Learning with Kernels. MIT Press, 2002.
+[16] G. Camps-Valls and L. Bruzzone,Kernel Methods for Remote Sensing Data Analysis. Wiley,
+2009.
+[17] G. Mountrakis, J. Im, and C. Ogole, “Support vector machines in remote sensing: A review,”
+ISPRS Journal of Photogrammetry and Remote Sensing, vol. 66, no. 3, pp. 247–259, 2011.
+[18] L. Breiman, “Random forests,”Machine Learning, vol. 45, no. 1, pp. 5–32, 2001.
+[19] P. O. Gislason, J. A. Benediktsson, and J. R. Sveinsson, “Random forests for land cover
+classification,”Pattern Recognition Letters, vol. 27, no. 4, pp. 294–300, 2006.
+[20] M. Belgiu and L. Dr˘ agut ¸, “Random forest in remote sensing: A review of applications and
+future directions,”ISPRS Journal of Photogrammetry and Remote Sensing, vol. 114, pp. 24–
+31, 2016.
+[21] R. M. Haralick, K. Shanmugam, and I. Dinstein, “Textural features for image classification,”
+IEEE Transactions on Systems, Man, and Cybernetics, vol. 3, no. 6, pp. 610–621, 1973.
+[22] R. M. Haralick and L. G. Shapiro, “Image segmentation techniques,”Computer Vision, Graph-
+ics, and Image Processing, vol. 29, no. 1, pp. 100–132, 1985.
+[23] T. Blaschke, “Object based image analysis for remote sensing,”ISPRS Journal of Photogram-
+metry and Remote Sensing, vol. 65, no. 1, pp. 2–16, 2010.
+[24] R. Azencott and C. Graffigne, “Non-supervised segmentation using multi-level Markov random
+fields,” inProceedings., 11th IAPR International Conference on Pattern Recognition. Vol. III.
+Conference C: Image, Speech and Signal Analysis,, 1992, pp. 201–204.
+[25] X. Li, H. Zhao, X. Hanet al., “A survey of semantic segmentation,”arXiv preprint
+arXiv:1412.7062, 2014.
+[26] G. Csurka, D. Larlus, F. Perronnin, and F. Meylan, “What is a good semantic segmentation
+model? a survey,”International Journal of Computer Vision, 2023.
+[27] L. Bruzzone and S. B. Serpico, “An iterative technique for the detection of land-cover transi-
+tions in multitemporal remote-sensing images,”IEEE Transactions on Geoscience and Remote
+Sensing, vol. 35, no. 4, pp. 858–867, 1997.
+[28] ——, “A neural-statistical approach to multitemporal and multisource remote-sensing image
+classification,”IEEE Transactions on Geoscience and Remote Sensing, vol. 37, no. 3, pp.
+1350–1359, 1999.
+[29] Z. Kato and J. Zerubia, “Markov random fields in image segmentation,”Foundations and
+Trends in Signal Processing, vol. 5, no. 1, pp. 1–155, 2012.
+[30] S. Kirkpatrick, “Optimization by simulated annealing: Quantitative studies,”Journal of Sta-
+tistical Physics, vol. 34, no. 5, pp. 975–986, 1984.
+14
+===== PAGE 15 =====
+[31] Y. Boykov, O. Veksler, and R. Zabih, “Fast approximate energy minimization via graph cuts,”
+IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 23, no. 11, pp. 1222–
+1239, 2001.
+[32] K. Tanaka, J. Inoue, and D. Titterington, “Loopy belief propagation and probabilistic image
+processing,” in2003 IEEE XIII Workshop on Neural Networks for Signal Processing (IEEE
+Cat. No.03TH8718), 2003, pp. 329–338.
+[33] H. Derin and H. Elliott, “Modeling and segmentation of noisy and textured images using Gibbs
+random fields,”IEEE Transactions on Pattern Analysis and Machine Intelligence, vol. 9, no. 1,
+pp. 39–55, 1987.
+[34] G. Moser and S. B. Serpico, “Combining support vector machines and Markov random fields in
+an integrated framework for contextual image classification,”IEEE Transactions on Geoscience
+and Remote Sensing, vol. 51, no. 5, pp. 2734–2752, 2013.
+[35] J. Lafferty, A. McCallum, and F. Pereira, “Conditional random fields: Probabilistic models
+for segmenting and labeling sequence data,” inICML, 2001.
+[36] P. Kr¨ ahenb¨ uhl and V. Koltun, “Efficient inference in fully connected CRFs with Gaussian edge
+potentials,” inNeurIPS, 2011.
+[37] S. Zheng, S. Jayasumana, B. Romera-Paredes, V. Vineet, Z. Su, D. Du, C. Huang, and P. H. S.
+Torr, “Conditional random fields as recurrent neural networks,” inICCV, 2015.
+[38] M. Pastorino, A. Montaldo, L. Fronda, I. Hedhli, G. Moser, S. B. Serpico, and J. Zerubia,
+“Multisensor and multiresolution remote sensing image classification through a causal hierar-
+chical Markov framework and decision tree ensembles,”Remote Sensing, vol. 13, no. 5, p. 849,
+2021.
+[39] M. Pastorino, G. Moser, S. B. Serpico, and J. Zerubia, “Semantic segmentation of remote-
+sensing images through fully convolutional neural networks and hierarchical probabilistic
+graphical models,”IEEE Trans. Geosci. Remote Sens., vol. 60, pp. 1–16, 2022.
+[40] ——, “CRFNet: a deep convolutional network to learn the potentials of a CRF for the semantic
+segmentation of remote sensing images,”IEEE Trans. Geosci. Remote Sens., 2024.
+[41] A. Voisin, V. A. Krylov, G. Moser, S. B. Serpico, and J. Zerubia, “Classification of very
+high resolution SAR images of urban areas using copulas and texture in a hierarchical Markov
+random field model,”IEEE Geoscience and Remote Sensing Letters, vol. 10, no. 1, pp. 96–100,
+2013.
+[42] S. Dellepiane, D. D. Giusto, S. B. Serpico, and G. Vernazza, “SAR image recognition by
+integration of intensity and textural information,”International Journal of Remote Sensing,
+vol. 12, no. 9, pp. 1915–1932, 1991.
+[43] J. Serra,Image Analysis and Mathematical Morphology. Academic Press, 1982.
+[44] P. Soille,Morphological Image Analysis. Springer, 2003.
+[45] J. A. Benediktsson, J. A. Palmason, and J. R. Sveinsson, “Classification of hyperspectral data
+from urban areas based on extended morphological profiles,”IEEE Transactions on Geoscience
+and Remote Sensing, vol. 43, no. 3, pp. 480–491, 2005.
+15
+===== PAGE 16 =====
+[46] M. Dalla Mura, J. A. Benediktsson, B. Waske, and L. Bruzzone, “Morphological attribute
+profiles for the analysis of very high resolution images,”IEEE Transactions on Geoscience
+and Remote Sensing, 2010.
+[47] M. Fauvel, J. A. Benediktsson, J. Chanussot, and J. R. Sveinsson, “Spectral and spatial clas-
+sification of hyperspectral data using SVMs and morphological profiles,”IEEE Transactions
+on Geoscience and Remote Sensing, vol. 46, no. 11, pp. 3804–3814, 2008.
+[48] A. Plaza, J. A. Benediktsson, J. W. Boardman, J. Brazile, L. Bruzzone, G. Camps-Valls,
+J. Chanussot, M. Fauvel, P. Gamba, A. Gualtieri, M. Marconcini, J. C. Tilton, and G. Tri-
+anni, “Recent advances in techniques for hyperspectral image processing,”Remote Sensing of
+Environment, vol. 113, pp. S110–S122, 2009.
+[49] G. Camps-Valls, D. Tuia, L. Bruzzone, and J. A. Benediktsson, “Advances in hyperspectral
+image classification,”IEEE Signal Processing Magazine, 2014.
+[50] Y. Tarabalka, J. A. Benediktsson, and J. Chanussot, “Spectral-spatial classification of hyper-
+spectral imagery based on partitional clustering techniques,”IEEE Transactions on Geoscience
+and Remote Sensing, vol. 47, no. 8, pp. 2973–2987, 2009.
+[51] D. Mumford and J. Shah, “Optimal approximations by piecewise smooth functions and as-
+sociated variational problems,”Communications on Pure and Applied Mathematics, vol. 42,
+no. 5, pp. 577–685, 1989.
+[52] C. Samson, L. Blanc-Feraud, G. Aubert, and J. Zerubia, “A variational model for image clas-
+sification and restoration,”IEEE Transactions on Pattern Analysis and Machine Intelligence,
+vol. 22, no. 5, pp. 460–472, 2000.
+[53] M. Kass, A. Witkin, and D. Terzopoulos, “Snakes: Active contour models,”International
+Journal of Computer Vision, vol. 1, no. 4, pp. 321–331, 1988.
+[54] S. Osher and J. A. Sethian, “Fronts propagating with curvature-dependent speed: Algorithms
+based on Hamilton-Jacobi formulations,”Journal of Computational Physics, vol. 79, no. 1, pp.
+12–49, 1988.
+[55] T. F. Chan and L. A. Vese, “Active contours without edges,”IEEE Transactions on Image
+Processing, vol. 10, no. 2, pp. 266–277, 2001.
+[56] C. Samson, L. Blanc-Feraud, G. Aubert, and J. Zerubia, “A variational model for image clas-
+sification and restoration,”IEEE Transactions on Pattern Analysis and Machine Intelligence,
+vol. 22, no. 5, pp. 460–472, 2000.
+[57] A. Krizhevsky, I. Sutskever, and G. E. Hinton, “ImageNet classification with deep convolutional
+neural networks,” inAdvances in Neural Information Processing Systems, 2012.
+[58] Y. Chen, Z. Lin, X. Zhao, G. Wang, and Y. Gu, “Deep learning-based classification of hyper-
+spectral data,”IEEE Journal of Selected Topics in Applied Earth Observations and Remote
+Sensing, vol. 7, no. 6, pp. 2094–2107, 2014.
+[59] M. Castelluccio, G. Poggi, C. Sansone, and L. Verdoliva, “Land use classification in remote
+sensing images by convolutional neural networks,”arXiv preprint arXiv:1508.00092, 2015.
+16
+===== PAGE 17 =====
+[60] J. Long, E. Shelhamer, and T. Darrell, “Fully convolutional networks for semantic segmenta-
+tion,” inIEEE Conference on Computer Vision and Pattern Recognition, 2015, pp. 3431–3440.
+[61] M. Pastorino, G. Moser, S. B. Serpico, and J. Zerubia, “Probabilistic graphical models meet
+deep learning for semantic segmentation: Mathematical connections and recent developments,”
+IEEE Signal Processing Magazine, vol. 43, no. 2, pp. 51–63, 2026.
+[62] O. Ronneberger, P. Fischer, and T. Brox, “U-Net: Convolutional networks for biomedical
+image segmentation,” inMedical Image Computing and Computer-Assisted Intervention, 2015,
+pp. 234–241.
+[63] N. Audebert, B. Le Saux, and S. Lefevre, “Beyond RGB: Very high resolution urban remote
+sensing with multimodal deep networks,”ISPRS Journal of Photogrammetry and Remote
+Sensing, vol. 140, pp. 20–32, 2018.
+[64] Z. Zhang, Q. Liu, and Y. Wang, “Road extraction by deep residual U-Net,”IEEE Geoscience
+and Remote Sensing Letters, vol. 15, no. 5, pp. 749–753, 2018.
+[65] F. Isikdogan, A. C. Bovik, and P. Passalacqua, “Surface water mapping by deep learning,”
+IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing, vol. 10,
+no. 11, pp. 4909–4918, 2017.
+[66] K. He, X. Zhang, S. Ren, and J. Sun, “Deep residual learning for image recognition,” inIEEE
+Conference on Computer Vision and Pattern Recognition, 2016, pp. 770–778.
+[67] L.-C. Chen, G. Papandreou, F. Schroff, and H. Adam, “Rethinking atrous convolution for
+semantic image segmentation,”arXiv preprint arXiv:1706.05587, 2017.
+[68] L.-C. Chen, Y. Zhu, G. Papandreou, F. Schroff, and H. Adam, “Encoder-decoder with atrous
+separable convolution for semantic image segmentation,” inEuropean Conference on Computer
+Vision, 2018, pp. 801–818.
+[69] T.-Y. Lin, P. Doll´ ar, R. Girshick, K. He, B. Hariharan, and S. Belongie, “Feature pyramid
+networks for object detection,” inProceedings of the IEEE Conference on Computer Vision
+and Pattern Recognition (CVPR), 2017, pp. 2117–2125.
+[70] L. Ma, Y. Liu, X. Zhang, Y. Ye, G. Yin, and B. A. Johnson, “Deep learning in remote sensing
+applications: A meta-analysis and review,”ISPRS Journal of Photogrammetry and Remote
+Sensing, vol. 152, pp. 166–177, 2019.
+[71] A. Vaswani, N. Shazeer, N. Parmar, J. Uszkoreit, L. Jones, A. N. Gomez, L. Kaiser, and
+I. Polosukhin, “Attention is all you need,” inAdvances in Neural Information Processing
+Systems, 2017.
+[72] A. Dosovitskiyet al., “An image is worth 16x16 words: Transformers for image recognition at
+scale,” inInternational Conference on Learning Representations, 2021.
+[73] Z. Liu, Y. Lin, Y. Cao, H. Hu, Y. Wei, Z. Zhang, S. Lin, and B. Guo, “Swin transformer:
+Hierarchical vision transformer using shifted windows,” inIEEE International Conference on
+Computer Vision, 2021, pp. 10 012–10 022.
+[74] E. Xie, W. Wang, Z. Yu, A. Anandkumar, J. M. Alvarez, and P. Luo, “SegFormer: Sim-
+ple and efficient design for semantic segmentation with transformers,” inAdvances in Neural
+Information Processing Systems, 2021.
+17
+===== PAGE 18 =====
+[75] K. He, X. Chen, S. Xie, Y. Li, P. Dollar, and R. Girshick, “Masked autoencoders are scalable
+vision learners,” inIEEE Conference on Computer Vision and Pattern Recognition, 2022, pp.
+16 000–16 009.
+[76] C. Brown, M. Kazmierski, V. Pasquarella, W. Rucklidge, M. Samsikova, C. Zhang, E. Shel-
+hamer, E. Lahera, O. Wiles, S. Ilyushchenko, N. Gorelick, L. Zhang, S. Alj, E. Schechter,
+S. Askay, O. Guinan, R. Moore, A. Boukouvalas, and P. Kohli, “AlphaEarth foundations: An
+embedding field model for accurate and efficient global mapping from sparse label data,”arXiv
+preprint arXiv:2507.22291, 2025.
+[77] Y. Cong, S. Khanna, C. Meng, P. Liu, E. Rozi, Y. He, M. Burke, D. Lobell, and S. Ermon,
+“SatMAE: Pre-training transformers for temporal and multi-spectral satellite imagery,” in
+Advances in Neural Information Processing Systems, 2022.
+[78] J. Jakubiket al., “Foundation models for generalist geospatial artificial intelligence,”arXiv
+preprint arXiv:2310.18660, 2023.
+[79] D. Wang, J. Zhang, B. Du, L. Zhang, and D. Tao, “An empirical study of remote sensing
+pretraining,”IEEE Transactions on Geoscience and Remote Sensing, 2023.
+[80] A. Kirillov, E. Mintun, N. Ravi, H. Mao, C. Rolland, L. Gustafson, T. Xiao, S. Whitehead,
+A. C. Berg, W.-Y. Lo, P. Dollar, and R. Girshick, “Segment anything,” inIEEE International
+Conference on Computer Vision, 2023, pp. 4015–4026.
+18
