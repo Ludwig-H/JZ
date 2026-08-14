@@ -146,6 +146,9 @@
 \frame{%
   \titlepage
   \logounige
+  \sourcefoot{D'après M.~\textsc{Pastorino}, G.~\textsc{Moser}, J.~\textsc{Zerubia},
+    « Segmentation sémantique en télédétection », \emph{Traitement du Signal et des
+    Images} (TSI), GRETSI, décembre 2026 \cite{pastorino2026segmentation}.}
 }
 
 % ---- Sommaire ----------------------------------------------
@@ -158,9 +161,9 @@
       \tableofcontents[sections={7-11}]
     \end{column}
   \end{columns}
-  \sourcefoot{D'après M. \textsc{Pastorino}, G. \textsc{Moser}, J. \textsc{Zerubia},
-              « Segmentation sémantique en télédétection ». Le plan de l'exposé suit
-              celui de l'article.}
+  \sourcefoot{M.~\textsc{Pastorino}, G.~\textsc{Moser}, J.~\textsc{Zerubia},
+              « Segmentation sémantique en télédétection », \emph{Traitement du Signal
+              et des Images} (TSI), GRETSI, décembre 2026 \cite{pastorino2026segmentation}.}
 \end{frame}
 
 % ============================================================
@@ -192,8 +195,9 @@
       \legende{(b) carte de segmentation}
     \end{column}
   \end{columns}
-  \sourcefoot{Fig.~1 de l'article. Jeu de données \emph{Zeebruges} (comité technique IADF
-    de l'IEEE GRSS ; Académie royale militaire belge et ONERA).}
+  \sourcefoot{Jeu de données \emph{Zeebruges}, comité technique IADF de l'IEEE GRSS ;
+    images et vérité terrain : Académie royale militaire belge et
+    ONERA \cite{pastorino2026segmentation}.}
 \end{frame}
 
 \begin{frame}{Ce qui distingue la télédétection}
@@ -291,8 +295,8 @@
           problème d'\hl{interprétation spatiale des
           scènes}\refc{geman1984stochastic}\refc{besag1986statistical}\refc{solberg1996markov}
   \end{itemize}
-  \sourcefoot{Fig.~2 (a)--(b) de l'article. Image IKONOS, 4~m, 3 bandes, fausses couleurs
-    (infrarouge voisin, rouge, bleu) ; carte d'après \cite{moser2013landcover}.}
+  \sourcefoot{Image IKONOS, 4~m, 3 bandes, fausses couleurs (infrarouge voisin, rouge,
+    bleu) ; carte de segmentation \cite{moser2013landcover}\cite{pastorino2026segmentation}.}
 \end{frame}
 
 % ============================================================
@@ -412,8 +416,8 @@
     \item La classification n'est plus une suite de décisions indépendantes : les
           étiquettes doivent être estimées \hl{conjointement}
   \end{itemize}
-  \sourcefoot{Fig.~2 de l'article. Image IKONOS, 4~m, 3 bandes, fausses couleurs
-    (infrarouge voisin, rouge, bleu) ; cartes d'après \cite{moser2013landcover}.}
+  \sourcefoot{Image IKONOS, 4~m, 3 bandes, fausses couleurs (infrarouge voisin, rouge,
+    bleu) ; cartes de segmentation \cite{moser2013landcover}\cite{pastorino2026segmentation}.}
 \end{frame}
 
 % ============================================================
@@ -460,8 +464,8 @@
       \legende{(a) 1\textsuperscript{er} ordre \quad (b) 2\textsuperscript{d} ordre}
     \end{column}
   \end{columns}
-  \sourcefoot{Fig.~3 de l'article : voisinages entre pixels dans une grille et cliques
-    associées, d'après \cite{kato2012markov}.}
+  \sourcefoot{Voisinages entre pixels dans une grille et cliques
+    associées \cite{kato2012markov}\cite{pastorino2026segmentation}.}
 \end{frame}
 
 \begin{frame}{Optimiser : un problème difficile}
@@ -538,8 +542,8 @@
     \item Opérateurs de morphologie mathématique --- érosion, dilatation et leurs
           compositions\refc{serra1982image}\refc{soille2003morphological}
   \end{itemize}
-  \sourcefoot{Fig.~4 de l'article : érosion (à gauche) et dilatation (à droite) de
-    l'image satellite originale RVB (au centre).}
+  \sourcefoot{Érosion (à gauche) et dilatation (à droite) de l'image satellite
+    originale RVB (au centre) \cite{pastorino2026segmentation}.}
 \end{frame}
 
 \begin{frame}{Profils morphologiques et profils d'attributs}
@@ -621,9 +625,9 @@
           sur graphes sont différentes expressions d'un même principe ---
           \hl{attache aux données $+$ régularisation}
   \end{itemize}
-  \sourcefoot{Fig.~5 de l'article. (a) image satellitaire SPOT \copyright{} CNES ;
-    (b) carte de segmentation obtenue par la méthode variationnelle
-    de \cite{samson2000variational}.}
+  \sourcefoot{(a) image satellitaire SPOT \copyright{} CNES ; (b) carte de segmentation
+    obtenue par la méthode variationnelle
+    de \cite{samson2000variational}\cite{pastorino2026segmentation}.}
 \end{frame}
 
 % ============================================================
@@ -669,9 +673,9 @@
       \legende{architecture d'une FCN}
     \end{column}
   \end{columns}
-  \sourcefoot{Fig.~6 de l'article : architecture d'une FCN appliquée aux images
-    aériennes de la base ISPRS \emph{2D Semantic Labeling Challenge} (Potsdam),
-    d'après \cite{pastorino2026probabilistic}.}
+  \sourcefoot{Architecture d'une FCN appliquée aux images aériennes de la base ISPRS
+    \emph{2D Semantic Labeling Challenge} (Potsdam)
+    \cite{pastorino2026probabilistic}\cite{pastorino2026segmentation}.}
 \end{frame}
 
 \begin{frame}{Contexte, échelles, modalités}
@@ -766,8 +770,8 @@
           généralisation, modalités complémentaires --- sont désormais \hl{apprises}
           plutôt que \hl{construites}
   \end{itemize}
-  \sourcefoot{Fig.~7 de l'article : principe général d'un modèle de fondation
-    géospatial.}
+  \sourcefoot{Principe général d'un modèle de fondation
+    géospatial \cite{pastorino2026segmentation}.}
 \end{frame}
 
 % ============================================================
@@ -829,25 +833,25 @@
 \begin{frame}{Crédits des figures}
   \footnotesize
   Toutes les illustrations sont reprises de M.~\textsc{Pastorino}, G.~\textsc{Moser},
-  J.~\textsc{Zerubia}, « Segmentation sémantique en télédétection ».
+  J.~\textsc{Zerubia}, « Segmentation sémantique en télédétection », \emph{Traitement
+  du Signal et des Images} (TSI), GRETSI, décembre 2026 \cite{pastorino2026segmentation}.
   \vspace{1ex}
   \begin{itemize}\scriptsize
-    \item \textbf{Fig.~1} --- jeu de données \emph{Zeebruges}, publié par le comité
-      technique d'analyse d'image et de fusion de données (IADF) de l'IEEE GRSS ;
-      images et vérité terrain fournies par l'Académie royale militaire belge et
-      l'ONERA --- Laboratoire aérospatial français.
-    \item \textbf{Fig.~2} --- image satellitaire IKONOS, 4~m, 3 bandes, composition en
-      fausses couleurs (infrarouge voisin --- rouge --- bleu) ; cartes de segmentation
-      d'après \cite{moser2013landcover}.
-    \item \textbf{Fig.~3} --- voisinages du premier et du second ordre dans une grille,
-      d'après \cite{kato2012markov}.
-    \item \textbf{Fig.~4} --- érosion et dilatation d'une image satellite RVB.
-    \item \textbf{Fig.~5} --- image satellitaire SPOT \copyright{} CNES ; carte de
-      segmentation obtenue par la méthode variationnelle de \cite{samson2000variational}.
-    \item \textbf{Fig.~6} --- architecture d'une FCN appliquée aux images aériennes de
-      la base ISPRS \emph{2D Semantic Labeling Challenge} (Potsdam), d'après
-      \cite{pastorino2026probabilistic}.
-    \item \textbf{Fig.~7} --- principe général d'un modèle de fondation géospatial.
+    \item Image aérienne et carte de segmentation --- jeu de données \emph{Zeebruges},
+      comité technique d'analyse d'image et de fusion de données (IADF) de l'IEEE GRSS ;
+      images et données de vérité terrain fournies par l'Académie royale militaire belge
+      et l'ONERA --- Laboratoire aérospatial français.
+    \item Image satellitaire IKONOS, 4~m, 3 bandes, composition en fausses couleurs
+      (infrarouge voisin, rouge, bleu) ; cartes de segmentation pixel à pixel et
+      contextuelle \cite{moser2013landcover}.
+    \item Voisinages du premier et du second ordre dans une grille, et cliques
+      associées \cite{kato2012markov}.
+    \item Érosion et dilatation d'une image satellite RVB.
+    \item Image satellitaire SPOT \copyright{} CNES ; carte de segmentation obtenue par
+      la méthode variationnelle de \cite{samson2000variational}.
+    \item Architecture d'une FCN appliquée aux images aériennes de la base ISPRS
+      \emph{2D Semantic Labeling Challenge} (Potsdam) \cite{pastorino2026probabilistic}.
+    \item Principe général d'un modèle de fondation géospatial.
   \end{itemize}
 \end{frame}
 

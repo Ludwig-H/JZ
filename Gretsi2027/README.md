@@ -17,7 +17,7 @@ l'article **« Segmentation Sémantique en Télédétection »** de Martina
 Gretsi2027/
 ├── main.tex                                             la présentation (11 sections, 45 planches)
 ├── rapport-complementaire.md                            document d'accompagnement (déroulé, crédits, minutage)
-├── references.bib                                       les 80 références de l'article (79 entrées, cf. infra)
+├── references.bib                                       80 entrées : les références de l'article + l'article lui-même
 ├── GRETSI2027_Segmentation_Semantique_Teledetection.pdf le PDF compilé (51 planches)
 ├── TSI segmentation semantique paper + logo UniGE.zip   archive d'origine (intacte)
 ├── article/
@@ -90,14 +90,22 @@ consignés dans le [rapport complémentaire](rapport-complementaire.md).
 
 ### `references.bib`
 
-Les 80 références de l'article, dans son ordre, chacune précédée d'un
-commentaire `% [nn]` rappelant son numéro dans l'article. **79 entrées** : la
-référence Samson *et al.* (2000) est numérotée deux fois dans l'article ([52]
-et [56]) et n'est saisie qu'une fois ici, sous la clé `samson2000variational`.
-Les numéros de l'article au-delà de [56] sont donc décalés d'une unité par
-rapport à ceux de la bibliographie des slides ; les commentaires `% [nn]`
-donnent la correspondance. Le fichier a été relu automatiquement contre la
-liste de références de l'article (année et premier auteur de chaque entrée).
+**80 entrées** : les 80 références de l'article, dans son ordre, chacune
+précédée d'un commentaire `% [nn]` rappelant son numéro d'origine — ramenées à
+79 parce que la référence Samson *et al.* (2000) y est numérotée deux fois
+([52] et [56]) et n'est saisie qu'une fois, sous la clé
+`samson2000variational` — puis **l'article lui-même**, en fin de fichier, sous
+la clé `pastorino2026segmentation` :
+
+> M. Pastorino, G. Moser, J. Zerubia, « Segmentation sémantique en
+> télédétection », *Traitement du Signal et des Images* (TSI), GRETSI,
+> décembre 2026. *(volume, numéro et pages à compléter à la parution.)*
+
+Il est placé en dernier pour ne décaler aucun autre numéro : sur les planches,
+`[1]`–`[55]` correspondent aux mêmes numéros que dans l'article, `[56]`–`[79]`
+à ses `[57]`–`[80]`, et `[80]` est l'article source. Le fichier a été relu
+automatiquement contre la liste de références de l'article (année et premier
+auteur de chaque entrée).
 
 ## Ressources graphiques disponibles
 
@@ -178,10 +186,12 @@ profond ne supprime pas mais reformule (§9).
 | `fig6_fcn_potsdam.png` | 6 | architecture FCN, ISPRS Potsdam [61] |
 | `fig7_modele_fondation_geospatial.png` | 7 | principe d'un modèle de fondation géospatial |
 
-Crédits portés sur les planches : Fig. 1 — jeu de données Zeebruges, comité
-technique IADF de l'IEEE GRSS, Académie royale militaire belge & ONERA ;
-Fig. 2 — [12] ; Fig. 3 — [29] ; Fig. 5 — SPOT © CNES et [52]/[56] ; Fig. 6 —
-[61]. Les figures 4 et 7 ne portent aucune attribution dans l'article.
+Crédits portés sur les planches, sous la forme *légende + copyright +
+référence* : jeu de données Zeebruges (comité technique IADF de l'IEEE GRSS,
+Académie royale militaire belge & ONERA) ; cartes IKONOS [12] ; voisinages
+[29] ; image SPOT © CNES et segmentation [52] ; architecture FCN [61] — plus,
+sur chaque planche illustrée, le renvoi vers l'article source. Les figures 4 et
+7 ne portent aucune attribution dans l'article.
 
 ## À décider ensemble
 

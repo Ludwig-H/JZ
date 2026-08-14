@@ -137,7 +137,7 @@ respirations de quelques secondes.
 | | | | | **2 min 30** |
 | 45 | Merci | planche de remerciement du thème | — | — |
 | 46 | Crédits des figures | annexe | — | — |
-| 47–51 | Références | annexe, 79 entrées | — | — |
+| 47–51 | Références | annexe, 80 entrées | — | — |
 
 *(Les numéros `[n]` de cette colonne sont ceux de l'article ; voir §6 pour la
 correspondance avec ceux imprimés sur les planches.)*
@@ -185,11 +185,12 @@ ajoutés sont la frise du fil directeur et les encadrés de formules, qui sont d
 
 **Mécanique retenue.** Sous chaque image, une légende courte en gris
 (`\legende`) identifie la sous-figure — « (a) image aérienne », « érosion »…
-En pied de planche, au-dessus du filet, la ligne de crédit complète
-(`\sourcefoot`) donne le numéro de figure dans l'article, la nature de la donnée
-et le copyright. La planche 46 récapitule les sept crédits, précédés de la
-mention générale : *« Toutes les illustrations sont reprises de M. Pastorino,
-G. Moser, J. Zerubia, "Segmentation sémantique en télédétection" »*.
+En pied de planche, au-dessus du filet, la ligne de crédit (`\sourcefoot`) suit
+systématiquement le même patron : **légende factuelle + copyright + référence
+bibliographique** `[n]`, sans renvoi en clair au numéro de figure de l'article.
+Le renvoi vers l'article source `[80]` y figure sur chaque planche illustrée.
+La planche 46 récapitule les sept crédits, précédés de la référence complète de
+l'article.
 
 **Point de vigilance.** Les figures 4 et 7 ne portent aucune attribution dans
 l'article. Si elles proviennent d'une source tierce, il faut la faire remonter
@@ -206,6 +207,13 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 - La bibliographie complète est imprimée en annexe (planches 47 à 51),
   `\nocite{*}` étant placé en tête de document pour que la numérotation suive
   l'ordre du fichier `references.bib`, lui-même calé sur l'ordre de l'article.
+- **L'article source est lui-même référencé**, sous la clé
+  `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
+  « Segmentation sémantique en télédétection », *Traitement du Signal et des
+  Images* (TSI), GRETSI, décembre 2026. Il est saisi en fin de `.bib` et porte
+  donc le numéro **[80]** ; volume, numéro et pages restent à compléter à la
+  parution. Il est cité sur la page de titre, sur le sommaire, sur chaque
+  planche illustrée et sur la planche de crédits.
 - **Décalage à connaître** : l'article numérote deux fois la même référence
   (Samson *et al.*, 2000, en [52] **et** en [56]). Le fichier `.bib` ne la
   contient qu'une fois, sous la clé `samson2000variational`. Par conséquent :
@@ -215,11 +223,12 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
   | [1] … [55] | identiques |
   | [56] | fusionné avec [52] |
   | [57] … [80] | [56] … [79] |
+  | *(l'article lui-même)* | [80] |
 
   Chaque entrée de `references.bib` porte en commentaire son numéro d'origine
   (`% [nn]`), ce qui permet de retrouver la correspondance à tout moment.
 - Le fichier `.bib` a été relu automatiquement contre la liste de références du
-  PDF : année et premier auteur de chacune des 79 entrées concordent.
+  PDF : année et premier auteur des 79 entrées reprises concordent.
 
 ---
 
@@ -228,7 +237,7 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 **Ce qui a été conservé de l'article.** Les 11 sections et leur ordre ; les
 cinq formules qui portent un argument (vecteur d'observations et règle
 bayésienne §2, MAP markovien et énergie §6, Mumford–Shah §8) ; les 80 références
-(79 entrées après fusion du doublon) ; les 7 figures ; les formulations
+(79 entrées après fusion du doublon, plus l'article lui-même) ; les 7 figures ; les formulations
 tranchées de l'article — « le problème cesse d'être une classification spectrale
 pour devenir un problème d'interprétation spatiale », « différentes expressions
 d'un même principe », « les modèles de fondation ne constituent pas une rupture
