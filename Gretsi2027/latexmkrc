@@ -4,3 +4,6 @@ $ENV{'TEXINPUTS'}='.:theme//:'.$ENV{'TEXINPUTS'};
 # pour disposer des fontes Inria Sans (sinon le thème émet un simple avertissement).
 $ENV{'TEXINPUTS'}='.:latex-inria-fonts//:'.$ENV{'TEXINPUTS'};
 $pdf_mode = 4; # lualatex
+
+# Ne jamais s'arrêter pour demander une saisie en cas d'erreur.
+$lualatex = 'lualatex -interaction=nonstopmode %O %S';

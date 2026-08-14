@@ -133,11 +133,11 @@ respirations de quelques secondes.
 | | | | | **4 min** |
 | 42 | § **11 Conclusion** | | | |
 | 43 | Une histoire non linéaire | convergence de traditions ; rappel de la frise | frise | — |
-| 44 | Défis ouverts | six défis + positionnement du domaine | — | — |
+| 44 | Perspectives | six défis + positionnement du domaine | — | — |
 | | | | | **2 min 30** |
-| 45 | Merci | planche de remerciement du thème | — | — |
-| 46 | Crédits des figures | annexe | — | — |
-| 47–51 | Références | annexe, 80 entrées | — | — |
+| 45 | Merci de votre attention | planche de remerciement du thème | — | — |
+| 46–50 | Références | annexe, 80 entrées | — | — |
+| 51 | Crédits des figures | annexe (back-up) | — | — |
 
 *(Les numéros `[n]` de cette colonne sont ceux de l'article ; voir §6 pour la
 correspondance avec ceux imprimés sur les planches.)*
@@ -184,13 +184,13 @@ ajoutés sont la frise du fil directeur et les encadrés de formules, qui sont d
 | 7 | principe d'un modèle de fondation géospatial | 41 | Figure de l'article (aucune source tierce indiquée) |
 
 **Mécanique retenue.** Sous chaque image, une légende courte en gris
-(`\legende`) identifie la sous-figure — « (a) image aérienne », « érosion »…
-En pied de planche, au-dessus du filet, la ligne de crédit (`\sourcefoot`) suit
-systématiquement le même patron : **légende factuelle + copyright + référence
-bibliographique** `[n]`, sans renvoi en clair au numéro de figure de l'article.
-Le renvoi vers l'article source `[80]` y figure sur chaque planche illustrée.
-La planche 46 récapitule les sept crédits, précédés de la référence complète de
-l'article.
+(`\legende`) identifie la sous-figure : « (a) image aérienne », « érosion »…
+**Immédiatement sous ces sous-légendes**, et non en pied de planche, vient la
+ligne de crédit (`\credit`), qui suit toujours le même patron : *légende
+factuelle + copyright + référence bibliographique* `[n]`, sans renvoi en clair
+au numéro de figure de l'article. La planche 51, en back-up après la
+bibliographie, récapitule les sept crédits, précédés de la référence complète
+de l'article.
 
 **Point de vigilance.** Les figures 4 et 7 ne portent aucune attribution dans
 l'article. Si elles proviennent d'une source tierce, il faut la faire remonter
@@ -202,9 +202,12 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 ## 6. Citations et numérotation
 
 - Les renvois apparaissent **dans le corps des planches** sous la forme `[n]`
-  en gris (commande `\refc`), et sous forme développée dans les lignes de
-  crédit (`\cite`).
-- La bibliographie complète est imprimée en annexe (planches 47 à 51),
+  en gris (commande `\refc`), et dans les lignes de crédit des figures.
+- **Le texte complet des références citées sur une planche est imprimé tout en
+  bas de cette planche** (commande `\biblio`), dans un format compact : deux
+  auteurs au plus, ni volume, ni numéro, ni pages. Chaque ligne est précédée de
+  son numéro `[n]`, qui renvoie à la bibliographie de l'annexe.
+- La bibliographie complète est imprimée en annexe (planches 46 à 50),
   `\nocite{*}` étant placé en tête de document pour que la numérotation suive
   l'ordre du fichier `references.bib`, lui-même calé sur l'ordre de l'article.
 - **L'article source est lui-même référencé**, sous la clé
@@ -248,7 +251,7 @@ l'article, destinées à tenir le rythme de la session :
 
 - planche 16, « Bilan de l'ère *pixel* » — pose explicitement l'alternative qui
   organise la suite (régulariser les étiquettes / enrichir les descripteurs) ;
-- planche 37, « Ce que l'apprentissage profond ne supprime pas » — reformule le
+- planche 37, « Ce que l'apprentissage profond ne supprime pas », qui reformule le
   paragraphe de §9 sur la continuité conceptuelle, en le transformant en point
   d'appui pour la transition vers §10.
 
@@ -327,6 +330,7 @@ ses images par des chemins relatifs (`theme/imgs/…`).
 
 Commandes maison définies dans `main.tex` : `\hl` (mise en évidence rouge
 Inria), `\refc` (renvoi `[n]` en gris), `\legende` (légende sous figure),
-`\sourcefoot` (crédit en pied de planche), `\formulebox` (encadré de formule),
+`\credit` (crédit sous les sous-légendes), `\biblio` (références complètes en
+bas de planche), `\formulebox` (encadré de formule, largeur réglable),
 `\filrouge` (frise du fil directeur), `\logounige` (logo Università di Genova).
 Le dossier `theme/` reste identique à l'amont et n'a pas été modifié.

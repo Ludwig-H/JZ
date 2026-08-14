@@ -67,23 +67,27 @@ compilation** (`theme/imgs/...`) : compiler depuis `Gretsi2027/`, pas depuis
 
 51 planches : page de titre, sommaire, **11 sections** reprenant celles de
 l'article (chacune ouverte par une planche de section numérotée `01`…`11`),
-planche « Merci » du thème — soit **45 planches d'exposé** — puis en annexe les
-crédits des figures et la bibliographie complète.
+planche « Merci de votre attention » du thème, soit **45 planches d'exposé**,
+puis en annexe la bibliographie complète et, en back-up, les crédits des
+figures.
 
 - **Illustrations** : les 7 figures de l'article, soit 14 sous-images, toutes
   reprises ; aucune image extérieure. Les deux seuls ajouts graphiques sont la
   frise du fil directeur (`\filrouge`) et les encadrés de formules
   (`\formulebox`).
-- **Crédits** : légende courte sous chaque image (`\legende`), crédit et
-  copyright en pied de planche (`\sourcefoot`), et une planche d'annexe
-  récapitulant les sept crédits.
-- **Citations** : renvois `[n]` en gris dans le corps des planches (`\refc`),
-  bibliographie complète en annexe. `\nocite{*}` est placé en tête de document
-  pour que la numérotation suive l'ordre du `.bib`, donc celui de l'article.
+- **Crédits** : légende courte sous chaque image (`\legende`), puis crédit et
+  copyright **juste sous les sous-légendes** (`\credit`), et une planche de
+  back-up récapitulant les sept crédits.
+- **Citations** : renvois `[n]` en gris dans le corps des planches (`\refc`) et
+  **texte complet des références citées, tout en bas de chaque planche**
+  (`\biblio`, format compact) ; bibliographie complète en annexe. `\nocite{*}`
+  est placé en tête de document pour que la numérotation suive l'ordre du
+  `.bib`, donc celui de l'article.
 - **Commandes maison** : `\hl` (mise en évidence rouge Inria), `\refc`,
-  `\legende`, `\sourcefoot`, `\formulebox`, `\filrouge`, `\logounige` (logo
-  Università di Genova en page de titre). Le dossier `theme/` reste identique à
-  l'amont.
+  `\legende`, `\credit`, `\biblio`, `\formulebox`, `\filrouge`, `\logounige`
+  (logo Università di Genova en page de titre). Le dossier `theme/` reste
+  identique à l'amont, à ceci près que `\thankyou` est redéfini dans
+  `main.tex` en « Merci de votre attention. ».
 
 Le déroulé planche par planche, le minutage et les choix éditoriaux sont
 consignés dans le [rapport complémentaire](rapport-complementaire.md).
