@@ -60,7 +60,7 @@ de l'introduction, et planche 43, en ouverture de la conclusion :
 | Information spectrale locale | le pixel seul | §2, §3, §4 |
 | Cohérence spatiale | les étiquettes voisines | §5, §6 |
 | Frontières, régions, objets | la géométrie de la scène | §7, §8 |
-| Représentations apprises | les descripteurs ne sont plus conçus | §9 |
+| Apprentissage de représentations | les descripteurs ne sont plus conçus | §9 |
 | Modèles de fondation | représentations générales, transférables, multimodales | §10 |
 
 Un second fil, plus discret, court dans les planches 22, 31, 32 et 43 : la
@@ -83,14 +83,14 @@ respirations de quelques secondes.
 | 2 | Sommaire | le plan de l'exposé est celui de l'article | — | — |
 | | | | | **1 min 30** |
 | 3 | § **01 Introduction** | | | |
-| 4 | De l'image à la carte thématique | définition ; carte dense ≠ segmentation « bas niveau » | **Fig. 1 (a)(b)** | [1][2][3] |
+| 4 | De l'image à la carte thématique | définition ; carte dense ≠ segmentation en régions homogènes | **Fig. 1 (a)(b)** | [1][2][3] |
 | 5 | Ce qui distingue la télédétection | capteurs, résolutions, dates, modalités ; ce n'est pas une transposition de la vision par ordinateur | — | — |
 | 6 | Formalisation et fil directeur | `I : Ω → ℝᵈ` puis `f : Ω → C` ; frise en 5 étapes | frise | — |
 | | | | | **4 min** |
 | 7 | § **02 Classification statistique pixel à pixel** | | | |
-| 8 | Les premières approches (années 1970) | Landsat / SeaSat ; règle bayésienne ; MAP dit « MLC » | — | [4][5][6][1][2][3][7] |
+| 8 | Les premières approches (années 1970–1980) | Landsat / SeaSat ; règle bayésienne ; classifieur MAP, « maximum a posteriori » | — | [4][5][6][1][2][3][7] |
 | 9 | Deux limites structurelles | Hughes + indépendance des observations | — | [8] |
-| 10 | L'effet « poivre et sel » | on passe de la classification spectrale à l'interprétation spatiale | **Fig. 2 (a)(b)** | [9][10][11][12] |
+| 10 | Le résultat : des cartes bruitées | on passe de la classification spectrale à l'interprétation spatiale | **Fig. 2 (a)(b)** | [9][10][11][12] |
 | | | | | **4 min** |
 | 11 | § **03 Méthodes discriminantes et à noyaux** | | | |
 | 12 | Estimer la frontière plutôt que la distribution | SVM, maximisation de la marge | — | [13][14] |
@@ -101,7 +101,7 @@ respirations de quelques secondes.
 | 16 | Bilan de l'ère « pixel » | charnière : régulariser les étiquettes **ou** enrichir les descripteurs | — | — |
 | | | | | **2 min 30** |
 | 17 | § **05 Classification contextuelle** | | | |
-| 18 | Trois niveaux de contexte | local / régional / global | — | [3][21][22][23][24][25][26] |
+| 18 | Trois niveaux de contexte | local / régional / global | — | [3][22][23][24][25][26] |
 | 19 | L'apport mesurable du contexte | les étiquettes doivent être estimées conjointement | **Fig. 2 (a)(b)(c)** | [27][28][11][12] |
 | | | | | **3 min 30** |
 | 20 | § **06 Modèles markoviens et bayésiens** | | | |
@@ -132,7 +132,7 @@ respirations de quelques secondes.
 | 41 | Modèles de fondation géospatiaux | généricité **et** coût énergétique | **Fig. 7** | [76][77][78][79] |
 | | | | | **4 min** |
 | 42 | § **11 Conclusion** | | | |
-| 43 | Une histoire non linéaire | convergence de traditions ; rappel de la frise | frise | — |
+| 43 | Une histoire non linéaire | convergence de familles de méthodes ; rappel de la frise | frise | — |
 | 44 | Perspectives | six défis + positionnement du domaine | — | — |
 | | | | | **2 min 30** |
 | 45 | Merci de votre attention | planche de remerciement du thème | — | — |
@@ -267,8 +267,10 @@ tout est disponible dans l'article pour les questions.
 **Densité.** Aucune planche ne dépasse six items de premier niveau. Les items de
 second niveau ne servent qu'à énumérer (limites, forces, niveaux de contexte).
 Les mises en évidence en rouge Inria portent sur les **termes techniques
-structurants**, jamais sur des phrases entières : elles doivent rester lisibles
-comme une trame de l'exposé si l'on parcourt la planche du regard.
+structurants** et, depuis la relecture, sur les **énumérations de disciplines,
+de méthodes ou d'applications** prises en entier — la ponctuation restant
+toujours en noir. Elles doivent rester lisibles comme une trame de l'exposé si
+l'on parcourt la planche du regard.
 
 ---
 
@@ -276,7 +278,7 @@ comme une trame de l'exposé si l'on parcourt la planche du regard.
 
 - **Planche 9 → 10.** Les deux limites (Hughes, indépendance) sont énoncées
   avant l'image ; la figure 2 (a)–(b) sert de preuve visuelle. Laisser le temps
-  de voir le bruit poivre et sel avant de commenter.
+  de voir le bruit de la carte pixel à pixel avant de commenter.
 - **Planche 13.** Point de bascule du premier tiers : les SVM améliorent la
   *fonction de décision*, pas la *représentation*. C'est ce qui justifie que
   §5–§6 et §7 partent dans deux directions différentes.
