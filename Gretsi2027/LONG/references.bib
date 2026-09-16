@@ -3,25 +3,32 @@
 % M. Pastorino, G. Moser, J. Zerubia
 %
 % Les commentaires [nn] rappellent le numéro de la référence dans
-% l'article (article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
+% l'article (../article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
 % Le fichier suit l'ordre de l'article ; avec `sorting=none` la
 % bibliographie des slides conserve cet ordre.
 %
-% Seule exception : l'article numérote deux fois la même référence
-% (Samson et al. 2000 y apparaît en [52] et en [56]) ; elle n'est
-% saisie qu'une fois ici, sous la clé `samson2000variational`. Les
-% numéros de l'article au-delà de [56] sont donc décalés d'une unité
-% par rapport à la numérotation des slides.
+% Deux écarts avec la liste de l'article :
+%   - l'article numérote deux fois la même référence (Samson et al.
+%     2000 y apparaît en [52] et en [56]) ; elle n'est saisie qu'une
+%     fois ici, sous la clé `samson2000variational` ;
+%   - la référence [25] de l'article (X. Li et al., « A survey of
+%     semantic segmentation », arXiv:1412.7062, 2014) a été retirée
+%     lors de la relecture de Martina Pastorino.
+% Le fichier compte donc 79 entrées.
 %
-% L'article lui-même (TSI / GRETSI, décembre 2026) ouvre le fichier,
-% sous la clé `pastorino2026segmentation` : il porte donc le numéro [1]
-% sur les planches et dans la bibliographie.
+% L'article lui-même ouvre le fichier, sous la clé
+% `pastorino2026segmentation` : il porte donc le numéro [1] sur les
+% planches et dans la bibliographie. Volume, numéro et pages restent à
+% compléter à la parution ; en attendant, l'entrée renvoie au rapport
+% de recherche Inria RR-9631 (hal-05742224).
 %
 % Correspondance article -> planches :
 %   (l'article lui-même) -> [1]
-%   [1] … [55]           -> [2] … [56]
-%   [56]                 -> fusionné avec [52], soit [53]
-%   [57] … [80]          -> [57] … [80]
+%   [1] … [24]           -> [2] … [25]
+%   [25]                 -> retirée
+%   [26] … [55]          -> [26] … [55]
+%   [56]                 -> fusionné avec [52], soit [52]
+%   [57] … [80]          -> [56] … [79]
 % =====================================================================
 
 % Article dont est tirée la présentation.
@@ -29,9 +36,12 @@
   author       = {Pastorino, Martina and Moser, Gabriele and Zerubia, Josiane},
   title        = {Segmentation sémantique en télédétection},
   journaltitle = {Traitement du Signal et des Images (TSI), GRETSI},
-  date         = {2026-12},
+  % \NoAutoSpacing : sans lui, babel-french insère une espace fine avant
+  % le « : » de « https:// ».
+  note         = {Also available as Inria RR-9631
+                  {\NoAutoSpacing https://inria.hal.science/hal-05742224} (sept. 2026)},
   langid       = {french},
-  % volume / number / pages à compléter à la parution
+  % date / volume / number / pages à compléter à la parution
 }
 
 % [1]
@@ -264,14 +274,6 @@
   booktitle = {11th IAPR International Conference on Pattern Recognition, Vol.~III, Conference C: Image, Speech and Signal Analysis},
   pages     = {201--204},
   year      = {1992},
-}
-
-% [25]
-@article{li2014survey,
-  author  = {Li, X. and Zhao, H. and Han, X. and others},
-  title   = {A survey of semantic segmentation},
-  journal = {arXiv preprint arXiv:1412.7062},
-  year    = {2014},
 }
 
 % [26]

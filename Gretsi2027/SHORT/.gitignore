@@ -1,0 +1,20 @@
+# Fichiers auxiliaires LaTeX / latexmk / beamer
+*.aux
+*.bbl
+*.bcf
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.nav
+*.out
+*.run.xml
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdv
+_minted*/
+
+# PDF produit par `make` (le PDF de référence de Martina est dans reference/)
+/GRETSI2027_Segmentation_Semantique_Teledetection_*.pdf

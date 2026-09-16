@@ -1,0 +1,15 @@
+# Le thème Inria charge ses .sty et ses images depuis theme/.
+$ENV{'TEXINPUTS'}='.:theme//:'.$ENV{'TEXINPUTS'};
+# Optionnel : déposer ici gitlab.inria.fr/gabarits/latex-inria-fonts
+# pour disposer des fontes Inria Sans (sinon le thème émet un simple avertissement).
+$ENV{'TEXINPUTS'}='.:latex-inria-fonts//:'.$ENV{'TEXINPUTS'};
+# pdfLaTeX : c'est le moteur utilisé pour produire les PDF de référence
+# (reference/), et la chaîne reproduit ces PDF glyphe pour glyphe.
+# Pour compiler avec LuaLaTeX à la place — même contenu, même pagination,
+# fontes Latin Modern au lieu de Computer Modern — remplacer les deux
+# lignes ci-dessous par : $pdf_mode = 4;
+$pdf_mode = 1; # pdflatex
+
+# Ne jamais s'arrêter pour demander une saisie en cas d'erreur.
+$pdflatex = 'pdflatex -interaction=nonstopmode %O %S';
+$lualatex = 'lualatex -interaction=nonstopmode %O %S';

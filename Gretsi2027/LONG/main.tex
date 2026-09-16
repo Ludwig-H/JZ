@@ -1,16 +1,16 @@
-% !TEX program = lualatex
+% !TEX program = pdflatex
 % ============================================================
 % GRETSI 2027 — Session historique
 % « Segmentation sémantique en télédétection »
 % d'après M. Pastorino, G. Moser, J. Zerubia
-% (article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
+% (../article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
 %
 % La présentation suit la structure de l'article (11 sections).
 % Illustrations : figures de l'article, extraites dans imgs/article/ ;
 % crédits sous les sous-légendes et planche « Crédits des figures »
 % en back-up.
 %
-% Compilation : make  (latexmk + LuaLaTeX + biber, thème dans theme/)
+% Compilation : make  (latexmk + pdfLaTeX + biber, thème dans theme/)
 % ============================================================
 \documentclass[svgnames,9pt,aspectratio=169]{beamer}
 
@@ -21,6 +21,21 @@
 \usepackage{booktabs}
 \usepackage{tikz}
 \usetikzlibrary{positioning, shapes, arrows.meta, calc, fit, backgrounds, babel}
+
+% ------------------------------------------------------------
+% Le thème teste la primitive \draftmode. LuaTeX la fournit ; pdfTeX
+% ne la connaît que depuis TeX Live 2024 (auparavant \pdfdraftmode).
+% Cet alias permet de compiler avec les deux moteurs.
+% ------------------------------------------------------------
+\makeatletter
+\ifdefined\draftmode\else
+  \ifdefined\pdfdraftmode
+    \let\draftmode\pdfdraftmode
+  \else
+    \providecommand{\draftmode}{0}%
+  \fi
+\fi
+\makeatother
 
 % ------------------------------------------------------------
 % Thème Beamer Inria 2024 (dossier theme/, non modifié).
@@ -413,9 +428,9 @@
     \item \hl{Contexte global} : organisation générale de la scène, relations entre
           objets, connaissances a priori sur leur disposition
     \item Hiérarchie structurante jusqu'aux architectures profondes
-          contemporaines\refc{azencott1992nonsupervised}\refc{li2014survey}\refc{csurka2023good}
+          contemporaines\refc{azencott1992nonsupervised}\refc{csurka2023good}
   \end{itemize}
-  \biblio{richards1986remote,haralick1985image,blaschke2010object,azencott1992nonsupervised,li2014survey,csurka2023good}
+  \biblio{richards1986remote,haralick1985image,blaschke2010object,azencott1992nonsupervised,csurka2023good}
 \end{frame}
 
 \begin{frame}{L'apport mesurable du contexte}
@@ -438,7 +453,7 @@
   \vspace{0.6ex}
   \begin{itemize}
     \item Gains nets en multispectral, multitemporel et
-          multisources\refc{bruzzone1997iterative}\refc{bruzzone1999neural}\refc{solberg1996markov}
+          multisources\refc{solberg1996markov}\refc{bruzzone1997iterative}\refc{bruzzone1999neural}
     \item Les étiquettes ne sont plus décidées une à une : elles doivent être estimées
           \hl{conjointement}
   \end{itemize}

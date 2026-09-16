@@ -1,5 +1,5 @@
-PDFNAME = GRETSI2027_Segmentation_Semantique_Teledetection.pdf
-JOBNAME = GRETSI2027_Segmentation_Semantique_Teledetection
+PDFNAME = GRETSI2027_Segmentation_Semantique_Teledetection_SHORT.pdf
+JOBNAME = GRETSI2027_Segmentation_Semantique_Teledetection_SHORT
 
 all: $(PDFNAME)
 

@@ -5,9 +5,11 @@ Josiane **Zerubia** (Centre Inria d'Université Côte d'Azur, équipe Ayana), en
 collaboration avec Martina **Pastorino** et Gabriele **Moser** (Università di
 Genova, DITEN).
 
-Support : [`GRETSI2027_Segmentation_Semantique_Teledetection.pdf`](GRETSI2027_Segmentation_Semantique_Teledetection.pdf)
-(51 planches : 45 pour l'exposé, puis 6 en annexe).
-Source de l'exposé : [`article/Martina_TSI_GRETSI_segmentation_semantique.pdf`](article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
+Support : `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf`, produit
+par `make` dans ce dossier (51 planches : 45 pour l'exposé, puis 6 en annexe).
+PDF de référence envoyé par Martina Pastorino : [`reference/`](reference/).
+Source de l'exposé : [`../article/Martina_TSI_GRETSI_segmentation_semantique.pdf`](../article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
+Version resserrée du même exposé (24 planches) : [`../SHORT/`](../SHORT/).
 
 Ce document accompagne les transparents. Il consigne ce que les planches, par
 construction synthétiques, ne disent pas : le raisonnement du découpage, la
@@ -101,8 +103,8 @@ respirations de quelques secondes.
 | 16 | Bilan de l'ère « pixel » | charnière : régulariser les étiquettes **ou** enrichir les descripteurs | — | — |
 | | | | | **2 min 30** |
 | 17 | § **05 Classification contextuelle** | | | |
-| 18 | Trois niveaux de contexte | local / régional / global | — | [3][22][23][24][25][26] |
-| 19 | L'apport mesurable du contexte | les étiquettes doivent être estimées conjointement | **Fig. 2 (a)(b)(c)** | [27][28][11][12] |
+| 18 | Trois niveaux de contexte | local / régional / global | — | [3][22][23][24][26] |
+| 19 | L'apport mesurable du contexte | les étiquettes doivent être estimées conjointement | **Fig. 2 (a)(b)(c)** | [11][27][28][12] |
 | | | | | **3 min 30** |
 | 20 | § **06 Modèles markoviens et bayésiens** | | | |
 | 21 | Les champs de Markov : la première formalisation | Markov ≡ Gibbs ; MAP ⇔ minimisation d'énergie | — | [9][10][29] |
@@ -136,7 +138,7 @@ respirations de quelques secondes.
 | 44 | Perspectives | six défis + positionnement du domaine | — | — |
 | | | | | **2 min 30** |
 | 45 | Merci de votre attention | planche de remerciement du thème | — | — |
-| 46–50 | Références | annexe, 80 entrées | — | — |
+| 46–50 | Références | annexe, 79 entrées | — | — |
 | 51 | Crédits des figures | annexe (back-up) | — | — |
 
 *(Les numéros `[n]` de cette colonne sont ceux de l'article ; voir §6 pour la
@@ -213,25 +215,31 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 - **L'article source ouvre la bibliographie**, sous la clé
   `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
   « Segmentation sémantique en télédétection », *Traitement du Signal et des
-  Images* (TSI), GRETSI, décembre 2026. Il porte le numéro **[1]** et
-  n'apparaît qu'à deux endroits : sous le sous-titre de la page de titre, et
-  dans la bibliographie de l'annexe. Aucune autre planche n'y renvoie. Volume,
-  numéro et pages restent à compléter à la parution.
-- **Décalage à connaître** : l'article numérote deux fois la même référence
-  (Samson *et al.*, 2000, en [52] **et** en [56]). Le fichier `.bib` ne la
-  contient qu'une fois, sous la clé `samson2000variational`. Par conséquent :
+  Images* (TSI), GRETSI, également disponible comme rapport de recherche Inria
+  RR-9631 (<https://inria.hal.science/hal-05742224>, septembre 2026). Il porte
+  le numéro **[1]** et n'apparaît qu'à deux endroits : sous le sous-titre de la
+  page de titre, et dans la bibliographie de l'annexe. Aucune autre planche n'y
+  renvoie. Volume, numéro et pages restent à compléter à la parution.
+- **Deux décalages à connaître.** D'une part l'article numérote deux fois la
+  même référence (Samson *et al.*, 2000, en [52] **et** en [56]) et le fichier
+  `.bib` ne la contient qu'une fois, sous la clé `samson2000variational`.
+  D'autre part la référence [25] de l'article (X. Li *et al.*, « A survey of
+  semantic segmentation », arXiv:1412.7062, 2014) a été retirée lors de la
+  relecture ; elle n'était citée que planche 18. Par conséquent :
 
   | Numéros dans l'article | Numéros sur les planches |
   |---|---|
   | *(l'article lui-même)* | [1] |
-  | [1] … [55] | [2] … [56] |
-  | [56] | fusionné avec [52], soit [53] |
-  | [57] … [80] | [57] … [80] |
+  | [1] … [24] | [2] … [25] |
+  | [25] | *retirée* |
+  | [26] … [55] | [26] … [55] |
+  | [56] | fusionné avec [52], soit [52] |
+  | [57] … [80] | [56] … [79] |
 
   Chaque entrée de `references.bib` porte en commentaire son numéro d'origine
   (`% [nn]`), ce qui permet de retrouver la correspondance à tout moment.
 - Le fichier `.bib` a été relu automatiquement contre la liste de références du
-  PDF : année et premier auteur des 79 entrées reprises concordent.
+  PDF : année et premier auteur des 78 entrées reprises concordent.
 
 ---
 
@@ -239,8 +247,9 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 
 **Ce qui a été conservé de l'article.** Les 11 sections et leur ordre ; les
 cinq formules qui portent un argument (vecteur d'observations et règle
-bayésienne §2, MAP markovien et énergie §6, Mumford–Shah §8) ; les 80 références
-(79 entrées après fusion du doublon, plus l'article lui-même) ; les 7 figures ; les formulations
+bayésienne §2, MAP markovien et énergie §6, Mumford–Shah §8) ; les références de
+l'article (79 entrées : 80 numéros, moins le doublon Samson et la référence [25]
+retirée, plus l'article lui-même) ; les 7 figures ; les formulations
 tranchées de l'article — « le problème cesse d'être une classification spectrale
 pour devenir un problème d'interprétation spatiale », « différentes expressions
 d'un même principe », « les modèles de fondation ne constituent pas une rupture
@@ -320,15 +329,16 @@ l'on parcourt la planche du regard.
 ## 10. Reproduire le document
 
 ```bash
-cd Gretsi2027
-make          # latexmk + LuaLaTeX + biber
+cd Gretsi2027/LONG
+make          # latexmk + pdfLaTeX + biber
 make clean
 ```
 
-Prérequis : LuaLaTeX, `biber`, `texlive-lang-french`, `biblatex`, `csquotes`,
+Prérequis : pdfLaTeX, `biber`, `texlive-lang-french`, `biblatex`, `csquotes`,
 `tikz`, `textpos`, `fmtcount`, `ifdraft`. Testé avec TeX Live 2023
-(biblatex 3.19 / biber 2.19). Compiler depuis `Gretsi2027/` : le thème appelle
-ses images par des chemins relatifs (`theme/imgs/…`).
+(biblatex 3.19 / biber 2.19) ; LuaLaTeX fonctionne aussi (voir le `latexmkrc`).
+Compiler depuis `Gretsi2027/LONG/` : le thème appelle ses images par des chemins
+relatifs (`theme/imgs/…`).
 
 Commandes maison définies dans `main.tex` : `\hl` (mise en évidence rouge
 Inria), `\refc` (renvoi `[n]` en gris), `\legende` (légende sous figure),
