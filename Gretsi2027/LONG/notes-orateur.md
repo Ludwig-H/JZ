@@ -270,7 +270,7 @@ Beaucoup, en réalité. Le contexte régional identifié dès les années 1980 l
 ## Repères à ne pas se tromper
 
 **L'exposé et ses auteurs**
-- Article source : Martina Pastorino, Gabriele Moser, Josiane Zerubia, « Segmentation sémantique en télédétection », Traitement du Signal et des Images (TSI), GRETSI. Également rapport de recherche Inria RR-9631, HAL hal-05742224, septembre 2026.
+- Article source : Martina Pastorino, Gabriele Moser, Josiane Zerubia, « Segmentation sémantique en télédétection », Traitement du Signal et des Images (TSI), GRETSI, 2027. Également rapport de recherche Inria RR-9631, HAL hal-05742224, septembre 2026.
 - Josiane Zerubia, Centre Inria d'Université Côte d'Azur, équipe Ayana ; Martina Pastorino et Gabriele Moser, Università di Genova, DITEN.
 - 51 planches, 11 sections, 79 références, 7 figures.
 

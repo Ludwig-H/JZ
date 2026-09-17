@@ -132,8 +132,9 @@ Le PDF d'origine reste dans `reference/` comme trace de l'état initial.
 ## À vérifier
 
 - **Planche 9** : la citation `[haralick1985image]` cassée (voir ci-dessus).
-- La référence `[1]` (l'article) attend toujours volume, numéro et pages ; en
-  l'état elle renvoie au rapport de recherche Inria RR-9631.
+- La référence `[1]` (l'article) est datée de 2027 et renvoie, pour le lien, au
+  rapport de recherche Inria RR-9631 de septembre 2026. Volume, numéro et pages
+  restent à compléter à la parution.
 - Planche 18 : « modèles de fondation **geospatiaux** » est sans accent dans le
   PDF d'origine, et conservé tel quel ici.
 - Affiliations : même point ouvert que pour la

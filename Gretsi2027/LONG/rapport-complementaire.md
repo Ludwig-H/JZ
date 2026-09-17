@@ -216,8 +216,9 @@ mention SPOT © CNES de la figure 5 doit être conservée telle quelle.
 - **L'article source ouvre la bibliographie**, sous la clé
   `pastorino2026segmentation` : M. Pastorino, G. Moser, J. Zerubia,
   « Segmentation sémantique en télédétection », *Traitement du Signal et des
-  Images* (TSI), GRETSI, également disponible comme rapport de recherche Inria
-  RR-9631 (<https://inria.hal.science/hal-05742224>, septembre 2026). Il porte
+  Images* (TSI), GRETSI, **2027** ; également disponible comme rapport de
+  recherche Inria RR-9631 (<https://inria.hal.science/hal-05742224>, septembre
+  2026). Il porte
   le numéro **[1]** et n'apparaît qu'à deux endroits : sous le sous-titre de la
   page de titre, et dans la bibliographie de l'annexe. Aucune autre planche n'y
   renvoie. Volume, numéro et pages restent à compléter à la parution.

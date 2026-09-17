@@ -3,8 +3,9 @@
 Supports de présentation (Beamer, thème Inria + logo Università di Genova) pour
 l'article **« Segmentation Sémantique en Télédétection »** de Martina
 **Pastorino**, Gabriele **Moser** et Josiane **Zerubia**
-([Inria RR-9631](https://inria.hal.science/hal-05742224), à paraître dans
-*Traitement du Signal et des Images*, GRETSI).
+(*Traitement du Signal et des Images*, GRETSI, **2027** ; également rapport de
+recherche Inria [RR-9631](https://inria.hal.science/hal-05742224), septembre
+2026).
 
 **Quatre versions** — deux durées, deux langues — chacune dans son propre
 dossier, complète et compilable indépendamment :

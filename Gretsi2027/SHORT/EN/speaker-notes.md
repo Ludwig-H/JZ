@@ -213,5 +213,5 @@ They are two victims of the short format. Stochastic geometry and marked point p
 
 **Numbers and identifiers**
 - 24 slides, 20 minutes, 54 references.
-- Source paper: Pastorino, Moser and Zerubia, Traitement du Signal et des Images, GRETSI; also Inria RR-9631, HAL hal-05742224, September 2026.
+- Source paper: Pastorino, Moser and Zerubia, Traitement du Signal et des Images, GRETSI, 2027; also Inria RR-9631, HAL hal-05742224, September 2026.
 - Affiliation: Inria Centre at Université Côte d'Azur, Ayana project-team; Martina Pastorino and Gabriele Moser, Università di Genova, Diten.

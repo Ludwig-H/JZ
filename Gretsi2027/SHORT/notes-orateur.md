@@ -214,5 +214,5 @@ Ce sont deux victimes du format court. La géométrie stochastique et les proces
 
 **Chiffres et identifiants**
 - 24 planches, 20 minutes, 54 références.
-- Article source : Pastorino, Moser et Zerubia, Traitement du Signal et des Images, GRETSI ; également Inria RR-9631, HAL hal-05742224, septembre 2026.
+- Article source : Pastorino, Moser et Zerubia, Traitement du Signal et des Images, GRETSI, 2027 ; également Inria RR-9631, HAL hal-05742224, septembre 2026.
 - Affiliation : Centre Inria d'Université Côte d'Azur, équipe Ayana ; Martina Pastorino et Gabriele Moser, Università di Genova, Diten.
