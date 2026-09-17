@@ -1,17 +1,25 @@
 # Version longue — 51 planches
 
-Support de la **session historique** du GRETSI 2027 (≈ 45 min), suivant les
-11 sections de l'article, plus les crédits et la bibliographie en annexe.
+Support **à usage général** (≈ 45 min) : séminaire, cours, exposé invité. Il
+suit les 11 sections de l'article, plus les crédits et la bibliographie en
+annexe. Aucune mention de colloque ni de date sur les planches.
 
-PDF de référence : [`reference/GRETSI_2027_Segmentation_sémantique_en_télédétection_LONG.pdf`](reference/)
-(Martina Pastorino, 11 septembre 2026). Le `main.tex` de ce dossier le
-reproduit à l'identique — voir [« Fidélité au PDF de référence »](#fidélité-au-pdf-de-référence).
+PDF compilés, dans ce dossier :
+
+- `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf` — cette version ;
+- `GRETSI2027_Semantic_Segmentation_Remote_Sensing_LONG.pdf` — la version
+  anglaise, dont les sources sont dans [`EN/`](EN/).
+
+État d'origine : [`reference/`](reference/) conserve le PDF envoyé par Martina
+Pastorino le 11 septembre 2026, dont ce `main.tex` est issu — voir
+[« Rapport au PDF de référence »](#rapport-au-pdf-de-référence).
 
 ## Contenu du dossier
 
 ```
 LONG/
 ├── main.tex                    la présentation (11 sections, 51 planches)
+├── *.pdf                       les deux PDF compilés, français et anglais
 ├── references.bib              79 entrées : les références de l'article + l'article lui-même
 ├── notes-orateur.md            support pour l'oral : ce qu'il y a à dire, planche par planche
 ├── rapport-complementaire.md   document d'accompagnement (déroulé, crédits, minutage)
@@ -30,8 +38,9 @@ même numérotation bibliographique. Support pour l'oral :
 [`EN/speaker-notes.md`](EN/speaker-notes.md) en anglais.
 
 `make` produit `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf`
-(pdfLaTeX + biber ; le PDF n'est pas versionné). Prérequis et remarques sur le
-moteur : voir le [README du dossier parent](../README.md#compilation).
+(pdfLaTeX + biber). `make` depuis [`EN/`](EN/) dépose le PDF anglais dans ce
+même dossier. Prérequis et remarques sur le moteur : voir le
+[README du dossier parent](../README.md#compilation).
 
 ## La présentation (`main.tex`)
 
@@ -62,38 +71,35 @@ figures.
 Le déroulé planche par planche, le minutage et les choix éditoriaux sont
 consignés dans le [rapport complémentaire](rapport-complementaire.md).
 
-## Fidélité au PDF de référence
+## Rapport au PDF de référence
 
-Par rapport à l'état précédent du dépôt, le PDF envoyé par Martina comporte
-**trois** modifications, reportées telles quelles dans les sources :
+Cette version **ne reproduit plus** le PDF de `reference/`, et c'est délibéré.
+Deux changements l'en écartent :
 
-1. **Entrée `[1]`** (l'article lui-même) : la date « déc. 2026 » disparaît, au
-   profit d'une note « *Also available as Inria RR-9631*
-   <https://inria.hal.science/hal-05742224> (sept. 2026) ». Elle s'affiche en
-   page de titre et dans la bibliographie.
-2. **Référence retirée** : `li2014survey` (X. Li *et al.*, « A survey of
-   semantic segmentation », arXiv:1412.7062, 2014), citée planche 18. La
-   bibliographie passe de 80 à **79 entrées** et tous les numéros à partir de
-   `[26]` sont décalés d'une unité.
-3. **Planche 19** (« L'apport mesurable du contexte ») : les trois renvois sont
-   réordonnés en `[12] [27] [28]` (Solberg d'abord).
+1. **Plus aucune mention du GRETSI 2027.** Le support est prévu pour un usage
+   générique : le sous-titre devient « D'après l'article de synthèse [1] », le
+   pied de page affiche le titre court au lieu du colloque, et les métadonnées
+   PDF suivent.
+2. **Vraies guillemets françaises**, via `\usepackage[T1]{fontenc}` et
+   `lmodern`. En OT1 — l'encodage par défaut — babel-french compose « et » avec
+   les signes *mathématiques* ≪ et ≫ de la fonte CMSY, qui n'en ont ni le
+   dessin ni la chasse. Le document passe donc de Computer Modern à Latin
+   Modern : même dessin, encodage T1, guillemets corrects.
 
-**Vérification.** Le PDF produit par `make` et celui de `reference/` ont été
-comparés planche par planche :
+Le second point change les métriques de fonte, donc la concordance au centième
+de point avec le PDF de Martina n'a plus d'objet.
+
+**Ce qui n'a pas bougé**, vérifié planche par planche contre `reference/` :
 
 | | résultat |
 |---|---|
 | planches | 51 / 51 |
-| fontes embarquées | 19, identiques |
-| glyphes (caractère, fonte, corps, couleur, position) | 48 223 comparés, écart de position maximal **0,01 pt** |
-| lignes de texte | 830, identiques |
-| images | 119, écart de position et de taille **0,00 pt** |
-| rendu 150 dpi | 0,09 % de pixels différents (anticrénelage) |
+| texte des planches, hors pied de page et page de titre | 7 103 mots, **identiques** — au seul détail près que les guillemets ont gagné l'espace fine qui leur revient |
+| images | 119, aux mêmes emplacements (écart maximal 0,29 pt, dû aux métriques) |
+| boîtes débordantes | 14 hbox / 13 vbox, comme avant — elles viennent du thème, pas du texte |
+| corps contre le bandeau de références | la planche 10, tout juste limite auparavant, a gagné de la marge |
 
-Seule exception, planche 31 : les accolades horizontales de la formule de
-Mumford–Shah sont *dessinées* à l'identique, mais la table `ToUnicode` du PDF
-les code différemment (`⏞⏟⏟⏞` chez Martina, `|{z}` ici). C'est une différence
-de version de TeX Live — elle ne change que le copier-coller, pas l'affichage.
+Le PDF d'origine reste dans `reference/` comme trace de l'état initial.
 
 ## `references.bib`
 
@@ -207,16 +213,16 @@ attribution dans l'article.
 
 ## À décider ensemble
 
-- **Cadre exact** : durée réellement allouée (le minutage vise 45 min ; pour
-  30 min, les planches 16, 28, 36 et 40 sont les candidates à la coupe — sinon
-  la [version courte](../SHORT/) tient en ≈ 20 min).
+- **Durée réellement allouée** : le minutage vise 45 min ; pour 30 min, les
+  planches 16, 28, 36 et 40 sont les candidates à la coupe — sinon la
+  [version courte](../SHORT/) tient en ≈ 20 min.
 - **Affiliations** : la page de titre annonce Josiane Zerubia (Centre Inria
   d'Université Côte d'Azur, équipe Ayana) comme oratrice, en collaboration avec
   Martina Pastorino et Gabriele Moser (Università di Genova, DITEN) —
   rattachements **à confirmer**. Logo UniGe en page de titre seule, ou aussi en
   pied de page ?
-- **Date exacte** de l'exposé : le pied de page affiche « GRETSI 2027 »
-  (`\date[…]{…}`).
+- **Contexte** : le pied de page affiche le titre court. Pour un colloque
+  précis, il suffit d'y remettre son nom : `\date[Mon colloque 20XX]{}`.
 - **Référence de l'article** : volume, numéro et pages restent à compléter à la
   parution dans `references.bib`.
 - **Droits des figures 4 et 7** : elles ne portent aucune attribution dans

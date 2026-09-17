@@ -15,6 +15,3 @@
 *.vrb
 *.xdv
 _minted*/
-
-# PDF produit par `make` (le PDF de référence de Martina est dans reference/)
-/GRETSI2027_Segmentation_Semantique_Teledetection_*.pdf

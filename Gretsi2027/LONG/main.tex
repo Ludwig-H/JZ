@@ -1,9 +1,11 @@
 % !TEX program = pdflatex
 % ============================================================
-% GRETSI 2027 — Session historique
-% « Segmentation sémantique en télédétection »
+% Segmentation sémantique en télédétection — présentation générale
 % d'après M. Pastorino, G. Moser, J. Zerubia
 % (../article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
+%
+% Support prévu pour un usage générique (séminaire, cours, exposé invité) :
+% aucune mention d'un colloque ni d'une date dans les planches.
 %
 % La présentation suit la structure de l'article (11 sections).
 % Illustrations : figures de l'article, extraites dans imgs/article/ ;
@@ -13,6 +15,14 @@
 % Compilation : make  (latexmk + pdfLaTeX + biber, thème dans theme/)
 % ============================================================
 \documentclass[svgnames,9pt,aspectratio=169]{beamer}
+
+% T1 + Latin Modern : indispensable pour les vraies guillemets françaises.
+% En OT1 (l'encodage par défaut), babel-french compose « et » avec les signes
+% mathématiques ≪ et ≫ de la fonte CMSY, qui n'en ont ni le dessin ni le
+% chasse. Latin Modern reprend le dessin de Computer Modern et fournit T1 en
+% Type 1 (les fontes EC seules donneraient des bitmaps Type 3).
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
 
 \usepackage[french]{babel}
 \usepackage{csquotes}
@@ -160,8 +170,11 @@
 
 % NB : affiliations à confirmer avant diffusion.
 \title{Segmentation sémantique en télédétection}
-\subtitle{GRETSI 2027, session historique~\cite{pastorino2026segmentation}}
-\date[GRETSI 2027]{2027}
+\subtitle{D'après l'article de synthèse~\cite{pastorino2026segmentation}}
+% Le pied de page du thème affiche l'argument optionnel de \date. On y met le
+% titre court plutôt qu'un colloque ou une date, pour que le support reste
+% utilisable tel quel en toute occasion.
+\date[Segmentation sémantique en télédétection]{}
 \author{%
    Josiane \textsc{Zerubia}\\[2pt]
    \footnotesize Centre Inria d'Université Côte d'Azur, équipe \textsc{Ayana}\\[8pt]
@@ -174,7 +187,7 @@
    allcolors   = rouge_inria,
    pdfauthor   = {Josiane Zerubia, en collaboration avec Martina Pastorino et Gabriele Moser},
    pdftitle    = {Segmentation sémantique en télédétection},
-   pdfsubject  = {GRETSI 2027 — session historique},
+   pdfsubject  = {Présentation d'après l'article de synthèse de M. Pastorino, G. Moser et J. Zerubia},
    pdfkeywords = {segmentation sémantique, télédétection, champs de Markov, CRF,
                   méthodes variationnelles, apprentissage profond, modèles de fondation}
 }

@@ -4,16 +4,22 @@ Version resserrée de l'exposé (≈ 20 min) : **6 sections** au lieu de 11,
 20 planches d'exposé, pas de planche de section, pas de planche de crédits en
 back-up, bibliographie réduite.
 
-PDF de référence : [`reference/GRETSI_2027_Segmentation_sémantique_en_télédétection_SHORT.pdf`](reference/)
-(Martina Pastorino, 11 septembre 2026). Le `main.tex` de ce dossier a été
-reconstruit par rétro-ingénierie à partir de ce PDF — voir
-[« Fidélité au PDF de référence »](#fidélité-au-pdf-de-référence).
+PDF compilés, dans ce dossier :
+
+- `GRETSI2027_Segmentation_Semantique_Teledetection_SHORT.pdf` — cette version ;
+- `GRETSI2027_Semantic_Segmentation_Remote_Sensing_SHORT.pdf` — la version
+  anglaise, dont les sources sont dans [`EN/`](EN/).
+
+État d'origine : [`reference/`](reference/) conserve le PDF envoyé par Martina
+Pastorino le 11 septembre 2026, dont ce `main.tex` a été reconstruit par
+rétro-ingénierie — voir [« Rapport au PDF de référence »](#rapport-au-pdf-de-référence).
 
 ## Contenu du dossier
 
 ```
 SHORT/
 ├── main.tex          la présentation (6 sections, 24 planches)
+├── *.pdf             les deux PDF compilés, français et anglais
 ├── references.bib    54 entrées, revues et conférences abrégées
 ├── notes-orateur.md  support pour l'oral : ce qu'il y a à dire, planche par planche
 ├── reference/        le PDF envoyé par Martina, tel quel
@@ -31,8 +37,9 @@ corrigée. Support pour l'oral : [`notes-orateur.md`](notes-orateur.md) en
 français, [`EN/speaker-notes.md`](EN/speaker-notes.md) en anglais.
 
 `make` produit `GRETSI2027_Segmentation_Semantique_Teledetection_SHORT.pdf`
-(pdfLaTeX + biber ; le PDF n'est pas versionné). Prérequis et remarques sur le
-moteur : voir le [README du dossier parent](../README.md#compilation).
+(pdfLaTeX + biber). `make` depuis [`EN/`](EN/) dépose le PDF anglais dans ce
+même dossier. Prérequis et remarques sur le moteur : voir le
+[README du dossier parent](../README.md#compilation).
 
 ## Déroulé
 
@@ -88,33 +95,39 @@ cette version ; elle reste disponible dans `imgs/article/`.
   `\biblio`, `\formulebox`, `\filrouge`, `\logounige`) et thème `theme/`
   inchangé.
 
-## Fidélité au PDF de référence
+## Rapport au PDF de référence
 
-Le PDF produit par `make` et celui de `reference/` ont été comparés planche par
-planche :
+Cette version reproduisait le PDF de `reference/` glyphe pour glyphe. Elle ne
+le fait plus : les **guillemets françaises** y ont été corrigées. En OT1 —
+l'encodage par défaut — babel-french compose « et » avec les signes
+*mathématiques* ≪ et ≫ de la fonte CMSY, qui n'en ont ni le dessin ni la
+chasse. `\usepackage[T1]{fontenc}` et `lmodern` donnent les vraies guillemets ;
+le document passe de Computer Modern à Latin Modern, même dessin, encodage T1.
+
+Les métriques changent donc, et avec elles les quatre calages verticaux au
+point près qui servaient uniquement à retomber sur le PDF de Martina (sommaire,
+planches 17 et 18, largeur de la figure 7). Ils ont été retirés : le code est
+revenu à sa forme naturelle.
+
+**Ce qui n'a pas bougé**, vérifié planche par planche contre `reference/` :
 
 | | résultat |
 |---|---|
 | planches | 24 / 24 |
-| fontes embarquées | 13, identiques |
-| glyphes (caractère, fonte, corps, couleur, position) | 25 997 comparés, **aucun écart** de caractère, de fonte, de corps ni de couleur |
-| lignes de texte | 456, identiques ; écart de position maximal **0,1 pt** |
-| images | 62, écart de position et de taille **0,05 pt** |
-| rendu 150 dpi | 0,09 % de pixels différents (anticrénelage) |
+| texte des planches | 3 918 mots, **identiques** — au seul détail près que les guillemets ont gagné l'espace fine qui leur revient |
+| images | 62, aux mêmes emplacements (écart maximal 1,23 pt, dû aux métriques et au retrait des calages) |
+| boîtes débordantes | 2 hbox / 2 vbox, une de moins qu'avant |
+| texte hors cadre, collision avec le bandeau | aucune |
 
-> **Défaut reproduit tel quel — planche 9.** Le bandeau de références du bas
+Le PDF d'origine reste dans `reference/` comme trace de l'état initial.
+
+> **Défaut hérité, toujours là — planche 9.** Le bandeau de références du bas
 > affiche `[haralick1985image] haralick1985image` : la planche cite une clé
-> absente de `references.bib`. C'est ce qu'imprime le PDF de référence, donc
-> c'est conservé. Deux façons de corriger, au choix : retirer la clé de la
-> ligne `\biblio` de cette planche (elle n'est citée nulle part ailleurs), ou
+> absente de `references.bib`. Conservé pour ne pas modifier le contenu d'une
+> planche sans arbitrage. Deux façons de corriger, au choix : retirer la clé de
+> la ligne `\biblio` de cette planche (elle n'est citée nulle part ailleurs), ou
 > réintroduire l'entrée dans `references.bib` — mais cela décalerait tous les
-> numéros `[n]` suivants. Un commentaire le rappelle dans `main.tex`.
-
-Quelques réglages de `main.tex` ont été **calés numériquement** sur le PDF de
-référence, faute de pouvoir deviner la valeur d'origine : la position verticale
-du sommaire et des planches 17 et 18 (`\vspace*` de l'ordre du point) et la
-largeur de la figure 7 (planche 18). Ils sont signalés par un commentaire.
-Ce sont les seuls endroits où le code ne se lit pas naturellement.
+> numéros `[n]` suivants. La [version anglaise](EN/) a, elle, retiré la clé.
 
 ## À vérifier
 
@@ -122,6 +135,8 @@ Ce sont les seuls endroits où le code ne se lit pas naturellement.
 - La référence `[1]` (l'article) attend toujours volume, numéro et pages ; en
   l'état elle renvoie au rapport de recherche Inria RR-9631.
 - Planche 18 : « modèles de fondation **geospatiaux** » est sans accent dans le
-  PDF de référence, et reproduit tel quel ici.
-- Affiliations et date exacte de l'exposé : mêmes points ouverts que pour la
-  [version longue](../LONG/README.md#à-décider-ensemble).
+  PDF d'origine, et conservé tel quel ici.
+- Affiliations : même point ouvert que pour la
+  [version longue](../LONG/README.md#à-décider-ensemble). Contrairement à elle,
+  cette version reste celle du GRETSI 2027 : le sous-titre et le pied de page
+  nomment le colloque.

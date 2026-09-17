@@ -14,6 +14,14 @@
 % ============================================================
 \documentclass[svgnames,9pt,aspectratio=169]{beamer}
 
+% T1 + Latin Modern : indispensable pour les vraies guillemets françaises.
+% En OT1 (l'encodage par défaut), babel-french compose « et » avec les signes
+% mathématiques ≪ et ≫ de la fonte CMSY, qui n'en ont ni le dessin ni le
+% chasse. Latin Modern reprend le dessin de Computer Modern et fournit T1 en
+% Type 1 (les fontes EC seules donneraient des bitmaps Type 3).
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
 \usepackage[french]{babel}
 \usepackage{csquotes}
 \usepackage{amsmath,amssymb,amsfonts,mathtools}
@@ -195,9 +203,7 @@
 % Six sections : le sommaire tient sur une seule colonne.
 \begin{frame}{Sommaire}
   % Dans une colonne, la boîte garde sa hauteur naturelle : les \vfill que
-  % beamer insère entre les entrées ne s'étirent pas. Le \vspace* cale la
-  % position verticale sur celle du PDF de référence.
-  \vspace*{2.29pt}
+  % beamer insère entre les entrées ne s'étirent pas.
   \begin{columns}[c,onlytextwidth]
     \begin{column}{\textwidth}
       \tableofcontents
@@ -350,13 +356,14 @@
           spatiale} : parcelles, forêts, zones urbaines, réseaux routiers.
     \item Les étiquettes doivent être estimées \hl{conjointement}, pas pixel par pixel.
   \end{itemize}
-  % ATTENTION — défaut connu, reproduit tel quel : `haralick1985image` n'est PAS
+  % ATTENTION — défaut hérité du PDF d'origine : `haralick1985image` n'est PAS
   % dans references.bib (la bibliographie courte ne la reprend pas), si bien que
   % le bandeau du bas affiche « [haralick1985image] haralick1985image » au lieu
-  % d'une référence. C'est ce qu'imprime le PDF de reference/, d'où le maintien
-  % à l'identique. Pour corriger : soit retirer la clé de la ligne ci-dessous
-  % (la planche ne la cite nulle part ailleurs), soit réintroduire l'entrée dans
-  % references.bib — mais cela décalerait tous les numéros [n] suivants.
+  % d'une référence. Conservé tel quel pour ne pas modifier le contenu de la
+  % planche sans arbitrage. Pour corriger : soit retirer la clé de la ligne
+  % ci-dessous (la planche ne la cite nulle part ailleurs), soit réintroduire
+  % l'entrée dans references.bib — mais cela décalerait tous les numéros [n]
+  % suivants. La version anglaise, elle, a choisi de retirer la clé.
   \biblio{richards1986remote,haralick1985image,solberg1996markov,moser2013landcover}
 \end{frame}
 
@@ -511,7 +518,6 @@
 % ============================================================
 
 \begin{frame}{Apprendre profond}
-  \vspace*{2.06pt}% calage vertical sur le PDF de référence
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.52\textwidth}
       \begin{itemize}
@@ -539,7 +545,6 @@
 \begin{frame}{Transformers, auto-supervisé et modèles de fondation}
   % Colonnes hors `onlytextwidth` : le bloc déborde légèrement des marges de texte,
   % ce qui laisse la place à la figure 7 (la plus large de la présentation).
-  \vspace*{-1.24pt}% calage vertical sur le PDF de référence
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \begin{itemize}
@@ -553,12 +558,9 @@
               transférables\refc{he2022masked}.
       \end{itemize}
     \end{column}
-    % Figure calée sur le PDF de référence : bord gauche à ras de la colonne
-    % (pas de \centering ici — \legende se centre toute seule) et largeur
-    % 1,0038 fois la colonne, soit 154,9 pt.
-    \begin{column}{0.41\textwidth}
+    \begin{column}{0.41\textwidth}\centering
       \vspace{1.65ex}
-      \noindent\includegraphics[width=1.0038\textwidth]{imgs/article/fig7_modele_fondation_geospatial}
+      \includegraphics[width=\textwidth]{imgs/article/fig7_modele_fondation_geospatial}
       \legende{Principe d'un modèle de fondation géospatial}
     \end{column}
   \end{columns}

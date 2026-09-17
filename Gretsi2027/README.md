@@ -9,12 +9,17 @@ l'article **« Segmentation Sémantique en Télédétection »** de Martina
 **Quatre versions** — deux durées, deux langues — chacune dans son propre
 dossier, complète et compilable indépendamment :
 
-| Dossier | Langue | Planches | Format | Structure |
+| Dossier | Langue | Planches | Destination | Structure |
 |---|---|---|---|---|
-| [`LONG/`](LONG/) | français | **51** | session historique, ≈ 45 min | 11 sections (celles de l'article), planches de section numérotées, bibliographie (79 réf.) et crédits des figures en annexe |
+| [`LONG/`](LONG/) | français | **51** | **usage général**, ≈ 45 min | 11 sections (celles de l'article), planches de section numérotées, bibliographie (79 réf.) et crédits des figures en annexe |
 | [`LONG/EN/`](LONG/EN/) | anglais | **51** | idem | traduction de `LONG/`, même thème, mêmes figures, même numérotation |
-| [`SHORT/`](SHORT/) | français | **24** | exposé resserré, ≈ 20 min | 6 sections, pas de planche de section, bibliographie réduite (54 réf., revues abrégées) |
+| [`SHORT/`](SHORT/) | français | **24** | **GRETSI 2027**, ≈ 20 min | 6 sections, pas de planche de section, bibliographie réduite (54 réf., revues abrégées) |
 | [`SHORT/EN/`](SHORT/EN/) | anglais | **24** | idem | traduction de `SHORT/` |
+
+La **version longue est neutre** : aucune mention de colloque ni de date sur les
+planches, son pied de page affiche le titre court. Elle se donne telle quelle en
+séminaire, en cours ou en exposé invité. La **version courte reste celle du
+GRETSI 2027**, dont elle porte le nom en sous-titre et en pied de page.
 
 Chaque version est accompagnée d'un **support pour l'oral** : ce qu'il y a à
 dire, planche par planche, avec le minutage ([`LONG/notes-orateur.md`](LONG/notes-orateur.md),
@@ -24,20 +29,33 @@ dire, planche par planche, avec le minutage ([`LONG/notes-orateur.md`](LONG/note
 
 Les deux versions françaises sont issues d'une **reconstruction** des PDF
 envoyés par Martina Pastorino le 11 septembre 2026 ; ces PDF sont conservés tels
-quels dans `LONG/reference/` et `SHORT/reference/`. Chaque `main.tex` français
-**reproduit son PDF de référence à l'identique** : mêmes fontes, mêmes césures,
-mêmes positions de texte et d'images (écart maximal relevé : 0,1 point sur
-75 planches). Voir la section « Fidélité au PDF de référence » de chaque
-sous-dossier.
+quels dans `LONG/reference/` et `SHORT/reference/`. Les sources s'en écartent
+désormais **volontairement** — vraies guillemets françaises dans les deux, et
+retrait de la mention du colloque dans la longue — mais le **texte des planches
+reste identique, mot pour mot**. Voir la section « Rapport au PDF de référence »
+de chaque sous-dossier.
+
+> **Guillemets.** Les deux versions françaises chargent `[T1]{fontenc}` et
+> `lmodern`. C'est indispensable : en OT1, l'encodage par défaut, babel-french
+> compose « et » avec les signes *mathématiques* ≪ et ≫ de la fonte CMSY, qui
+> n'en ont ni le dessin ni la chasse. Latin Modern reprend le dessin de Computer
+> Modern et fournit T1 en Type 1. Les versions anglaises n'en ont pas besoin et
+> restent sur Computer Modern.
 
 ```
 Gretsi2027/
 ├── LONG/      la version longue  (main.tex, references.bib, notes-orateur.md, theme/, imgs/, reference/)
+│   ├── *.pdf  les deux PDF compilés, français et anglais
 │   └── EN/    la même, en anglais (main.tex, references.bib, speaker-notes.md, theme/, imgs/)
 ├── SHORT/     la version courte  (idem)
+│   ├── *.pdf
 │   └── EN/
 └── article/   l'article source (PDF) et son texte extrait
 ```
+
+Les quatre PDF compilés sont versionnés, et **ceux des versions anglaises sont
+déposés à côté de leur version française** : `make` depuis `LONG/EN/` écrit dans
+`LONG/`, `make` depuis `SHORT/EN/` écrit dans `SHORT/`.
 
 ## Compilation
 

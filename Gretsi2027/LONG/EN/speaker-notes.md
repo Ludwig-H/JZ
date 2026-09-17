@@ -15,7 +15,7 @@ This document is the full script of the talk. Slide by slide, it gives what to s
 ## Slide by slide
 
 ### Slide 1 — Semantic segmentation in remote sensing · 1 min · 1 min
-**Say.** Thank you for having me in this historical session. I would like to tell you how semantic segmentation was built in remote sensing — that is, how we went, in about fifty years, from a decision taken pixel by pixel on a spectral signature to today's geospatial foundation models. This talk is based on a paper written with Martina Pastorino and Gabriele Moser, from Università di Genova, to appear in Traitement du Signal et des Images.
+**Say.** Thank you for having me. I would like to tell you how semantic segmentation was built in remote sensing — that is, how we went, in about fifty years, from a decision taken pixel by pixel on a spectral signature to today's geospatial foundation models. This talk is based on a paper written with Martina Pastorino and Gabriele Moser, from Università di Genova, to appear in Traitement du Signal et des Images.
 **Transition.** The outline of the talk is exactly the outline of the paper. Here it is.
 **In reserve.** The paper is already available as an Inria research report, RR-9631, on HAL, hal-05742224, since September 2026.
 

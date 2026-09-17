@@ -1,12 +1,13 @@
-# Rapport complémentaire — session historique GRETSI 2027
+# Rapport complémentaire — version longue, usage général
 
 **Segmentation sémantique en télédétection**
 Josiane **Zerubia** (Centre Inria d'Université Côte d'Azur, équipe Ayana), en
 collaboration avec Martina **Pastorino** et Gabriele **Moser** (Università di
 Genova, DITEN).
 
-Support : `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf`, produit
-par `make` dans ce dossier (51 planches : 45 pour l'exposé, puis 6 en annexe).
+Support : `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf`, dans ce
+dossier (51 planches : 45 pour l'exposé, puis 6 en annexe). La version anglaise
+est dans [`EN/`](EN/), son PDF à côté de celui-ci.
 PDF de référence envoyé par Martina Pastorino : [`reference/`](reference/).
 Source de l'exposé : [`../article/Martina_TSI_GRETSI_segmentation_semantique.pdf`](../article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
 Version resserrée du même exposé (24 planches) : [`../SHORT/`](../SHORT/).
@@ -22,7 +23,7 @@ l'article, un minutage, et les points qui restent à arbitrer avant diffusion.
 
 | | |
 |---|---|
-| Format | Session historique, GRETSI 2027 |
+| Destination | Usage général : séminaire, cours, exposé invité. Aucune mention de colloque ni de date sur les planches |
 | Durée visée | ≈ 45 min d'exposé (+ questions) |
 | Planches | 45 numérotées jusqu'au « Merci », + crédits + bibliographie en annexe |
 | Langue | Français intégral (titres, légendes, crédits, bibliographie) |
@@ -313,10 +314,11 @@ l'on parcourt la planche du regard.
 1. **Affiliations** de la page de titre, en particulier le rattachement de
    Martina Pastorino (indiquée avec Gabriele Moser à l'Università di Genova,
    DITEN).
-2. **Date exacte** de la session : le pied de page affiche « GRETSI 2027 »
-   (`\date[…]{…}` dans `main.tex`).
+2. **Contexte de l'exposé** : le pied de page affiche le titre court. Pour un
+   colloque précis, il suffit d'y remettre son nom : `\date[Mon colloque 20XX]{}`
+   dans `main.tex`.
 3. **Droits des figures 4 et 7**, sans attribution dans l'article (cf. §5).
-4. **Durée réelle** allouée à la session : le minutage du §3 vise 45 minutes.
+4. **Durée réelle** allouée : le minutage du §3 vise 45 minutes.
    Pour 30 minutes, les candidates à la coupe sont les planches 16, 28, 36 et
    40, sans casser le fil directeur.
 5. **Système de citations** : `biblatex` numérique et bibliographie complète en

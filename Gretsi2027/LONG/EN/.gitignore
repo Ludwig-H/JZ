@@ -15,6 +15,3 @@
 *.vrb
 *.xdv
 _minted*/
-
-# PDF produced by `make`
-/GRETSI2027_Semantic_Segmentation_Remote_Sensing_*.pdf

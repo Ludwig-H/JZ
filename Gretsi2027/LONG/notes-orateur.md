@@ -15,7 +15,7 @@ Ce document est le conducteur complet de l'exposé : il donne, planche par planc
 ## Déroulé
 
 ### Planche 1 — Segmentation sémantique en télédétection · 1 min · 1 min
-**À dire.** Merci de m'accueillir dans cette session historique. Je voudrais vous raconter comment la segmentation sémantique s'est construite en télédétection, c'est-à-dire comment on est passé, en une cinquantaine d'années, de la décision prise pixel par pixel sur une signature spectrale aux modèles de fondation géospatiaux d'aujourd'hui. Cet exposé s'appuie sur un article écrit avec Martina Pastorino et Gabriele Moser, de l'Università di Genova, à paraître dans Traitement du Signal et des Images.
+**À dire.** Merci de m'accueillir. Je voudrais vous raconter comment la segmentation sémantique s'est construite en télédétection, c'est-à-dire comment on est passé, en une cinquantaine d'années, de la décision prise pixel par pixel sur une signature spectrale aux modèles de fondation géospatiaux d'aujourd'hui. Cet exposé s'appuie sur un article écrit avec Martina Pastorino et Gabriele Moser, de l'Università di Genova, à paraître dans Traitement du Signal et des Images.
 **Transition.** Le plan de l'exposé est très exactement celui de l'article ; le voici.
 **En réserve.** L'article est d'ores et déjà disponible comme rapport de recherche Inria, RR-9631, sur HAL, hal-05742224, depuis septembre 2026.
 

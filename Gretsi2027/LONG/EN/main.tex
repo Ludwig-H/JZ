@@ -1,12 +1,14 @@
 % !TEX program = pdflatex
 % ============================================================
-% GRETSI 2027 — Historical session
-% "Semantic segmentation in remote sensing"
+% Semantic segmentation in remote sensing — general-purpose talk
 % after M. Pastorino, G. Moser, J. Zerubia
 % (../../article/Martina_TSI_GRETSI_segmentation_semantique.pdf).
 %
 % English version of ../main.tex: same theme, same content, same
 % 51 slides. The only deliberate difference is the language.
+%
+% Meant for general use (seminar, course, invited talk): no conference
+% and no date anywhere on the slides.
 %
 % The presentation follows the structure of the paper (11 sections).
 % Illustrations: the figures of the paper, extracted in imgs/article/;
@@ -162,8 +164,11 @@
 
 % NB: affiliations to be confirmed before circulation.
 \title{Semantic segmentation in remote sensing}
-\subtitle{GRETSI 2027, historical session~\cite{pastorino2026segmentation}}
-\date[GRETSI 2027]{2027}
+\subtitle{After the survey paper~\cite{pastorino2026segmentation}}
+% The theme prints the optional argument of \date in the footer. We put the
+% short title there rather than a conference or a date, so that the deck can be
+% used as is on any occasion.
+\date[Semantic segmentation in remote sensing]{}
 \author{%
    Josiane \textsc{Zerubia}\\[2pt]
    \footnotesize Inria Centre at Université Côte d'Azur, \textsc{Ayana} project-team\\[8pt]
@@ -176,7 +181,7 @@
    allcolors   = rouge_inria,
    pdfauthor   = {Josiane Zerubia, in collaboration with Martina Pastorino and Gabriele Moser},
    pdftitle    = {Semantic segmentation in remote sensing},
-   pdfsubject  = {GRETSI 2027 — historical session},
+   pdfsubject  = {Talk after the survey paper by M. Pastorino, G. Moser and J. Zerubia},
    pdfkeywords = {semantic segmentation, remote sensing, Markov random fields, CRF,
                   variational methods, deep learning, foundation models}
 }

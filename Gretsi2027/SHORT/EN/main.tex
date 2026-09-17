@@ -197,10 +197,7 @@
 % Six sections: the outline fits in a single column.
 \begin{frame}{Outline}
   % Inside a column, the box keeps its natural height: the \vfill that
-  % beamer inserts between the entries does not stretch. The \vspace* sets
-  % the vertical position to the one measured on the French version's
-  % reference PDF (../reference/).
-  \vspace*{2.29pt}
+  % beamer inserts between the entries does not stretch.
   \begin{columns}[c,onlytextwidth]
     \begin{column}{\textwidth}
       \tableofcontents
@@ -513,7 +510,6 @@
 % ============================================================
 
 \begin{frame}{Going deep}
-  \vspace*{2.06pt}% calibration inherited from the French version
   \begin{columns}[T,onlytextwidth]
     \begin{column}{0.52\textwidth}
       \begin{itemize}
@@ -541,7 +537,6 @@
 \begin{frame}{Transformers, self-supervision and foundation models}
   % Columns without `onlytextwidth`: the block slightly overflows the text margins,
   % which leaves room for figure 7 (the widest in the presentation).
-  \vspace*{-1.24pt}% calibration inherited from the French version
   \begin{columns}[T]
     \begin{column}{0.58\textwidth}
       \begin{itemize}
@@ -555,12 +550,9 @@
               representations\refc{he2022masked}.
       \end{itemize}
     \end{column}
-    % Figure placed as in the French version: left edge flush with the column
-    % (no \centering here — \legende centers itself) and width
-    % 1.0038 times the column, i.e. 154.9 pt.
-    \begin{column}{0.41\textwidth}
+    \begin{column}{0.41\textwidth}\centering
       \vspace{1.65ex}
-      \noindent\includegraphics[width=1.0038\textwidth]{imgs/article/fig7_modele_fondation_geospatial}
+      \includegraphics[width=\textwidth]{imgs/article/fig7_modele_fondation_geospatial}
       \legende{Principle of a geospatial foundation model}
     \end{column}
   \end{columns}
