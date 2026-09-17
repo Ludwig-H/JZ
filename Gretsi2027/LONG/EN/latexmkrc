@@ -1,0 +1,13 @@
+# The Inria theme loads its .sty files and its images from theme/.
+$ENV{'TEXINPUTS'}='.:theme//:'.$ENV{'TEXINPUTS'};
+# Optional: drop gitlab.inria.fr/gabarits/latex-inria-fonts here to get the
+# Inria Sans fonts (without them the theme just emits a warning).
+$ENV{'TEXINPUTS'}='.:latex-inria-fonts//:'.$ENV{'TEXINPUTS'};
+# pdfLaTeX, like the French version it is translated from. To build with
+# LuaLaTeX instead — same slides, same pagination, Latin Modern fonts —
+# replace the two lines below by: $pdf_mode = 4;
+$pdf_mode = 1; # pdflatex
+
+# Never stop to ask for input on an error.
+$pdflatex = 'pdflatex -interaction=nonstopmode %O %S';
+$lualatex = 'lualatex -interaction=nonstopmode %O %S';

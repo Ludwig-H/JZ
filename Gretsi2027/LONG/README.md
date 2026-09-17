@@ -13,14 +13,21 @@ reproduit à l'identique — voir [« Fidélité au PDF de référence »](#fid�
 LONG/
 ├── main.tex                    la présentation (11 sections, 51 planches)
 ├── references.bib              79 entrées : les références de l'article + l'article lui-même
+├── notes-orateur.md            support pour l'oral : ce qu'il y a à dire, planche par planche
 ├── rapport-complementaire.md   document d'accompagnement (déroulé, crédits, minutage)
 ├── reference/                  le PDF envoyé par Martina, tel quel
+├── EN/                         la même présentation en anglais (voir EN/README.md)
 ├── imgs/article/               les 7 figures de l'article (14 sous-images)
 ├── imgs/logos/                 logos Università di Genova
 ├── theme/                      thème Beamer Inria 2024 (copie amont, non modifiée)
 ├── latexmkrc                   TEXINPUTS → theme/, compilation pdfLaTeX
 └── Makefile                    `make` / `make clean`
 ```
+
+Version anglaise : [`EN/`](EN/) — mêmes 51 planches, même thème, mêmes figures,
+même numérotation bibliographique. Support pour l'oral :
+[`notes-orateur.md`](notes-orateur.md) en français,
+[`EN/speaker-notes.md`](EN/speaker-notes.md) en anglais.
 
 `make` produit `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf`
 (pdfLaTeX + biber ; le PDF n'est pas versionné). Prérequis et remarques sur le

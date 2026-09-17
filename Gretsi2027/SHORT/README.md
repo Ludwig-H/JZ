@@ -15,13 +15,20 @@ reconstruit par rétro-ingénierie à partir de ce PDF — voir
 SHORT/
 ├── main.tex          la présentation (6 sections, 24 planches)
 ├── references.bib    54 entrées, revues et conférences abrégées
+├── notes-orateur.md  support pour l'oral : ce qu'il y a à dire, planche par planche
 ├── reference/        le PDF envoyé par Martina, tel quel
+├── EN/               la même présentation en anglais (voir EN/README.md)
 ├── imgs/article/     les 7 figures de l'article (jeu complet ; 6 sont utilisées ici)
 ├── imgs/logos/       logos Università di Genova
 ├── theme/            thème Beamer Inria 2024 (copie amont, non modifiée)
 ├── latexmkrc         TEXINPUTS → theme/, compilation pdfLaTeX
 └── Makefile          `make` / `make clean`
 ```
+
+Version anglaise : [`EN/`](EN/) — mêmes 24 planches, même thème, mêmes figures,
+même numérotation bibliographique ; la citation cassée de la planche 9 y est
+corrigée. Support pour l'oral : [`notes-orateur.md`](notes-orateur.md) en
+français, [`EN/speaker-notes.md`](EN/speaker-notes.md) en anglais.
 
 `make` produit `GRETSI2027_Segmentation_Semantique_Teledetection_SHORT.pdf`
 (pdfLaTeX + biber ; le PDF n'est pas versionné). Prérequis et remarques sur le
