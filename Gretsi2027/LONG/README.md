@@ -4,11 +4,15 @@ Support **à usage général** (≈ 45 min) : séminaire, cours, exposé invité
 suit les 11 sections de l'article, plus les crédits et la bibliographie en
 annexe. Aucune mention de colloque ni de date sur les planches.
 
-PDF compilés, dans ce dossier :
+PDF, dans ce dossier :
 
-- `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf` — cette version ;
-- `GRETSI2027_Semantic_Segmentation_Remote_Sensing_LONG.pdf` — la version
-  anglaise, dont les sources sont dans [`EN/`](EN/).
+- `GRETSI2027_Segmentation_Semantique_Teledetection_LONG.pdf` — les planches ;
+- `GRETSI2027_Semantic_Segmentation_Remote_Sensing_LONG.pdf` — les planches en
+  anglais, dont les sources sont dans [`EN/`](EN/) ;
+- `Notes_Orateur_Segmentation_Semantique_Teledetection_LONG.pdf` — le support
+  pour l'oral, version imprimable de [`notes-orateur.md`](notes-orateur.md) ;
+- `Speaker_Notes_Semantic_Segmentation_Remote_Sensing_LONG.pdf` — le même en
+  anglais.
 
 État d'origine : [`reference/`](reference/) conserve le PDF envoyé par Martina
 Pastorino le 11 septembre 2026, dont ce `main.tex` est issu — voir
@@ -19,7 +23,7 @@ Pastorino le 11 septembre 2026, dont ce `main.tex` est issu — voir
 ```
 LONG/
 ├── main.tex                    la présentation (11 sections, 51 planches)
-├── *.pdf                       les deux PDF compilés, français et anglais
+├── *.pdf                       planches et supports pour l'oral, français et anglais
 ├── references.bib              79 entrées : les références de l'article + l'article lui-même
 ├── notes-orateur.md            support pour l'oral : ce qu'il y a à dire, planche par planche
 ├── rapport-complementaire.md   document d'accompagnement (déroulé, crédits, minutage)

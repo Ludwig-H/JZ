@@ -15,6 +15,7 @@ SHORT/EN/
 │                   (the built PDF lands in ../, beside the French one)
 ├── references.bib     54 entries, journals and conferences abbreviated
 ├── speaker-notes.md   what to say, slide by slide
+│                   (its PDF lands in ../ too — see ../../tools/notes-pdf.py)
 ├── imgs/, theme/      the same figures and the same theme as the French version
 ├── latexmkrc          TEXINPUTS → theme/, pdfLaTeX
 └── Makefile           `make` / `make clean`

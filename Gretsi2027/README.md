@@ -23,10 +23,19 @@ séminaire, en cours ou en exposé invité. La **version courte reste celle du
 GRETSI 2027**, dont elle porte le nom en sous-titre et en pied de page.
 
 Chaque version est accompagnée d'un **support pour l'oral** : ce qu'il y a à
-dire, planche par planche, avec le minutage ([`LONG/notes-orateur.md`](LONG/notes-orateur.md),
-[`SHORT/notes-orateur.md`](SHORT/notes-orateur.md),
-[`LONG/EN/speaker-notes.md`](LONG/EN/speaker-notes.md),
-[`SHORT/EN/speaker-notes.md`](SHORT/EN/speaker-notes.md)).
+dire, planche par planche, avec le minutage cumulé, les transitions, les
+questions probables et les repères factuels. En markdown pour l'éditer, en PDF
+pour l'imprimer et le tenir au pupitre :
+
+| Version | Markdown | PDF |
+|---|---|---|
+| longue, fr | [`LONG/notes-orateur.md`](LONG/notes-orateur.md) | `LONG/Notes_Orateur_Segmentation_Semantique_Teledetection_LONG.pdf` |
+| longue, en | [`LONG/EN/speaker-notes.md`](LONG/EN/speaker-notes.md) | `LONG/Speaker_Notes_Semantic_Segmentation_Remote_Sensing_LONG.pdf` |
+| courte, fr | [`SHORT/notes-orateur.md`](SHORT/notes-orateur.md) | `SHORT/Notes_Orateur_Segmentation_Semantique_Teledetection_SHORT.pdf` |
+| courte, en | [`SHORT/EN/speaker-notes.md`](SHORT/EN/speaker-notes.md) | `SHORT/Speaker_Notes_Semantic_Segmentation_Remote_Sensing_SHORT.pdf` |
+
+Les PDF se regénèrent depuis les markdown par `python3 tools/notes-pdf.py`
+(pandoc + pdfLaTeX).
 
 Les deux versions françaises sont issues d'une **reconstruction** des PDF
 envoyés par Martina Pastorino le 11 septembre 2026 ; ces PDF sont conservés tels
@@ -46,17 +55,19 @@ de chaque sous-dossier.
 ```
 Gretsi2027/
 ├── LONG/      la version longue  (main.tex, references.bib, notes-orateur.md, theme/, imgs/, reference/)
-│   ├── *.pdf  les deux PDF compilés, français et anglais
+│   ├── *.pdf  quatre PDF : les deux jeux de planches et les deux supports pour l'oral
 │   └── EN/    la même, en anglais (main.tex, references.bib, speaker-notes.md, theme/, imgs/)
 ├── SHORT/     la version courte  (idem)
 │   ├── *.pdf
 │   └── EN/
+├── tools/     notes-pdf.py : markdown des notes -> PDF
 └── article/   l'article source (PDF) et son texte extrait
 ```
 
-Les quatre PDF compilés sont versionnés, et **ceux des versions anglaises sont
-déposés à côté de leur version française** : `make` depuis `LONG/EN/` écrit dans
-`LONG/`, `make` depuis `SHORT/EN/` écrit dans `SHORT/`.
+Les huit PDF sont versionnés — quatre jeux de planches, quatre supports pour
+l'oral — et **ceux des versions anglaises sont déposés à côté de leur version
+française** : `make` depuis `LONG/EN/` écrit dans `LONG/`, `make` depuis
+`SHORT/EN/` écrit dans `SHORT/`.
 
 ## Compilation
 
